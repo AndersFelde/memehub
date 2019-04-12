@@ -1,0 +1,132 @@
+@font-face {
+  font-family: "Nexa Light";
+  src: url("../elements/Nexa Light.otf") format("opentype");
+}
+@font-face {
+  font-family: "Nexa Bold";
+  src: url("../elements/Nexa Bold.otf") format("opentype");
+}
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+*:focus {
+  outline: none;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  -webkit-locale: "nb" !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  font-size: 18px;
+  text-rendering: auto;
+  font-family: "Nexa Light", sans-serif;
+  color: #1A1A1A;
+  overflow-x: hidden;
+  line-height: 1.15;
+}
+
+a {
+  color: #1A1A1A;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
+::-moz-selection {
+  background: rgba(0, 0, 0, 0.7);
+  color: #FFFFFF;
+}
+
+::selection {
+  background: rgba(0, 0, 0, 0.7);
+  color: #FFFFFF;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  border: 0px;
+  background-color: #FFFFFF;
+}
+@media screen and (max-width: 752px) {
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e6e6e6;
+  width: 10px;
+}
+@media screen and (max-width: 752px) {
+  ::-webkit-scrollbar-thumb {
+    width: 1px;
+  }
+}
+
+::-webkit-scrollbar-thumb:hover {
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  background: gainsboro;
+}
+
+nav {
+  background-color: #FFFFFF;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  font-size: 1.7em;
+  height: 80px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.2);
+  vertical-align: middle;
+}
+nav a {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #1A1A1A;
+  -webkit-transition: all 0.1s ease 0s;
+  transition: all 0.1s ease 0s;
+  position: relative;
+  padding: 14px 15px;
+  margin: 8px 1vw 0px;
+}
+nav a:hover {
+  color: #3A3A3A;
+}
+nav #Active {
+  border-bottom: 4px solid #1A1A1A;
+}
+nav #Active:hover {
+  color: #1A1A1A;
+}
+
+/*# sourceMappingURL=styling.css.map */
