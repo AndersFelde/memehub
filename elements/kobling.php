@@ -1,8 +1,8 @@
 <?php
 //                               admin@localhost:3308
 $dbserver = "localhost:3308";
-$dbuser = "admin";
-$dbpsw = "";
+$dbuser = "root";
+$dbpsw = "Mysql123";
 $dbname = "memehub";
 
 $kobling = new mysqli($dbserver, $dbuser, $dbpsw, $dbname);

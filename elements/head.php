@@ -7,3 +7,10 @@
 <link rel="shortcut icon" href="images/favicon.png">
 
 <script defer type="text/javascript" src="scripts/activeNav.js"></script>
+
+<?php 
+session_start();
+
+include "elements/kobling.php";
+
+?>
