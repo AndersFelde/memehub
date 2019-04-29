@@ -9,9 +9,9 @@
   <body>
     
     <?php
-      include "elements/nav.php";
-      
       $_SESSION["prev_site"] = basename($_SERVER['PHP_SELF']);
+      
+      include "elements/nav.php";    
     ?>
 
     Maymays
