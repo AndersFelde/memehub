@@ -16,12 +16,6 @@
 
         include "elements/logg_inn_sjekk.php";
 
-    } elseif ( isset( $_SESSION[ "failed_login" ] ) ) {
-
-        echo $_SESSION[ "failed_login" ];
-
-        unset( $_SESSION[ "failed_login" ] );
-
     } elseif ( isset( $_POST[ "registrer" ] ) ) {
         
         header("Location: registrer.php");

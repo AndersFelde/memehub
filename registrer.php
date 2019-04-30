@@ -38,6 +38,8 @@
                     $sql = "insert into bruker (brukernavn, email, passord, bilde) VALUES('$brukernavn', '$email', '$passord', '$bilde_name_new')";
 
                     if ( $kobling->query( $sql ) ) {
+                        
+                        $bilde_dest = 'images/user_images/'.$bilde_name_new;
 
                         move_uploaded_file( $bilde_tmp_name, $bilde_dest );
 

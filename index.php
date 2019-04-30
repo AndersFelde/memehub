@@ -9,7 +9,7 @@
   <body>
     
     <?php
-      $_SESSION["prev_site"] = basename($_SERVER['PHP_SELF']);
+      $_SESSION["prev_site"] = "/memehub/";
       
       include "elements/nav.php";    
     ?>

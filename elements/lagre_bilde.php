@@ -20,8 +20,6 @@ if($bilde_error === 0) {
             
             $bilde_name_new = uniqid('', true).".".$bilde_type;
             
-            $bilde_dest = 'images/user_images/'.$bilde_name_new;
-            
             $lagre_bilde = true;
         
             } else {
@@ -44,7 +42,7 @@ if($bilde_error === 0) {
 
 } else {
     //eror
-    echo  "Den er en error med bilde du har lastet opp";
+    echo  "Det er en error med bilde du har lastet opp";
     
     
     

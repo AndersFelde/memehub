@@ -24,9 +24,8 @@ include "active.php";
         $brukernavn = $rad["brukernavn"];
         $bilde = $rad["bilde"];
         
-        echo "$brukernavn ";
-        
-        //<img src='images/user_images/$bilde'
+        echo "<a href='bruker.php'>$brukernavn</a> 
+                <img src='images/user_images/$bilde' height='75px'>";
         
         echo "<form action='redirect.php' method='post'>";
         
