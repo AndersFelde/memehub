@@ -71,7 +71,7 @@ function echo_innlegg( $ting ) {
         while ( $rad_kat = $resultat_kat->fetch_assoc() ) {
             $kategori = $rad_kat[ "kategori" ];
 
-            echo "$kategori" ;
+            echo "#$kategori " ;
 
         }
 
