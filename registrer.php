@@ -45,9 +45,7 @@
 
                         $_SESSION[ "bruker_id" ] = $bruker_id;
 
-                        $prev_site = $_SESSION[ "prev_site" ];
-
-                        header( "Location: $prev_site" );
+                        header( "Location: logg_inn.php" );
 
                     } else {
                         echo "Det har skjedd en feil med spørringen<br>

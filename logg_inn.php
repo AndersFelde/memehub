@@ -20,6 +20,9 @@
         
         header("Location: registrer.php");
         
+    } elseif ( isset($_SESSION["failed_login"])){
+        echo $_SESSION["failed_login"];
+        unset($_SESSION["failed_login"]);
     }
     ?>
 
