@@ -39,8 +39,10 @@
                     $sql = "insert into kategori (innlegg_id, kategori) VALUES($innlegg_id, '$kategori')";
 
                     if ( $kobling->query( $sql ) ) {
-
-                        $ant_kategorier = ( count( $_POST ) ) - 1;
+                        
+                        $uniq_post = array_unique($_POST);
+                        
+                        $ant_kategorier = ( count( $uniq_post ) ) - 1;
 
 
                         for ( $i = 1; $i < $ant_kategorier; $i++ ) {
@@ -98,11 +100,22 @@
 
             var br = document.createElement( "br" );
 
+            if ( kat_nr < 4 ) {
 
-            form.insertBefore( input_cln, button );
-            form.insertBefore( br, button );
+                form.insertBefore( input_cln, button );
+                form.insertBefore( br, button );
 
-            kat_nr++;
+                kat_nr++;
+            } else {
+
+                form.insertBefore( input_cln, button );
+                form.insertBefore( br, button );
+
+
+                var elem = document.getElementById( "add_kategori" );
+                elem.style.display = 'none';
+
+            }
         }
     </script>
     <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
