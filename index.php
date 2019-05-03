@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <?php
-      include "elements/head.php";
-      $title = "Hjem";
+    include "elements/head.php";
+    $title = "Hjem";
     ?>
-  </head>
-  <body>
-    
+</head>
+
+<body>
+
     <?php
-      $_SESSION["prev_site"] = "/memehub/";
-      
-      include "elements/nav.php";    
+    $_SESSION[ "prev_site" ] = "/memehub/";
+
+    include "elements/nav.php";
+
+    include "elements/echo_innlegg.php";
+
+    $sql_rest = "order by innlegg_id desc";
+
+    echo_innlegg( $sql_rest );
+
+
+
+
     ?>
 
-    Maymays
-
-  </body>
+</body>
 </html>
