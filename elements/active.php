@@ -1,7 +1,6 @@
 <?php
-  $Hjem = "";
-  $Nytt = "";
-  $Søk = "";
+  $Feed = "";
+  $Hot = "";
   $Utforsk = "";
   $Login = "";
  ?>
