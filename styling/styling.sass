@@ -3,12 +3,15 @@
 // ======================= Variables
 
 // Main colors
-$Black: #1A1A1A
-$BlackHover: #3A3A3A
-$Grey: #e6e6e6
-$LightGrey: #D0D0D0
+$Black: #000000
+$BlackHover: #333
+$DarkGrey: #383838
+$Grey: #707070
+$LightGrey: #9F9F9F
 $White: #FFFFFF
 $OffWhite: #F2F2F2
+$Orange: #F29117
+$DarkBlue: #033F61
 
 // <h#> tags
 $Headline: 59px
@@ -32,14 +35,14 @@ $Medium: all .25s ease
 $Slow: all .5s ease
 
 // Nexa Light
-@font-face
-  font-family: 'Nexa Light'
-  src: url('../elements/Nexa Light.otf') format('opentype')
+//@font-face
+//  font-family: 'Nexa Light'
+//  src: url('../elements/Nexa Light.otf') format('opentype')
 
 // Nexa Bold
-@font-face
-  font-family: 'Nexa Bold'
-  src: url('../elements/Nexa Bold.otf') format('opentype')
+//@font-face
+//  font-family: 'Nexa Bold'
+//  src: url('../elements/Nexa Bold.otf') format('opentype')
 
 
 // ================================================================== Essentials
@@ -63,7 +66,7 @@ body
   //background-color: rgb(0,0,0)
   font-size: 18px
   text-rendering: auto
-  font-family: 'Nexa Light', sans-serif
+  font-family: Arial, sans-serif
   color: $Black
   overflow-x: hidden
   line-height: 1.15
@@ -112,23 +115,30 @@ a
   transition: all 0.2s ease-in-out
   background: darken($Grey, $amount)
 
-
+img
+  user-select: none
 // ============================================================
 
 nav
+  padding: 0 2vw
   background-color: $White
   display: flex
   position: relative
   flex-flow: row nowrap
-  align-content: flex-end
-  justify-content: flex-end
+  justify-content: space-between
   font-size: 1.7em
   height: 80px
-  //margin-bottom: 100px
+  margin-bottom: 5vh
   user-select: none
   align-items: center
   box-shadow: $SmallShadow
   vertical-align: middle
+
+  div
+    display: inline-flex
+    justify-content: space-between
+    align-items: center
+    height: 100%
 
   a
     display: inline-flex
@@ -137,10 +147,16 @@ nav
     transition: all 0.1s ease 0s
     position: relative
     padding: 14px 15px
-    margin: 8px 1vw 0px
+    margin: 0 1vw 0
 
     &:hover
       color: $BlackHover
+
+  .nopadding
+    padding: 0
+
+    img
+      height: 50px
 
   #Active
     border-bottom: 4px solid $Black
@@ -148,3 +164,117 @@ nav
 
     &:hover
       color: $Black
+
+.navProfilePicture
+  cursor: pointer
+  height: 60px
+  width: 60px
+  object-fit: cover
+  border-radius: 30px
+
+// ================================== Login page ==========
+
+.loginWidth
+  text-align: center
+  width: 600px
+  margin: 10vh auto
+
+  .forgotPassword
+    transition: $Fast
+    margin: 1em 0 0
+    text-decoration: underline
+    float: right
+    font-size: 30px
+
+    &:hover
+      transition: $Fast
+      color: $BlackHover
+
+  img
+    width: 100%
+    user-select: none
+
+  .loginError
+    //background-color: #FF4E4E
+    //box-shadow: $Shadow
+    // Disse to øverste gjør den synlig.
+    font-size: 30px
+    padding: 19px
+    color: $White
+    display: inline-block
+    margin: 5vh auto 0
+    user-select: none
+
+  .loginBox
+    box-shadow: $Shadow
+    padding: 35px
+    margin: 4vh auto 0
+
+    label
+      display: block
+      text-align: left
+      color: $DarkGrey
+      font-size: 26px
+      margin: 0 0 3px
+
+    input
+      transition: $Fast
+      color: $DarkGrey
+      font-weight: 500
+      width: 100%
+      font-size: 28px
+      margin: 0 0 10px
+      padding: 20px
+      border: 1px solid $Grey
+      height: 70px
+
+      &:focus
+        border-radius: 8px
+
+    .buttonSplit
+      display: flex
+      flex-flow: row nowrap
+      justify-content: space-between
+
+      button
+        width: calc(50% - 5px)
+
+    button
+      transition: $Fast
+      border: 1px solid $Grey
+      background-color: white
+      padding: 16px
+      text-align: center
+      font-size: 35px
+      font-weight: bold
+      height: 70px
+      display: flex
+      align-items: center
+      justify-content: center
+      align-content: center
+      color: $Black
+
+      &:hover
+        transition: $Fast
+        background-color: darken($White, $amount)
+
+    .orange
+      transition: $Fast
+      background-color: $Orange
+
+      &:hover
+        transition: $Fast
+        background-color: darken($Orange, $amount)
+
+.Material
+  font-family: 'Material Icons',sans-serif
+
+.exit
+  font-size: 55px
+  position: absolute
+  top: 35px
+  right: 35px
+  color: $DarkGrey
+
+  &:hover
+    color: $Grey
