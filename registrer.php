@@ -10,7 +10,7 @@
 <body>
 
     <?php
-    include "elements/nav.php";
+    //include "elements/nav.php";
 
     if ( isset( $_POST[ "registrer" ] ) ) {
 
@@ -21,8 +21,8 @@
 
             $brukernavn = $_POST[ "brukernavn" ];
 
-            $sql = "select brukernavn 
-                    from bruker 
+            $sql = "select brukernavn
+                    from bruker
                     where brukernavn = '$brukernavn'";
 
             $resultat = $kobling->query( $sql );
@@ -31,11 +31,11 @@
                 if ( !empty( $_FILE[ "name" ] ) ) {
 
                 include "elements/lagre_bilde.php";
-                    
+
                 } else {
-                    
+
                     $bilde_name_new = "Placeholder-pfp.jpg";
-                    
+
                     $lagre_bilde = true;
                 }
 
@@ -56,7 +56,7 @@
                             header( "Location: logg_inn.php" );
 
                         } else {
-                            echo "Det har skjedd en feil med spørringen<br>
+                            echo "Det har skjedd en feil med spørringen
                                 $kobling->error";
                         }
                     }
@@ -70,22 +70,38 @@
 
             }
 
+        } elseif (isset($_POST["cancel"])) {
+          header( "Location: logg_inn.php" );
         }
         ?>
 
-    <form action="registrer.php" class="" method="post" enctype="multipart/form-data">
-        <label>Email</label><br>
-        <input type="email" required name="email"><br>
-        <label>Brukernavn</label><br>
-        <input type="text" required name="brukernavn"><br>
-        <label>Passord</label><br>
-        <input type="password" required name="passord"><br>
-        <label>Gjenta Passord</label><br>
-        <input type="password" required name="passord_r"><br>
-        <label>Bilde</label><br>
-        <input type="file" name="bilde"><br>
-        <input type="submit" value="Registrer" name="registrer">
-    </form>
+        <a href="index.php" class="Material exit">clear</a>
 
+          <div class="loginWidth">
+            <a href="index.php"><img src="images/logo.png" alt="MemeHub"></a>
+            <div class="loginError">
+              .
+            </div>
+            <div class="loginBox">
+
+              <form action="registrer.php" class="" method="post" enctype="multipart/form-data">
+                  <label>Email</label>
+                  <input type="email" required name="email">
+                  <label>Brukernavn</label>
+                  <input type="text" required name="brukernavn">
+                  <label>Passord</label>
+                  <input type="password" required name="passord">
+                  <label>Gjenta Passord</label>
+                  <input type="password" required name="passord_r">
+                  <label>Bilde</label>
+                  <input type="file" name="bilde">
+                  <div class="buttonSplit">
+                    <button type="submit" value="cancel" name="cancel">Tilbake</button>
+                    <button type="submit" value="Registrer" name="registrer" class="orange">Registrer</button>
+                  </div>
+              </form>
+            </div>
+            <a href="#" class="forgotPassword">Spørsmål?</a>
+          </div>
 </body>
 </html>

@@ -25,10 +25,10 @@
         unset($_SESSION["failed_login"]);
     }
     ?>
-<a href="#" class="Material exit">clear</a>
+<a href="index.php" class="Material exit">clear</a>
 
   <div class="loginWidth">
-    <a href="#"><img src="images/logo.png" alt="MemeHub"></a>
+    <a href="index.php"><img src="images/logo.png" alt="MemeHub"></a>
     <div class="loginError">
       Passord eller brukernavn er feil
     </div>

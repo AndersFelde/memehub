@@ -1,7 +1,28 @@
 <meta charset="utf-8">
 <title><?php global $Title; echo $Title; ?></title>
 
-<base href="<?php $d = str_replace("\\", "/", __DIR__); $root = str_replace($_SERVER['DOCUMENT_ROOT'], "", $d); $root = str_replace("elements", "", $root); echo $root; global $root;?>" target="_self">
+<base href="<?php
+$d = str_replace("\\", "/", __DIR__);
+$root = str_replace($_SERVER['DOCUMENT_ROOT'], "", $d);
+$root = str_replace("elements", "", $root);
+echo $root;
+global $root;
+?>" target="_self">
+
+
+<!-- Putt dette inni "href" over? Broken nå da
+
+<php $root = "/204/elev20408/eget_arbeid/memehub/"; global $root; ?>
+
+<php
+$d = str_replace("\\", "/", __DIR__);
+$root = str_replace($_SERVER['DOCUMENT_ROOT'], "", $d);
+$root = str_replace("elements", "", $root);
+echo $root;
+global $root;
+?>
+-->
+
 
 <link rel="stylesheet" href="styling/styling.css">
 <link rel="shortcut icon" href="images/favicon.png">
@@ -19,10 +40,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#6C1919">
 
 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <script defer type="text/javascript" src="scripts/activeNav.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
     $(document).ready(function() {
         $("#upVote").click(function() {
             var buttonValue = $("#upVote").val();
@@ -37,11 +59,11 @@
             });
         });
     });
-    
-    
+
+
 </script>
 
-<?php 
+<?php
 
 session_start();
 
