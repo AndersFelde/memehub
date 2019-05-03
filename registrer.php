@@ -28,20 +28,29 @@
             $resultat = $kobling->query( $sql );
 
             if ( mysqli_num_rows( $resultat ) == 0 ) {
-                if ( !empty( $_FILE[ "name" ] ) ) {
 
-                include "elements/lagre_bilde.php";
-                    
-                } else {
-                    
-                    $bilde_name_new = "Placeholder-pfp.jpg";
-                    
-                    $lagre_bilde = true;
-                }
+                $email = $_POST[ "email" ];
 
-                    if ($lagre_bilde) {
+                $sql = "select email 
+                        from bruker 
+                        where email = '$email'";
 
-                        $email = $_POST[ "email" ];
+                $resultat = $kobling->query( $sql );
+
+                if ( mysqli_num_rows( $resultat ) == 0 ) {
+
+                    if ( !empty( $_FILE[ "name" ] ) ) {
+
+                        include "elements/lagre_bilde.php";
+
+                    } else {
+
+                        $bilde_name_new = "Placeholder-pfp.jpg";
+
+                        $lagre_bilde = true;
+                    }
+
+                    if ( $lagre_bilde ) {
 
                         $sql = "insert into bruker (brukernavn, email, passord, bilde) VALUES('$brukernavn', '$email', '$passord', '$bilde_name_new')";
 
@@ -53,7 +62,7 @@
 
                             $_SESSION[ "bruker_id" ] = $bruker_id;
 
-                            header( "Location: logg_inn.php" );
+                            header( "Location: index.php" );
 
                         } else {
                             echo "Det har skjedd en feil med spørringen<br>
@@ -62,16 +71,22 @@
                     }
 
                 } else {
-                    echo "Brukernavnet " . '"' . $brukernavn . '"' . " er allerede i bruk";
+
+                    echo "email " . '"' . $email . '"' . " er allerede i bruk";
+
                 }
+
             } else {
-
-                echo "Passordene du har oppgitt samsvarer ikke";
-
+                echo "Brukernavnet " . '"' . $brukernavn . '"' . " er allerede i bruk";
             }
+        } else {
+
+            echo "Passordene du har oppgitt samsvarer ikke";
 
         }
-        ?>
+
+    }
+    ?>
 
     <form action="registrer.php" class="" method="post" enctype="multipart/form-data">
         <label>Email</label><br>

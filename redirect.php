@@ -7,7 +7,7 @@
       
       unset($_SESSION["bruker_id"]);
       
-      header("Location: /memehub/");
+      header("Location: ../memehub/");
       
       ?>
 
