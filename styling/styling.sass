@@ -169,6 +169,7 @@ nav
   cursor: pointer
   height: 60px
   width: 60px
+  margin: 0 -15px 0 .7vw
   object-fit: cover
   border-radius: 30px
 
@@ -279,3 +280,49 @@ nav
 
   &:hover
     color: $Grey
+
+.ddsystem
+  position: relative
+
+  .dropdownProfile
+    transition: $Medium
+    display: none
+    flex-flow: column nowrap
+    position: absolute
+    justify-content: space-between
+    top: 95px
+    box-shadow: $Shadow
+    width: 200px
+    height: 230px
+    right: 1vw
+    //padding: 15px
+
+    div
+      height: auto
+      width: 100%
+      display: flex
+      flex-flow: column nowrap
+      justify-content: flex-start
+      margin: 10px auto
+
+      a, button
+        transition: $Fast
+        display: flex
+        flex-flow: row nowrap
+        width: calc(100% - 30px)
+        padding: 0
+        background-color: $White
+        border: 0px solid $White
+        border-bottom: 1px solid $White
+        font-weight: bold
+        align-items: center
+        margin: 5px 15px
+        justify-content: space-between
+        font-size: 20px
+
+        &:hover
+          transition: $Fast
+          border-bottom: 1px solid $Black
+
+      form
+        width: 100%

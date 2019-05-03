@@ -26,14 +26,52 @@ include "active.php";
         $brukernavn = $rad["brukernavn"];
         $bilde = $rad["bilde"];
 
-        echo "<a href='bruker.php'>$brukernavn</a>
-              <img src='images/user_images/$bilde' class='navProfilePicture'>";
+        echo "
+        <div class='ddsystem'>
+          <a href='javascript:void(0)' id='user'>
+            $brukernavn
+            <img src='images/user_images/$bilde' class='navProfilePicture'>
+          </a>
+          <div class='dropdownProfile'>
+            <div>
+              <a href='bruker.php'>
+                <p>Profil</p>
+                <p class='Material'>supervisor_account</p>
+              </a>
 
-        echo "<form action='redirect.php' method='post'>";
+              <a href='#'>
+                <p>Likt</p>
+                <p class='Material'>arrow_upward</p>
+              </a>
 
-        echo "<button type='submit' name='logg_ut'>Logg ut</button>";
+              <a href='#'>
+                <p>Kommentarer</p>
+                <p class='Material'>short_text</p>
+              </a>
+            </div>
 
-        echo "</form>";
+
+
+            <div>
+              <a href='#'>
+                <p>Innstillinger</p>
+                <p class='Material'>settings</p>
+              </a>
+
+              <form action='redirect.php' method='post'>
+                <button type='submit' name='logg_ut'>
+                  <p>Logg ut</p>
+                  <p class='Material'>exit_to_app</p>
+                </button>
+              </form>
+
+            </div>
+
+
+
+          </div>
+        </div>
+        ";
 
 
     } else {

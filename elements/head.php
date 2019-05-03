@@ -45,6 +45,7 @@ global $root;
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <script defer type="text/javascript" src="scripts/activeNav.js"></script>
+<script defer type="text/javascript" src="scripts/profileDropDown.js"></script>
 
 <script>
     function vote( vote, b, inn ) {
