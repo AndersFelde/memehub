@@ -80,9 +80,9 @@ function echo_innlegg( $ting ) {
 
             $bruker_id = $_SESSION[ "bruker_id" ];
 
-            echo "<button value='1,$bruker_id,$innlegg_id' class='vote' id='upVote'>upvote</button>";
-            echo "<button value='1,$bruker_id,$innlegg_id' class='vote' id='downVote'>downvote</button>";
-            echo "<p id='vote-msg'>OK</p>";
+            echo "<button onclick='vote(1,$bruker_id,$innlegg_id)' class='vote' id='upVote'>upvote</button>";
+            echo "<button onclick='vote(0,$bruker_id,$innlegg_id)' class='vote' id='downVote'>downvote</button>";
+            echo "<p id='voteMsg'></p>";
 
         }
 

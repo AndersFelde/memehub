@@ -1,5 +1,7 @@
 <meta charset="utf-8">
-<title><?php global $Title; echo $Title; ?></title>
+<title>
+    <?php global $Title; echo $Title; ?>
+</title>
 
 <base href="<?php
 $d = str_replace("\\", "/", __DIR__);
@@ -44,23 +46,28 @@ global $root;
 
 <script defer type="text/javascript" src="scripts/activeNav.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
-    $(document).ready(function() {
-        $("#upVote").click(function() {
-            var buttonValue = $("#upVote").val();
-            $("#vote-msg").load("elements/insert_vote.php", {
-               vote_arr: buttonValue
-            });
-        });
-        $("#downVote").click(function() {
-            var buttonValue = $("#downVote").val();
-            $("#vote-msg").load("elements/insert_vote.php", {
-               vote_arr: buttonValue
-            });
-        });
-    });
+<script>
+    function vote( vote, b, inn ) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if ( this.readyState == 4 && this.status == 200 ) {
+                document.getElementById( "voteMsg" ).innerHTML = this.responseText;
+                if ( vote == 0 ) {
+                    var button = document.getElementById( "downVote" );
+                }
+                if ( vote == 1 ) {
+                    var button = document.getElementById( "upVote" );
+                }
 
+                var buttonInner = button.innerHTML;
 
+                button.innerHTML = buttonInner + "d";
+            }
+        };
+        console.log( "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'" );
+        xmlhttp.open( "GET", "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'", true );
+        xmlhttp.send();
+    }
 </script>
 
 <?php
