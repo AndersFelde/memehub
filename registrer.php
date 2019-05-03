@@ -82,12 +82,13 @@
         } else {
 
             echo "Passordene du har oppgitt samsvarer ikke";
+        }
 
         } elseif (isset($_POST["cancel"])) {
           header( "Location: logg_inn.php" );
         }
 
-    }
+    
     ?>
 
         <a href="index.php" class="Material exit">clear</a>
