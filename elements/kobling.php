@@ -1,9 +1,9 @@
 <?php
 //                               admin@localhost:3308
-$dbserver = "localhost:3308";
-$dbuser = "root";
-$dbpsw = "Mysql123";
-$dbname = "memehub";
+$dbserver = "mysql.klasserom.net";
+$dbuser = "knet-elev20408";
+$dbpsw = "ign07";
+$dbname = "knet-elev20408";
 
 $kobling = new mysqli($dbserver, $dbuser, $dbpsw, $dbname);
 global $kobling;

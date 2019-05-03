@@ -1,6 +1,5 @@
 <?php
 
-
 function echo_innlegg( $ting ) {
 
     global $kobling;
@@ -71,11 +70,21 @@ function echo_innlegg( $ting ) {
         while ( $rad_kat = $resultat_kat->fetch_assoc() ) {
             $kategori = $rad_kat[ "kategori" ];
 
-            echo "#$kategori " ;
+            echo "#$kategori ";
 
         }
 
         echo "<br><img src='images/innlegg_images/$bilde' height='300px'><br>";
+
+        if ( isset( $_SESSION[ "bruker_id" ] ) ) {
+
+            $bruker_id = $_SESSION[ "bruker_id" ];
+
+            echo "<button value='1,$bruker_id,$innlegg_id' class='vote' id='upVote'>upvote</button>";
+            echo "<button value='1,$bruker_id,$innlegg_id' class='vote' id='downVote'>downvote</button>";
+            echo "<p id='vote-msg'>OK</p>";
+
+        }
 
     }
 }

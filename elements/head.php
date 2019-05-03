@@ -8,9 +8,30 @@
 
 <script defer type="text/javascript" src="scripts/activeNav.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">   
+    $(document).ready(function() {
+        $("#upVote").click(function() {
+            var buttonValue = $("#upVote").val();
+            $("#vote-msg").load("elements/insert_vote.php", {
+               vote_arr: buttonValue
+            });
+        });
+        $("#downVote").click(function() {
+            var buttonValue = $("#downVote").val();
+            $("#vote-msg").load("elements/insert_vote.php", {
+               vote_arr: buttonValue
+            });
+        });
+    });
+    
+    
+</script>
+
 <?php 
 session_start();
 
 include "elements/kobling.php";
+
+
 
 ?>
