@@ -31,8 +31,8 @@
 
                 $email = $_POST[ "email" ];
 
-                $sql = "select email 
-                        from bruker 
+                $sql = "select email
+                        from bruker
                         where email = '$email'";
 
                 $resultat = $kobling->query( $sql );
@@ -88,7 +88,7 @@
           header( "Location: logg_inn.php" );
         }
 
-    
+
     ?>
 
         <a href="index.php" class="Material exit">clear</a>
@@ -96,11 +96,11 @@
           <div class="loginWidth">
             <a href="index.php"><img src="images/logo.png" alt="MemeHub"></a>
             <div class="loginError">
-              .
+              Brukernavnet er optatt / email er i bruk
             </div>
             <div class="loginBox">
 
-              <form action="registrer.php" class="" method="post" enctype="multipart/form-data">
+              <form action="registrer.php" method="post" enctype="multipart/form-data">
                   <label>Email</label>
                   <input type="email" required name="email">
                   <label>Brukernavn</label>
