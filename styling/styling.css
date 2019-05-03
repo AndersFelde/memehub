@@ -235,6 +235,7 @@ nav #Active:hover {
   width: calc(50% - 5px);
 }
 .loginWidth .loginBox button {
+  cursor: pointer;
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
   border: 1px solid #707070;
