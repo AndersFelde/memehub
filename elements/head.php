@@ -151,6 +151,7 @@ global $root;
     
     if($file == "legg_til_innlegg.php"){
         include "elements/kategori_script.php";
+        echo "ya yeet";
     }
 
 
