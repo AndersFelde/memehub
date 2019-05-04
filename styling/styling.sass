@@ -13,6 +13,9 @@ $OffWhite: #F2F2F2
 $Orange: #F29117
 $DarkBlue: #033F61
 
+
+$PostSize: 20vw
+
 // <h#> tags
 $Headline: 59px
 $Subline: 36px
@@ -326,3 +329,65 @@ nav
 
       form
         width: 100%
+
+
+#synd
+  position: fixed
+  top: 50vh
+  left: 50vw
+  transform: translate(-50%, -50%)
+  box-shadow: $Shadow
+  background-color: $White
+  text-align: center
+  display: none
+  transition: $Fast
+  font-size: 20px
+  padding: 30px
+  font-weight: bold
+  max-width: 90%
+  min-width: 300px
+  width: 250px
+
+
+.post
+  background-color: $White
+  width: $PostSize
+  display: inline-flex
+  flex-flow: column nowrap
+  margin: 3vh 5vw
+
+  .title
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    
+    h2
+      color: $DarkGrey
+      font-size: 20px
+      font-weight: normal
+      display: inline-block
+
+  img
+    width: $PostSize
+    height: $PostSize
+    object-fit: cover
+
+
+  .categorier
+    background-color: $White
+    box-shadow: $Shadow
+    padding: 1vw
+    display: inline-flex
+    flex-flow: column nowrap
+    justify-content: space-between
+    width: 150px
+    height: auto
+    text-align: left
+
+    display: none
+
+
+    span
+      color: green
+      text-decoration: underline
+      margin: .7vh 0

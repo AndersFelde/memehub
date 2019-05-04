@@ -39,12 +39,22 @@ global $root;
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#6C1919">
 
+<!-- Disse 3 meta taggene trenger du ikke røre -->
+<!-- Chrome, Firefox OS and Opera -->
+<meta name="theme-color" content="#F29117">
+<!-- Windows Phone -->
+<meta name="msapplication-navbutton-color" content="#F29117">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#F29117">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
 <script defer type="text/javascript" src="scripts/activeNav.js"></script>
 <script defer type="text/javascript" src="scripts/profileDropDown.js"></script>
+<script defer type="text/javascript" src="scripts/errorMsgCheck.js"></script>
+<script defer type="text/javascript" src="scripts/tooBad.js"></script>
+<script defer type="text/javascript" src="scripts/redirect.js"></script>
 
 
     <script>
@@ -79,11 +89,11 @@ global $root;
                                         var buttonId = "upVote";
                                         var buttonInnerText = "upvoted";
                                         var buttonValueSame = "del"
-                                        
+
                                         var buttonOtherId = "downVote";
                                         var buttonInnerTextOther = "downvote";
                                         var buttonValueOther = "upd";
-                                        
+
                                         document.getElementById(buttonOtherId+inn).innerHTML = buttonInnerTextOther;
                                         break;
                                     case "del":
@@ -111,13 +121,13 @@ global $root;
                                         var buttonId = "downVote";
                                         var buttonInnerText = "downvoted";
                                         var buttonValueSame = "del"
-                                        
+
                                         var buttonOtherId = "upVote";
                                         var buttonInnerTextOther = "upvote";
                                         var buttonValueOther = "upd";
-                                        
+
                                         document.getElementById(buttonOtherId+inn).innerHTML = buttonInnerTextOther;
-                                        
+
                                         break;
                                     case "del":
                                         var buttonId = "downVote";
@@ -132,7 +142,7 @@ global $root;
                         var button = document.getElementById( buttonId+inn );
                         button.value = buttonValueSame;
                         button.innerHTML = buttonInnerText;
-                        
+
                         var button = document.getElementById( buttonOtherId+inn );
                         button.value = buttonValueOther;
                     } else {
@@ -161,4 +171,3 @@ global $root;
 
 
     ?>
-
