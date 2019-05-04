@@ -150,6 +150,7 @@ nav #Active:hover {
   cursor: pointer;
   height: 60px;
   width: 60px;
+  margin: 0 -15px 0 0.7vw;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 30px;
@@ -287,6 +288,77 @@ nav #Active:hover {
 }
 .exit:hover {
   color: #707070;
+}
+
+.ddsystem {
+  position: relative;
+}
+.ddsystem .dropdownProfile {
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  position: absolute;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  top: 95px;
+  -webkit-box-shadow: 0px 5px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 5px 16px 0px rgba(0, 0, 0, 0.2);
+  width: 200px;
+  height: 230px;
+  right: 1vw;
+}
+.ddsystem .dropdownProfile div {
+  height: auto;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 10px auto;
+}
+.ddsystem .dropdownProfile div a, .ddsystem .dropdownProfile div button {
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  width: calc(100% - 30px);
+  padding: 0;
+  background-color: #FFFFFF;
+  border: 0px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  font-weight: bold;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 5px 15px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 20px;
+}
+.ddsystem .dropdownProfile div a:hover, .ddsystem .dropdownProfile div button:hover {
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+  border-bottom: 1px solid #000000;
+}
+.ddsystem .dropdownProfile div form {
+  width: 100%;
 }
 
 /*# sourceMappingURL=styling.css.map */
