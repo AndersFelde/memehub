@@ -17,10 +17,6 @@
 
         include "elements/logg_inn_sjekk.php";
 
-    } elseif ( isset( $_POST[ "registrer" ] ) ) {
-
-        header("Location: registrer.php");
-
     } elseif ( isset($_SESSION["failed_login"])){
         echo $_SESSION["failed_login"];
         unset($_SESSION["failed_login"]);
@@ -40,7 +36,7 @@
         <label>Passord</label>
         <input type="password" required name="passord">
         <div class="buttonSplit">
-          <button type="submit" value="Registrer" name="registrer">Registrer</button>
+          <button type="button" onclick="">Registrer</button>
           <button type="submit" class="orange" value="Logg inn" name="logg_inn">Logg inn</button>
         </div>
       </form>

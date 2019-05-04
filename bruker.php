@@ -1,8 +1,7 @@
-
-    <?php
-    include "elements/head.php";
-    $title = "Hjem";
-    ?>
+<?php
+include "elements/head.php";
+$title = "Hjem";
+?>
 </head>
 
 <body>
@@ -31,8 +30,8 @@
                 order by innlegg_id desc";
 
     echo_innlegg( $sql_rest );
-    
-    
+
+
 
 
     ?>

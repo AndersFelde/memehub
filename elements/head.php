@@ -7,7 +7,7 @@
         <?php global $Title; echo $Title; ?>
     </title>
 
-    <base href="<?php $root = "/memehub/"; global $root; ?>" target="_self">
+   <base href="<?php $root = "/memehub/"; global $root; ?>" target="_self">
 
 
     <!-- Putt dette inni "href" over? Broken nå da
@@ -50,12 +50,12 @@ global $root;
     <script>
         function vote( vote, b, inn ) {
             if ( vote == 1 ) {
-                var type = document.getElementById( "upVote" ).value;
+                var type = document.getElementById( "upVote"+inn ).value;
             } else {
-                var type = document.getElementById( "downVote" ).value;
+                var type = document.getElementById( "downVote"+inn ).value;
             }
 
-            console.log( document.getElementById( "downVote" ).value );
+            console.log( document.getElementById( "downVote"+inn ).value );
 
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
@@ -84,7 +84,7 @@ global $root;
                                         var buttonInnerTextOther = "downvote";
                                         var buttonValueOther = "upd";
                                         
-                                        document.getElementById(buttonOtherId).innerHTML = buttonInnerTextOther;
+                                        document.getElementById(buttonOtherId+inn).innerHTML = buttonInnerTextOther;
                                         break;
                                     case "del":
                                         var buttonId = "upVote";
@@ -116,7 +116,7 @@ global $root;
                                         var buttonInnerTextOther = "upvote";
                                         var buttonValueOther = "upd";
                                         
-                                        document.getElementById(buttonOtherId).innerHTML = buttonInnerTextOther;
+                                        document.getElementById(buttonOtherId+inn).innerHTML = buttonInnerTextOther;
                                         
                                         break;
                                     case "del":
@@ -129,11 +129,11 @@ global $root;
 
                                 break;
                         }
-                        var button = document.getElementById( buttonId );
+                        var button = document.getElementById( buttonId+inn );
                         button.value = buttonValueSame;
                         button.innerHTML = buttonInnerText;
                         
-                        var button = document.getElementById( buttonOtherId );
+                        var button = document.getElementById( buttonOtherId+inn );
                         button.value = buttonValueOther;
                     } else {
                         console.log( sql );

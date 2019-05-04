@@ -144,17 +144,15 @@ function echo_innlegg( $ting ) {
 
                 }
 
-
-                echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='upVote'>$button_text_up</button>";
-                
-                echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='downVote'>$button_text_down</button>";
-
             } else {
-
-                echo "<button value='norm' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='upVote'>upvote</button>";
-                echo "<button value='norm' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='downVote'>downvote</button>";
-
+                $func_type_up = "norm";
+                $func_type_down = "norm";
+                $button_text_down = "downvote";
+                $button_text_up = "upvote";
             }
+            echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='upVote$innlegg_id'>$button_text_up</button>";
+
+            echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='downVote$innlegg_id'>$button_text_down</button>";
         }
     }
 }
