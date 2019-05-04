@@ -35,17 +35,19 @@ global $root;
 
 <!-- Disse 3 meta taggene trenger du ikke røre -->
 <!-- Chrome, Firefox OS and Opera -->
-<meta name="theme-color" content="#6C1919">
+<meta name="theme-color" content="#F29117">
 <!-- Windows Phone -->
-<meta name="msapplication-navbutton-color" content="#6C1919">
+<meta name="msapplication-navbutton-color" content="#F29117">
 <!-- iOS Safari -->
-<meta name="apple-mobile-web-app-status-bar-style" content="#6C1919">
+<meta name="apple-mobile-web-app-status-bar-style" content="#F29117">
 
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <script defer type="text/javascript" src="scripts/activeNav.js"></script>
 <script defer type="text/javascript" src="scripts/profileDropDown.js"></script>
+<script defer type="text/javascript" src="scripts/errorMsgCheck.js"></script>
+<script defer type="text/javascript" src="scripts/tooBad.js"></script>
 
 <script>
     function vote( vote, b, inn ) {

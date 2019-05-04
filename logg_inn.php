@@ -8,6 +8,7 @@
 </head>
 
 <body>
+  <div id="synd">Det var synd :(</div>
 
     <?php
     //include "elements/nav.php";
@@ -21,7 +22,8 @@
         header("Location: registrer.php");
 
     } elseif ( isset($_SESSION["failed_login"])){
-        echo $_SESSION["failed_login"];
+        //echo $_SESSION["failed_login"];
+        echo "<div style='display: none;' id='error'>loginError</div>";
         unset($_SESSION["failed_login"]);
     }
     ?>
@@ -44,7 +46,7 @@
         </div>
       </form>
     </div>
-    <a href="#" class="forgotPassword">Glemt passord?</a>
+    <a href="javascript:void(0)" class="forgotPassword">Glemt passord?</a>
   </div>
 
 </body>
