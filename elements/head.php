@@ -1,18 +1,16 @@
-<meta charset="utf-8">
-<title>
-    <?php global $Title; echo $Title; ?>
-</title>
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>
+        <?php global $Title; echo $Title; ?>
+    </title>
 
-<base href="<?php
-$d = str_replace("\\", "/", __DIR__);
-$root = str_replace($_SERVER['DOCUMENT_ROOT'], "", $d);
-$root = str_replace("elements", "", $root);
-echo $root;
-global $root;
-?>" target="_self">
+    <base href="<?php $root = "/memehub/"; global $root; ?>" target="_self">
 
 
-<!-- Putt dette inni "href" over? Broken nå da
+    <!-- Putt dette inni "href" over? Broken nå da
 
 <php $root = "/204/elev20408/eget_arbeid/memehub/"; global $root; ?>
 
@@ -26,56 +24,131 @@ global $root;
 -->
 
 
-<link rel="stylesheet" href="styling/styling.css">
-<link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="styling/styling.css">
+    <link rel="shortcut icon" href="images/favicon.png">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-<meta name="author" content="Sander Godard, Anders Kvamme Felde">
-<meta name="keywords" content="MemeHub, memehub, Memehub, dank memes, post memes, share memes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta name="author" content="Sander Godard, Anders Kvamme Felde">
+    <meta name="keywords" content="MemeHub, memehub, Memehub, dank memes, post memes, share memes">
 
-<!-- Disse 3 meta taggene trenger du ikke røre -->
-<!-- Chrome, Firefox OS and Opera -->
-<meta name="theme-color" content="#6C1919">
-<!-- Windows Phone -->
-<meta name="msapplication-navbutton-color" content="#6C1919">
-<!-- iOS Safari -->
-<meta name="apple-mobile-web-app-status-bar-style" content="#6C1919">
+    <!-- Disse 3 meta taggene trenger du ikke røre -->
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#6C1919">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#6C1919">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#6C1919">
 
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<script defer type="text/javascript" src="scripts/activeNav.js"></script>
+    <script defer type="text/javascript" src="scripts/activeNav.js"></script>
 
-<script>
-    function vote( vote, b, inn ) {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if ( this.readyState == 4 && this.status == 200 ) {
-                document.getElementById( "voteMsg" ).innerHTML = this.responseText;
-                if ( vote == 0 ) {
-                    var button = document.getElementById( "downVote" );
-                }
-                if ( vote == 1 ) {
-                    var button = document.getElementById( "upVote" );
-                }
-
-                var buttonInner = button.innerHTML;
-
-                button.innerHTML = buttonInner + "d";
+    <script>
+        function vote( vote, b, inn ) {
+            if ( vote == 1 ) {
+                var type = document.getElementById( "upVote" ).value;
+            } else {
+                var type = document.getElementById( "downVote" ).value;
             }
-        };
-        console.log( "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'" );
-        xmlhttp.open( "GET", "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'", true );
-        xmlhttp.send();
-    }
-</script>
 
-<?php
+            console.log( document.getElementById( "downVote" ).value );
 
-session_start();
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if ( this.readyState == 4 && this.status == 200 ) {
+                    var sql = this.responseText;
+                    console.log( type );
+                    if ( sql == "true" ) {
+                        console.log( type );
+                        switch ( vote ) {
+                            case 1:
 
-include "elements/kobling.php";
+                                switch ( type ) {
+                                    case "norm":
+                                        var buttonId = "upVote";
+                                        var buttonInnerText = "upVoted";
+                                        var buttonOtherId = "downVote";
+                                        var buttonValueSame = "del";
+                                        var buttonValueOther = "upd";
+                                        break;
+                                    case "upd":
+                                        var buttonId = "upVote";
+                                        var buttonInnerText = "upvoted";
+                                        var buttonValueSame = "del"
+                                        
+                                        var buttonOtherId = "downVote";
+                                        var buttonInnerTextOther = "downvote";
+                                        var buttonValueOther = "upd";
+                                        
+                                        document.getElementById(buttonOtherId).innerHTML = buttonInnerTextOther;
+                                        break;
+                                    case "del":
+                                        var buttonId = "upVote";
+                                        var buttonInnerText = "upvote";
+                                        var buttonOtherId = "downVote";
+                                        var buttonValueSame = "norm";
+                                        var buttonValueOther = "norm"
+                                }
+
+                                break;
+
+
+                            case 0:
+
+                                switch ( type ) {
+                                    case "norm":
+                                        var buttonId = "downVote";
+                                        var buttonInnerText = "downvoted";
+                                        var buttonOtherId = "upVote";
+                                        var buttonValueSame = "del";
+                                        var buttonValueOther = "upd"
+                                        break;
+                                    case "upd":
+                                        var buttonId = "downVote";
+                                        var buttonInnerText = "downvoted";
+                                        var buttonValueSame = "del"
+                                        
+                                        var buttonOtherId = "upVote";
+                                        var buttonInnerTextOther = "upvote";
+                                        var buttonValueOther = "upd";
+                                        
+                                        document.getElementById(buttonOtherId).innerHTML = buttonInnerTextOther;
+                                        
+                                        break;
+                                    case "del":
+                                        var buttonId = "downVote";
+                                        var buttonInnerText = "downVote";
+                                        var buttonOtherId = "upVote";
+                                        var buttonValueOther = "norm";
+                                        var buttonValueSame = "norm"
+                                }
+
+                                break;
+                        }
+                        var button = document.getElementById( buttonId );
+                        button.value = buttonValueSame;
+                        button.innerHTML = buttonInnerText;
+                        
+                        var button = document.getElementById( buttonOtherId );
+                        button.value = buttonValueOther;
+                    } else {
+                        console.log( sql );
+                    }
+                }
+            };
+            console.log( "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'&type='" + type + "'" );
+            xmlhttp.open( "GET", "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'&type='" + type + "'", true );
+            xmlhttp.send();
+        }
+    </script>
+
+    <?php
 
 
 
-?>
+    include "elements/kobling.php";
+
+
+
+    ?>

@@ -4,6 +4,38 @@ function echo_innlegg( $ting ) {
 
     global $kobling;
 
+    if ( isset( $_SESSION[ "bruker_id" ] ) ) {
+
+        $bruker_id = $_SESSION[ "bruker_id" ];
+
+        $sql = "select vote, innlegg_id from voted
+                    where bruker_id = $bruker_id";
+
+        $resultat = $kobling->query( $sql );
+
+        if ( mysqli_num_rows( $resultat ) > 0 ) {
+
+            $q = 0;
+
+            $bruker_voted_arr = array();
+
+            while ( $rad = $resultat->fetch_assoc() ) {
+
+                $bruker_vote = $rad[ "vote" ];
+                $bruker_innlegg = $rad[ "innlegg_id" ];
+
+                $bruker_vote_arr[ "$q" ] = "$bruker_innlegg";
+
+                $q++;
+
+                $bruker_vote_arr[ "$q" ] = "$bruker_vote";
+
+                $q++;
+            }
+        }
+    }
+
+
     $sql = "select 
         innlegg_id,
         bilde,
@@ -77,15 +109,53 @@ function echo_innlegg( $ting ) {
         echo "<br><img src='images/innlegg_images/$bilde' height='300px'><br>";
 
         if ( isset( $_SESSION[ "bruker_id" ] ) ) {
+            if ( isset( $bruker_vote_arr ) ) {
+                if ( in_array( $innlegg_id, $bruker_vote_arr ) ) {
+                    $innlegg_vote = ( array_search( $innlegg_id, $bruker_vote_arr ) ) + 1;
 
-            $bruker_id = $_SESSION[ "bruker_id" ];
+                    $bruker_vote = $bruker_vote_arr[ "$innlegg_vote" ];
 
-            echo "<button onclick='vote(1,$bruker_id,$innlegg_id)' class='vote' id='upVote'>upvote</button>";
-            echo "<button onclick='vote(0,$bruker_id,$innlegg_id)' class='vote' id='downVote'>downvote</button>";
-            echo "<p id='voteMsg'></p>";
+                    switch ( $bruker_vote ) {
+                        case 0:
 
+                            $func_type_up = "upd";
+                            $func_type_down = "del";
+                            $button_text_down = "downvoted";
+                            $button_text_up = "upvote";
+
+                            break;
+
+                        case 1:
+
+                            $func_type_up = "del";
+                            $func_type_down = "upd";
+                            $button_text_down = "downvote";
+                            $button_text_up = "upvoted";
+
+                            break;
+                    }
+
+                } else {
+
+                    $func_type_up = "norm";
+                    $func_type_down = "norm";
+                    $button_text_down = "downvote";
+                    $button_text_up = "upvote";
+
+                }
+
+
+                echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='upVote'>$button_text_up</button>";
+                
+                echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='downVote'>$button_text_down</button>";
+
+            } else {
+
+                echo "<button value='norm' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='upVote'>upvote</button>";
+                echo "<button value='norm' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='downVote'>downvote</button>";
+
+            }
         }
-
     }
 }
 ?>

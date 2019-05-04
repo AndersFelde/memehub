@@ -10,7 +10,7 @@
 <body>
 
     <?php
-    $_SESSION[ "prev_site" ] = "/memehub/";
+    $_SESSION[ "prev_site" ] = "../memehub/";
 
     include "elements/nav.php";
 
