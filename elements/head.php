@@ -1,12 +1,3 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-    <meta charset="utf-8">
-    <title>
-        <?php global $Title; echo $Title; ?>
-    </title>
-
    <base href="<?php $root = "/memehub/"; global $root; ?>" target="_self">
 
 
@@ -151,19 +142,7 @@ global $root;
             xmlhttp.send();
         }
     </script>
+<?php 
+include "elements/kobling.php";
 
-    <?php
-    $file = basename($_SERVER["PHP_SELF"]);
-    
-    if($file == "legg_til_innlegg.php"){
-        include "elements/kategori_script.php";
-
-    }
-
-
-    include "elements/kobling.php";
-
-
-
-
-    ?>
+?>

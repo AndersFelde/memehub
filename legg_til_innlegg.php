@@ -5,6 +5,50 @@
     include "elements/head.php";
     $title = "Hjem";
     ?>
+    <script>
+        var kat_nr = 1;
+        
+        function nyKategori() {
+
+            var input = document.getElementById( "inputKategori" );
+
+            var kategori = input.value;
+            
+            console.log(kategori);
+
+            if ( kategori.length >= 1 ) {
+
+                input.value = "";
+                
+                console.log("nyKategori"+kat_nr);
+
+                var span = document.getElementById( "nyKategori"+kat_nr );
+
+                kat_nr++;
+
+                var span_cln = span.cloneNode( true );
+                span_cln.id = "nyKategori" + kat_nr;
+
+                span.innerHTML = kategori;
+
+                var div = document.getElementById( "nyKategoriDiv" );
+
+                div.appendChild( span_cln )
+
+                if ( kat_nr > 5 ) {
+
+                    document.getElementById( "addKategori" ).style.display = "none";
+                    
+                    input.style.display = "none";
+                    
+                }
+            } else {
+                input.placeholder = "skriv noe du";
+            }
+
+        };
+        
+    </script>
 </head>
 
 <body>
@@ -17,10 +61,10 @@
         include "elements/lagre_bilde.php";
 
         if ( $lagre_bilde ) {
-            if (isset($_POST["tekst"])){
+            if ( isset( $_POST[ "tekst" ] ) ) {
                 $tekst_sql = ", tekst";
-                
-                $tekst = $_POST["tekst"];
+
+                $tekst = $_POST[ "tekst" ];
             } else {
                 $tekst_sql = "";
             }
@@ -46,9 +90,9 @@
                     $sql = "insert into kategori (innlegg_id, kategori) VALUES($innlegg_id, '$kategori')";
 
                     if ( $kobling->query( $sql ) ) {
-                        
-                        $uniq_post = array_unique($_POST);
-                        
+
+                        $uniq_post = array_unique( $_POST );
+
                         $ant_kategorier = ( count( $uniq_post ) ) - 1;
 
 
@@ -89,9 +133,15 @@
 
     ?>
     <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
-        <input type="file" name="bilde"><br>
-        <input id="input" list="kategorier" autocomplete="off" type="text" name="kategori">
-        <br><button id="add_kategori" type="button" onclick="addKategori()">Legg til kategori</button>
+        <img src="images/favicon.png">
+        <div id="nyKategoriDiv">
+            <span id="nyKategori1"></span>
+        </div>
+        <br>
+        <input required type="file" name="bilde">
+        <input id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
+        <button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>
+        <br>
         <input type="submit" value="Last opp" name="insert_inn"><br>
 
         <datalist id="kategorier">
