@@ -2,9 +2,6 @@
     var kat_nr = 1;
 
     function addKategori() {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if ( this.readyState == 4 && this.status == 200 ) {
 
                 var input = document.getElementById( "input" );
 
@@ -34,11 +31,6 @@
                     elem.style.display = 'none';
 
                 }
-            }
-        }
-        console.log( "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'&type='" + type + "'" );
-    xmlhttp.open( "GET", "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'&type='" + type + "'", true );
-    xmlhttp.send();
     };
     
 </script>

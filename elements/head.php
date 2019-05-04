@@ -65,13 +65,10 @@ global $root;
                 var type = document.getElementById( "downVote"+inn ).value;
             }
 
-            console.log( document.getElementById( "downVote"+inn ).value );
-
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if ( this.readyState == 4 && this.status == 200 ) {
                     var sql = this.responseText;
-                    console.log( type );
                     if ( sql == "true" ) {
                         console.log( type );
                         switch ( vote ) {
@@ -80,7 +77,7 @@ global $root;
                                 switch ( type ) {
                                     case "norm":
                                         var buttonId = "upVote";
-                                        var buttonInnerText = "upVoted";
+                                        var buttonInnerText = "upvoted";
                                         var buttonOtherId = "downVote";
                                         var buttonValueSame = "del";
                                         var buttonValueOther = "upd";
@@ -131,7 +128,7 @@ global $root;
                                         break;
                                     case "del":
                                         var buttonId = "downVote";
-                                        var buttonInnerText = "downVote";
+                                        var buttonInnerText = "downvote";
                                         var buttonOtherId = "upVote";
                                         var buttonValueOther = "norm";
                                         var buttonValueSame = "norm"
@@ -150,18 +147,17 @@ global $root;
                     }
                 }
             };
-            console.log( "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'&type='" + type + "'" );
             xmlhttp.open( "GET", "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'&type='" + type + "'", true );
             xmlhttp.send();
         }
     </script>
 
     <?php
-    $file = basename(__FILE__);
+    $file = basename($_SERVER["PHP_SELF"]);
     
     if($file == "legg_til_innlegg.php"){
         include "elements/kategori_script.php";
-        echo "ya yeet";
+
     }
 
 

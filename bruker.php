@@ -26,13 +26,12 @@ $title = "Hjem";
     <?php
     include "elements/echo_innlegg.php";
 
-    $sql_rest = "where bruker_id = $bruker_id
+    $sql_rest = "and innlegg.bruker_id = $bruker_id
                 order by innlegg_id desc";
+    
 
     echo_innlegg( $sql_rest );
-
-
-
+    
 
     ?>
 

@@ -87,8 +87,6 @@
         }
     }
 
-    echo basename(__FILE__);
-
     ?>
     <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
         <input type="file" name="bilde"><br>
