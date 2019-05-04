@@ -17,8 +17,15 @@
         include "elements/lagre_bilde.php";
 
         if ( $lagre_bilde ) {
+            if (isset($_POST["tekst"])){
+                $tekst_sql = ", tekst";
+                
+                $tekst = $_POST["tekst"];
+            } else {
+                $tekst_sql = "";
+            }
 
-            $sql = "insert into innlegg (bruker_id, bilde, tid) VALUES('$bruker_id', '$bilde_name_new', NOW())";
+            $sql = "insert into innlegg (bruker_id, bilde, tid" . $tekst_sql . ") VALUES('$bruker_id', '$bilde_name_new', NOW())";
 
             if ( $kobling->query( $sql ) ) {
 

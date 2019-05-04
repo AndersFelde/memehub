@@ -147,7 +147,11 @@ global $root;
     </script>
 
     <?php
-
+    $file = basename(__FILE__);
+    
+    if($file == "legg_til_innlegg.php"){
+        include "elements/kategori_script.php";
+    }
 
 
     include "elements/kobling.php";
