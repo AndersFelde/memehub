@@ -7,24 +7,41 @@
     ?>
 </head>
 
-<body>
-  <div id="synd">Det var synd :(</div>
-
     <?php
+    // Putta body innenfor her fordi jeg måtte
+
+
+
     //include "elements/nav.php";
 
     if ( isset( $_POST[ "logg_inn" ] ) ) {
 
         include "elements/logg_inn_sjekk.php";
 
+        if (isset($loginFail)){
+
+          echo "<body>";
+          echo '<div id="synd">Det var synd :(</div>';
+
+          //echo $_SESSION["failed_login"];
+          echo "<div style='display: none;' id='error'>loginError</div>";
+          unset($loginFail);
+        } else {
+
+          echo "<body onload='redir()'>";
+          echo '<div id="synd">Det var synd :(</div>';
+
+          echo "<div>Redirecting...</div>";
+
+          //header("Location: index.php");
+          //exit;
+        }
+
     } elseif ( isset( $_POST[ "registrer" ] ) ) {
 
         header("Location: registrer.php");
+        exit;
 
-    } elseif ( isset($_SESSION["failed_login"])){
-        //echo $_SESSION["failed_login"];
-        echo "<div style='display: none;' id='error'>loginError</div>";
-        unset($_SESSION["failed_login"]);
     }
     ?>
 <a href="index.php" class="Material exit">clear</a>
@@ -32,7 +49,7 @@
   <div class="loginWidth">
     <a href="index.php"><img src="images/logo.png" alt="MemeHub"></a>
     <div class="loginError">
-      Passord eller brukernavn er feil
+      Passord eller email er feil
     </div>
     <div class="loginBox">
       <form action="logg_inn.php" class="" method="POST">
@@ -41,8 +58,8 @@
         <label>Passord</label>
         <input type="password" required name="passord">
         <div class="buttonSplit">
-          <button type="submit" value="Registrer" name="registrer">Registrer</button>
-          <button type="submit" class="orange" value="Logg inn" name="logg_inn">Logg inn</button>
+          <button type="submit" name="registrer">Registrer</button>
+          <button type="submit" class="orange" name="logg_inn">Logg inn</button>
         </div>
       </form>
     </div>
