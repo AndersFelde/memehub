@@ -58,8 +58,8 @@
         <label>Passord</label>
         <input type="password" required name="passord">
         <div class="buttonSplit">
-          <button type="submit" name="registrer">Registrer</button>
-          <button type="submit" class="orange" name="logg_inn">Logg inn</button>
+          <button type="button" onclick="">Registrer</button>
+          <button type="submit" class="orange" value="Logg inn" name="logg_inn">Logg inn</button>
         </div>
       </form>
     </div>
