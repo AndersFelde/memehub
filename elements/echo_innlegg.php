@@ -54,6 +54,8 @@ function echo_innlegg( $ting ) {
 
     $resultat = $kobling->query( $sql );
 
+    echo "<div class='posts'>";
+
     while ( $rad = $resultat->fetch_assoc() ) {
 
         $username = $rad[ "brukernavn" ];
@@ -174,6 +176,7 @@ function echo_innlegg( $ting ) {
 
             echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='downVote$innlegg_id'>$button_text_down</button>";
         }
+        echo "</div>";
     }
     echo "</div>";
 }

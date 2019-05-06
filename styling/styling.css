@@ -382,6 +382,20 @@ nav #Active:hover {
   width: 250px;
 }
 
+.posts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  margin: 0 10vw;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .post {
   background-color: #FFFFFF;
   width: 20vw;
@@ -392,7 +406,7 @@ nav #Active:hover {
   -webkit-box-direction: normal;
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
-  margin: 3vh 5vw;
+  margin: 4vh 2vw;
 }
 .post .title {
   display: -webkit-box;
