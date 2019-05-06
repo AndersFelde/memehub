@@ -90,15 +90,15 @@
 
     ?>
     <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
-        <img src="images/favicon.png">
+        <img id="filePreview" src="">
         <div id="nyKategoriDiv">
             <span id="nyKategori1"></span>
         </div>
         <br>
-        <input required type="file" name="bilde">
+        <input id="fileUpload" onChange="preview()" required type="file" name="bilde">
         <p id="inputKategoriMld"></p>
         <input onkeypress="addKategori(event)" id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
-        
+
         <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
         <br>
 
@@ -123,19 +123,19 @@
         </datalist>
 
     </form>
-    
+
     <script>
         var kat_nr = 1;
 
-        function addKategori(event) {
+        function addKategori( event ) {
             // Number 13 is the "Enter" key on the keyboard
             if ( event.keyCode === 13 ) {
                 // Cancel the default action, if needed
                 event.preventDefault();
-                
-                var inputK = document.getElementById("inputKategori");
+
+                var inputK = document.getElementById( "inputKategori" );
                 var kategori = inputK.value;
-                var pMld = document.getElementById("inputKategoriMld");
+                var pMld = document.getElementById( "inputKategoriMld" );
                 if ( kategori.length > 1 ) {
                     inputK.value = "";
 
@@ -153,8 +153,8 @@
                     var div = document.getElementById( "nyKategoriDiv" );
 
                     div.appendChild( span_cln );
-                    
-                    
+
+
 
                     pMld.innerHTML = "";
 
@@ -162,16 +162,26 @@
 
                         inputK.style.display = "none";
                         pMld.innerHTML = "Det holder med 5 vel?"
-                        
-                        
+
+
 
                     }
                 } else {
-                    
+
                     pMld.innerHTML = "skriv noe du";
                 }
 
             }
+        };
+
+        function preview() {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById( 'filePreview' );
+                output.src = reader.result;
+            }
+            var upload = document.getElementById("fileUpload");
+            reader.readAsDataURL( upload.files[ 0 ] );
         }
     </script>
 </body>
