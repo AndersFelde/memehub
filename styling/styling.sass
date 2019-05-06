@@ -289,6 +289,7 @@ nav
 
   .dropdownProfile
     z-index: 99999
+    background-color: $White
     transition: $Medium
     display: none
     flex-flow: column nowrap
@@ -328,8 +329,23 @@ nav
           transition: $Fast
           border-bottom: 1px solid $Black
 
+
       form
         width: 100%
+
+
+    &::before
+      content: " "
+      width: 0
+      height: 0
+      position: relative
+      top: -22px
+      right: -69px
+      border-left: 22px solid transparent
+      border-right: 22px solid transparent
+      border-bottom: 22px solid $White
+      //background-color: $White
+      //box-shadow: $Shadow
 
 
 #synd

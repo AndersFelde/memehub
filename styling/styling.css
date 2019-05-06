@@ -295,6 +295,7 @@ nav #Active:hover {
 }
 .ddsystem .dropdownProfile {
   z-index: 99999;
+  background-color: #FFFFFF;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   display: none;
@@ -360,6 +361,17 @@ nav #Active:hover {
 }
 .ddsystem .dropdownProfile div form {
   width: 100%;
+}
+.ddsystem .dropdownProfile::before {
+  content: " ";
+  width: 0;
+  height: 0;
+  position: relative;
+  top: -22px;
+  right: -69px;
+  border-left: 22px solid transparent;
+  border-right: 22px solid transparent;
+  border-bottom: 22px solid #FFFFFF;
 }
 
 #synd {

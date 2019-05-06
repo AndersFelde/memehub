@@ -81,8 +81,8 @@
 
                 if ( !empty( $_POST[ "kategori" ] ) ) {
 
-                    $sql = "select innlegg_id 
-                    from innlegg 
+                    $sql = "select innlegg_id
+                    from innlegg
                     where bilde = '$bilde_name_new'";
 
                     $resultat = $kobling->query( $sql );
@@ -151,23 +151,23 @@
         <input id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
         <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
         <br>
-        <input type="submit" value="Last opp" name="insert_inn"><br>
+        <button type="submit" name="insert_inn" class="orange">Last opp</button>
 
         <datalist id="kategorier">
-            <?php 
-    
+            <?php
+
     $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
-    
+
     $resultat = $kobling->query($sql);
-    
+
     while($rad = $resultat->fetch_assoc()){
-        
+
         $kategori = $rad["kategori"];
-        
+
         echo "<option value='$kategori'>";
-        
+
     }
-    
+
     ?>
         </datalist>
 
