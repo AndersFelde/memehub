@@ -5,56 +5,7 @@
     include "elements/head.php";
     $title = "Hjem";
     ?>
-    <script>
-        var kat_nr = 1;
-        window.onload = function () {
-            var input = document.getElementById( "inputKategori" );
 
-            input.addEventListener( "keyup", function () {
-                // Number 13 is the "Enter" key on the keyboard
-                if ( event.keyCode === 13 ) {
-                    // Cancel the default action, if needed
-                    event.preventDefault();
-
-                    var kategori = input.value;
-
-                    console.log( kategori );
-
-                    if ( kategori.length > 1 ) {
-                        input.value = "";
-
-                        console.log( "nyKategori" + kat_nr );
-
-                        var span = document.getElementById( "nyKategori" + kat_nr );
-
-                        kat_nr++;
-
-                        var span_cln = span.cloneNode( true );
-                        span_cln.id = "nyKategori" + kat_nr;
-
-                        span.innerHTML = kategori;
-
-                        var div = document.getElementById( "nyKategoriDiv" );
-
-                        div.appendChild( span_cln );
-
-                        input.placeholder = "";
-
-                        if ( kat_nr > 5 ) {
-
-                            document.getElementById( "addKategori" ).style.display = "none";
-
-                            input.style.display = "none";
-
-                        }
-                    } else {
-                        input.placeholder = "skriv noe du";
-                    }
-
-                }
-            } );
-        }
-    </script>
 </head>
 
 <body>
@@ -139,19 +90,19 @@
 
     ?>
     <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
-        <img src="images/favicon.png">
+        <img id="filePreview" src="">
         <div id="nyKategoriDiv">
             <span id="nyKategori1"></span>
         </div>
         <br>
-        <form>
-        <input required type="file" name="bilde">
-        <button type="submit"></button>
-        </form>
-        <input id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
+        <input id="fileUpload" onChange="preview()" required type="file" name="bilde">
+        <p id="inputKategoriMld"></p>
+        <input onkeypress="addKategori(event)" id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
+
         <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
         <br>
-        <button type="submit" name="insert_inn" class="orange">Last opp</button>
+
+        <input type="submit" value="Last opp" name="insert_inn"><br>
 
         <datalist id="kategorier">
             <?php
@@ -172,5 +123,66 @@
         </datalist>
 
     </form>
+
+    <script>
+        var kat_nr = 1;
+
+        function addKategori( event ) {
+            // Number 13 is the "Enter" key on the keyboard
+            if ( event.keyCode === 13 ) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+
+                var inputK = document.getElementById( "inputKategori" );
+                var kategori = inputK.value;
+                var pMld = document.getElementById( "inputKategoriMld" );
+                if ( kategori.length > 1 ) {
+                    inputK.value = "";
+
+                    console.log( "nyKategori" + kat_nr );
+
+                    var span = document.getElementById( "nyKategori" + kat_nr );
+
+                    kat_nr++;
+
+                    var span_cln = span.cloneNode( true );
+                    span_cln.id = "nyKategori" + kat_nr;
+
+                    span.innerHTML = kategori;
+
+                    var div = document.getElementById( "nyKategoriDiv" );
+
+                    div.appendChild( span_cln );
+
+
+
+                    pMld.innerHTML = "";
+
+                    if ( kat_nr > 5 ) {
+
+                        inputK.style.display = "none";
+                        pMld.innerHTML = "Det holder med 5 vel?"
+
+
+
+                    }
+                } else {
+
+                    pMld.innerHTML = "skriv noe du";
+                }
+
+            }
+        };
+
+        function preview() {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById( 'filePreview' );
+                output.src = reader.result;
+            }
+            var upload = document.getElementById("fileUpload");
+            reader.readAsDataURL( upload.files[ 0 ] );
+        }
+    </script>
 </body>
 </html>
