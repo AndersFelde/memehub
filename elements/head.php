@@ -1,4 +1,5 @@
-   <base href="<?php $root = "/memehub/"; global $root; ?>" target="_self">
+<?php session_start();?>   
+<base href="<?php $root = "/memehub/"; global $root; ?>" target="_self">
 
 
     <!-- Putt dette inni "href" over? Broken nå da

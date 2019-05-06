@@ -17,6 +17,8 @@
     if ( isset( $_POST[ "logg_inn" ] ) ) {
 
         include "elements/logg_inn_sjekk.php";
+        
+        
 
         if (isset($loginFail)){
 

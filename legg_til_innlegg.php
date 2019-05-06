@@ -144,7 +144,10 @@
             <span id="nyKategori1"></span>
         </div>
         <br>
+        <form>
         <input required type="file" name="bilde">
+        <button type="submit"></button>
+        </form>
         <input id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
         <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
         <br>
