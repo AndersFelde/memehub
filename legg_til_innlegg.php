@@ -7,47 +7,53 @@
     ?>
     <script>
         var kat_nr = 1;
-        
-        function nyKategori() {
-
+        window.onload = function () {
             var input = document.getElementById( "inputKategori" );
 
-            var kategori = input.value;
-            
-            console.log(kategori);
+            input.addEventListener( "keyup", function () {
+                // Number 13 is the "Enter" key on the keyboard
+                if ( event.keyCode === 13 ) {
+                    // Cancel the default action, if needed
+                    event.preventDefault();
 
-            if ( kategori.length >= 1 ) {
+                    var kategori = input.value;
 
-                input.value = "";
-                
-                console.log("nyKategori"+kat_nr);
+                    console.log( kategori );
 
-                var span = document.getElementById( "nyKategori"+kat_nr );
+                    if ( kategori.length > 1 ) {
+                        input.value = "";
 
-                kat_nr++;
+                        console.log( "nyKategori" + kat_nr );
 
-                var span_cln = span.cloneNode( true );
-                span_cln.id = "nyKategori" + kat_nr;
+                        var span = document.getElementById( "nyKategori" + kat_nr );
 
-                span.innerHTML = kategori;
+                        kat_nr++;
 
-                var div = document.getElementById( "nyKategoriDiv" );
+                        var span_cln = span.cloneNode( true );
+                        span_cln.id = "nyKategori" + kat_nr;
 
-                div.appendChild( span_cln )
+                        span.innerHTML = kategori;
 
-                if ( kat_nr > 5 ) {
+                        var div = document.getElementById( "nyKategoriDiv" );
 
-                    document.getElementById( "addKategori" ).style.display = "none";
-                    
-                    input.style.display = "none";
-                    
+                        div.appendChild( span_cln );
+
+                        input.placeholder = "";
+
+                        if ( kat_nr > 5 ) {
+
+                            document.getElementById( "addKategori" ).style.display = "none";
+
+                            input.style.display = "none";
+
+                        }
+                    } else {
+                        input.placeholder = "skriv noe du";
+                    }
+
                 }
-            } else {
-                input.placeholder = "skriv noe du";
-            }
-
-        };
-        
+            } );
+        }
     </script>
 </head>
 
@@ -140,7 +146,7 @@
         <br>
         <input required type="file" name="bilde">
         <input id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
-        <button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>
+        <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
         <br>
         <input type="submit" value="Last opp" name="insert_inn"><br>
 
