@@ -294,6 +294,7 @@ nav #Active:hover {
   position: relative;
 }
 .ddsystem .dropdownProfile {
+  z-index: 99999;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   display: none;
