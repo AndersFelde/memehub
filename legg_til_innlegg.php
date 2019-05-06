@@ -96,7 +96,9 @@
         </div>
         <br>
         <input required type="file" name="bilde">
-        <input id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
+        <p id="inputKategoriMld"></p>
+        <input onkeypress="addKategori(event)" id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
+        
         <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
         <br>
 
@@ -125,18 +127,15 @@
     <script>
         var kat_nr = 1;
 
-        var inputK = document.getElementById( "inputKategori" );
-        console.log( inputK );
-        inputK.addEventListener( "keyup", function (event) {
+        function addKategori(event) {
             // Number 13 is the "Enter" key on the keyboard
             if ( event.keyCode === 13 ) {
                 // Cancel the default action, if needed
                 event.preventDefault();
-
+                
+                var inputK = document.getElementById("inputKategori");
                 var kategori = inputK.value;
-
-                console.log( kategori );
-
+                var pMld = document.getElementById("inputKategoriMld");
                 if ( kategori.length > 1 ) {
                     inputK.value = "";
 
@@ -154,22 +153,26 @@
                     var div = document.getElementById( "nyKategoriDiv" );
 
                     div.appendChild( span_cln );
+                    
+                    
 
-                    inputK.placeholder = "";
+                    pMld.innerHTML = "";
 
                     if ( kat_nr > 5 ) {
 
-                        document.getElementById( "addKategori" ).style.display = "none";
-
                         inputK.style.display = "none";
+                        pMld.innerHTML = "Det holder med 5 vel?"
+                        
+                        
 
                     }
                 } else {
-                    inputK.placeholder = "skriv noe du";
+                    
+                    pMld.innerHTML = "skriv noe du";
                 }
 
             }
-        } );
+        }
     </script>
 </body>
 </html>
