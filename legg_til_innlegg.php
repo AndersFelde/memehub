@@ -5,56 +5,7 @@
     include "elements/head.php";
     $title = "Hjem";
     ?>
-    <script>
-        var kat_nr = 1;
-        window.onload = function () {
-            var input = document.getElementById( "inputKategori" );
 
-            input.addEventListener( "keyup", function () {
-                // Number 13 is the "Enter" key on the keyboard
-                if ( event.keyCode === 13 ) {
-                    // Cancel the default action, if needed
-                    event.preventDefault();
-
-                    var kategori = input.value;
-
-                    console.log( kategori );
-
-                    if ( kategori.length > 1 ) {
-                        input.value = "";
-
-                        console.log( "nyKategori" + kat_nr );
-
-                        var span = document.getElementById( "nyKategori" + kat_nr );
-
-                        kat_nr++;
-
-                        var span_cln = span.cloneNode( true );
-                        span_cln.id = "nyKategori" + kat_nr;
-
-                        span.innerHTML = kategori;
-
-                        var div = document.getElementById( "nyKategoriDiv" );
-
-                        div.appendChild( span_cln );
-
-                        input.placeholder = "";
-
-                        if ( kat_nr > 5 ) {
-
-                            document.getElementById( "addKategori" ).style.display = "none";
-
-                            input.style.display = "none";
-
-                        }
-                    } else {
-                        input.placeholder = "skriv noe du";
-                    }
-
-                }
-            } );
-        }
-    </script>
 </head>
 
 <body>
@@ -144,13 +95,11 @@
             <span id="nyKategori1"></span>
         </div>
         <br>
-        <form>
         <input required type="file" name="bilde">
-        <button type="submit"></button>
-        </form>
         <input id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
         <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
         <br>
+
         <input type="submit" value="Last opp" name="insert_inn"><br>
 
         <datalist id="kategorier">
@@ -172,5 +121,55 @@
         </datalist>
 
     </form>
+    
+    <script>
+        var kat_nr = 1;
+
+        var inputK = document.getElementById( "inputKategori" );
+        console.log( inputK );
+        inputK.addEventListener( "keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if ( event.keyCode === 13 ) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+
+                var kategori = inputK.value;
+
+                console.log( kategori );
+
+                if ( kategori.length > 1 ) {
+                    inputK.value = "";
+
+                    console.log( "nyKategori" + kat_nr );
+
+                    var span = document.getElementById( "nyKategori" + kat_nr );
+
+                    kat_nr++;
+
+                    var span_cln = span.cloneNode( true );
+                    span_cln.id = "nyKategori" + kat_nr;
+
+                    span.innerHTML = kategori;
+
+                    var div = document.getElementById( "nyKategoriDiv" );
+
+                    div.appendChild( span_cln );
+
+                    inputK.placeholder = "";
+
+                    if ( kat_nr > 5 ) {
+
+                        document.getElementById( "addKategori" ).style.display = "none";
+
+                        inputK.style.display = "none";
+
+                    }
+                } else {
+                    inputK.placeholder = "skriv noe du";
+                }
+
+            }
+        } );
+    </script>
 </body>
 </html>
