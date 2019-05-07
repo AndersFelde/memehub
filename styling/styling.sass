@@ -418,17 +418,39 @@ nav
       margin: .7vh 0
 
 .postinfo
+  display: flex
+  flex-flow: row nowrap
+  justify-content: space-between
+  vertical-align: middle
+  height: 50px
+  width: 100%
+  padding: auto 3px
+  color: $DarkGrey
 
-  .vote
+  div
+    margin: auto 5px
+    display: inline-flex
+    justify-content: space-between
+    flex-flow: row nowrap
+
+  .icon
+    background-color: $White
+    border: 0px solid $White
+    cursor: pointer
     font-size: 30px
-    color: $DarkGrey
 
-    .upvote
+    .upvoted
       color: $Orange
 
-    .downvote
+    .downvoted
       color: $DarkBlue
 
   .count
+    color: $LightGrey
+    margin: auto 6px
     font-size: 15px
     font-family: 'Calibri', 'Arial', sans-serif
+
+
+.hidemobile
+  border: 1px solid red
