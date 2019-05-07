@@ -33,7 +33,7 @@
                 $bilde_dest = 'images/innlegg_images/' . $bilde_name_new;
 
                 move_uploaded_file( $bilde_tmp_name, $bilde_dest );
-                
+
                 $new_page = '"bruker"';
                 //fordi den må ha "" rundt seg
                 echo "<body onload='redir($new_page)'>";
@@ -56,7 +56,7 @@
     <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
         <img id="filePreview" src="">
         <div id="nyKategoriDiv">
-            <span style="display:none;" id="nyKategori1"><button id="cancelButton" onclick="delKategori(1)">cancel</button></span>
+            <span style="display:none;" id="nyKategori1"><button type="button" id="cancelButton" onclick="delKategori(1)">cancel</button></span>
         </div>
         <br>
         <input id="fileUpload" onChange="preview()" required type="file" name="bilde">
@@ -71,26 +71,27 @@
         <datalist id="kategorier">
             <?php
 
-    $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
+            $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
 
-    $resultat = $kobling->query($sql);
+            $resultat = $kobling->query( $sql );
 
-    while($rad = $resultat->fetch_assoc()){
+            while ( $rad = $resultat->fetch_assoc() ) {
 
-        $kategori = $rad["kategori"];
+                $kategori = $rad[ "kategori" ];
 
-        echo "<option value='$kategori'>";
+                echo "<option value='$kategori'>";
 
-    }
+            }
 
-    ?>
+            ?>
         </datalist>
 
     </form>
 
     <script>
         var kat_nr = 1;
-        
+        var kategoriArr = new Array();
+
         function addKategori( event ) {
             // Number 13 is the "Enter" key on the keyboard
             if ( event.keyCode === 13 ) {
@@ -104,33 +105,36 @@
                     inputK.value = "";
 
                     var span = document.getElementById( "nyKategori" + kat_nr );
-                    var button = document.getElementById("cancelButton");
+                    var button = document.getElementById( "cancelButton" );
+                    var button_cln = button.cloneNode( true );
+                    button_cln.setAttribute( "onClick", "delKategori(" + kat_nr + ")" );
                     span.style.display = "block";
-                    
+                    kategoriArr[ kat_nr - 1 ] = kategori;
+                    console.log( kategoriArr );
+
                     kat_nr++;
 
                     var span_cln = span.cloneNode( true );
                     span_cln.id = "nyKategori" + kat_nr;
-                    span.style.display = "none";
-                    
+                    span_cln.style.display = "none";
 
-                    span.innerHTML = kategori+button;
+                    span.innerHTML = kategori;
 
                     var div = document.getElementById( "nyKategoriDiv" );
-
-                    div.appendChild( span_cln );
-
-
 
                     pMld.innerHTML = "";
 
                     if ( kat_nr > 5 ) {
 
+                        span.appendChild( button_cln );
                         inputK.style.display = "none";
                         pMld.innerHTML = "Det holder med 5 vel?"
 
 
 
+                    } else {
+                        div.appendChild( span_cln );
+                        span.appendChild( button_cln );
                     }
                 } else {
 
@@ -148,7 +152,31 @@
             }
             var upload = document.getElementById( "fileUpload" );
             reader.readAsDataURL( upload.files[ 0 ] );
-        }
+        };
+
+        function delKategori( delKatNr ) {
+
+            var span = document.getElementById( "nyKategori" + delKatNr );
+            span.parentNode.removeChild( span );
+
+            kategoriArr[ delKatNr - 1 ] = "";
+
+            console.log( kategoriArr );
+
+            
+            
+        };
+
+        //var kategoriArrNew = kategoriArr.filter( function ( item ) {
+//
+//            return item !== "";
+//
+//        } );
+//
+//        var globalVariable = {
+//
+//            kategoriArrNew: kategoriArrNew;
+//        };
     </script>
 </body>
 </html>
