@@ -7,66 +7,61 @@
     ?>
 </head>
 
-    <?php
-    // Putta body innenfor her fordi jeg måtte
+<?php
+// Putta body innenfor her fordi jeg måtte
 
 
 
-    //include "elements/nav.php";
+//include "elements/nav.php";
 
-    if ( isset( $_POST[ "logg_inn" ] ) ) {
+if ( isset( $_POST[ "logg_inn" ] ) ) {
 
-        include "elements/logg_inn_sjekk.php";
-        
-        
+    include "elements/logg_inn_sjekk.php";
 
-        if (isset($loginFail)){
 
-          echo "<body>";
-          echo '<div id="synd">Det var synd :(</div>';
 
-          //echo $_SESSION["failed_login"];
-          echo "<div style='display: none;' id='error'>loginError</div>";
-          unset($loginFail);
-        } else {
+    if ( isset( $loginFail ) ) {
 
-          echo "<body onload='redir()'>";
-          echo '<div id="synd">Det var synd :(</div>';
+        echo "<body>";
+        echo '<div id="synd">Det var synd :(</div>';
 
-          echo "<div>Redirecting...</div>";
+        //echo $_SESSION["failed_login"];
+        echo "<div style='display: none;' id='error'>loginError</div>";
+        unset( $loginFail );
+    } else {
+        $new_page = '"index"';
+        //fordi den må ha "" rundt seg
 
-          //header("Location: index.php");
-          //exit;
-        }
+        echo "<body onload='redir($new_page)'>";
 
-    } elseif ( isset( $_POST[ "registrer" ] ) ) {
+        echo '<div id="synd">Det var synd :(</div>';
 
-        header("Location: registrer.php");
-        exit;
-
+        echo "<div>Redirecting...</div>";
     }
-    ?>
+
+}
+?>
 <a href="index.php" class="Material exit">clear</a>
 
-  <div class="loginWidth">
+<div class="loginWidth">
     <a href="index.php"><img src="images/logo.png" alt="MemeHub"></a>
     <div class="loginError">
-      Passord eller email er feil
+        Passord eller email er feil
     </div>
     <div class="loginBox">
-      <form action="logg_inn.php" class="" method="POST">
-        <label>Email</label>
-        <input autofocus type="email" required name="email">
-        <label>Passord</label>
-        <input type="password" required name="passord">
-        <div class="buttonSplit">
-          <button type="button" onclick="">Registrer</button>
-          <button type="submit" class="orange" value="Logg inn" name="logg_inn">Logg inn</button>
-        </div>
-      </form>
+        <form action="logg_inn.php" class="" method="POST">
+            <label>Email</label>
+            <input autofocus type="email" required name="email">
+            <label>Passord</label>
+            <input type="password" required name="passord">
+            <div class="buttonSplit">
+                <button type="button" onclick="redir('registrer')">Registrer</button>
+                <button type="submit" class="orange" value="Logg inn" name="logg_inn">Logg inn</button>
+            </div>
+        </form>
     </div>
     <a href="javascript:void(0)" class="forgotPassword">Glemt passord?</a>
-  </div>
+</div>
 
 </body>
 </html>
