@@ -192,19 +192,20 @@ function echo_innlegg( $ting ) {
                 echo "</div>";
               echo "</div>";
 
+              echo "<div>";
                 echo "<a href='#' class='Material icon'>share</a>";
+              echo "</div>";
 
-                echo "<div>";
-                  echo "<p class='count'>$commentcount</p>";
-                  echo "<a href='#' class='Material icon'>short_text</a>";
-                  echo "<p class='count hidemobile'>Kommentarer</p>";
-                echo "</div>";
-
+              echo "<div>";
+                echo "<p class='count'>$commentcount</p>";
+                echo "<a href='#' class='Material icon'>short_text</a>";
+                echo "<p class='count hidemobile'>Kommentarer</p>";
               echo "</div>";
 
             echo "</div>";
+
+          echo "</div>";
         }
-        echo "</div>";
     }
     echo "</div>";
 }
