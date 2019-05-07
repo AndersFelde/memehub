@@ -10,8 +10,6 @@ $title = "Hjem";
     
     
       include "elements/nav.php";
-    
-    $_SESSION["prev_site"] = basename($_SERVER['PHP_SELF']);  
 
       $bruker_id = $_SESSION["bruker_id"];
       

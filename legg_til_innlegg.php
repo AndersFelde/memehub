@@ -17,7 +17,7 @@
 
         include "elements/lagre_bilde.php";
 
-        if ( $lagre_bilde ) {
+        if ( isset( $lagre_bilde ) ) {
             if ( isset( $_POST[ "tekst" ] ) ) {
                 $tekst_sql = ", tekst";
 
@@ -30,54 +30,15 @@
 
             if ( $kobling->query( $sql ) ) {
 
-                if ( !empty( $_POST[ "kategori" ] ) ) {
+                $bilde_dest = 'images/innlegg_images/' . $bilde_name_new;
 
-                    $sql = "select innlegg_id 
-                    from innlegg 
-                    where bilde = '$bilde_name_new'";
-
-                    $resultat = $kobling->query( $sql );
-
-                    $rad = $resultat->fetch_assoc();
-
-                    $innlegg_id = $rad[ "innlegg_id" ];
-
-                    $kategori = $_POST[ "kategori" ];
-
-                    $sql = "insert into kategori (innlegg_id, kategori) VALUES($innlegg_id, '$kategori')";
-
-                    if ( $kobling->query( $sql ) ) {
-
-                        $uniq_post = array_unique( $_POST );
-
-                        $ant_kategorier = ( count( $uniq_post ) ) - 1;
-
-
-                        for ( $i = 1; $i < $ant_kategorier; $i++ ) {
-
-                            $kategori_nr = "kategori" . $i;
-
-                            $kategori = $_POST[ "$kategori_nr" ];
-
-                            if ( !empty( $kategori ) ) {
-
-                                $sql = "insert into kategori (innlegg_id, kategori) VALUES($innlegg_id, '$kategori')";
-
-                                $kobling->query( $sql );
-                            }
-
-                        }
-
-                        $bilde_dest = 'images/innlegg_images/' . $bilde_name_new;
-
-                        move_uploaded_file( $bilde_tmp_name, $bilde_dest );
-
-                        header( "Location: bruker.php" );
-
-                    } else {
-                        echo "Det har skjedd noe feil med kategoriene<br> $kobling->error";
-                    }
-                }
+                move_uploaded_file( $bilde_tmp_name, $bilde_dest );
+                
+                $new_page = '"bruker"';
+                //fordi den må ha "" rundt seg
+                echo "<body onload='redir($new_page)'>";
+                echo '<div id="synd">Det var synd :(</div>';
+                echo "<div>Redirecting...</div>";
 
             } else {
 
@@ -86,13 +47,15 @@
             }
 
         }
+    } else {
+        echo "<body>";
     }
 
     ?>
     <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
         <img id="filePreview" src="">
         <div id="nyKategoriDiv">
-            <span id="nyKategori1"></span>
+            <span style="display:none;" id="nyKategori1"><button id="cancelButton" onclick="delKategori(1)">cancel</button></span>
         </div>
         <br>
         <input id="fileUpload" onChange="preview()" required type="file" name="bilde">
@@ -126,7 +89,7 @@
 
     <script>
         var kat_nr = 1;
-
+        
         function addKategori( event ) {
             // Number 13 is the "Enter" key on the keyboard
             if ( event.keyCode === 13 ) {
@@ -139,16 +102,18 @@
                 if ( kategori.length > 1 ) {
                     inputK.value = "";
 
-                    console.log( "nyKategori" + kat_nr );
-
                     var span = document.getElementById( "nyKategori" + kat_nr );
-
+                    var button = document.getElementById("cancelButton");
+                    span.style.display = "block";
+                    
                     kat_nr++;
 
                     var span_cln = span.cloneNode( true );
                     span_cln.id = "nyKategori" + kat_nr;
+                    span.style.display = "none";
+                    
 
-                    span.innerHTML = kategori;
+                    span.innerHTML = kategori+button;
 
                     var div = document.getElementById( "nyKategoriDiv" );
 
@@ -180,7 +145,7 @@
                 var output = document.getElementById( 'filePreview' );
                 output.src = reader.result;
             }
-            var upload = document.getElementById("fileUpload");
+            var upload = document.getElementById( "fileUpload" );
             reader.readAsDataURL( upload.files[ 0 ] );
         }
     </script>

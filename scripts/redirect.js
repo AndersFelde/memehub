@@ -1,4 +1,3 @@
-function redir() {
-  console.log("Fuck");
-  window.location.href = "index.php";
+function redir(newPage) {
+  window.location.href = newPage+".php";
 }
