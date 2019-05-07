@@ -368,6 +368,7 @@ nav #Active:hover {
   height: 0;
   position: relative;
   top: -22px;
+  margin-bottom: -44px;
   right: -69px;
   border-left: 22px solid transparent;
   border-right: 22px solid transparent;
@@ -396,6 +397,7 @@ nav #Active:hover {
 }
 
 .posts {
+  z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -469,6 +471,21 @@ nav #Active:hover {
   color: green;
   text-decoration: underline;
   margin: 0.7vh 0;
+}
+
+.postinfo .vote {
+  font-size: 30px;
+  color: #383838;
+}
+.postinfo .vote .upvote {
+  color: #F29117;
+}
+.postinfo .vote .downvote {
+  color: #033F61;
+}
+.postinfo .count {
+  font-size: 15px;
+  font-family: "Calibri", "Arial", sans-serif;
 }
 
 /*# sourceMappingURL=styling.css.map */
