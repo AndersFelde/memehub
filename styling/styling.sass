@@ -289,6 +289,7 @@ nav
 
   .dropdownProfile
     z-index: 99999
+    background-color: $White
     transition: $Medium
     display: none
     flex-flow: column nowrap
@@ -328,8 +329,24 @@ nav
           transition: $Fast
           border-bottom: 1px solid $Black
 
+
       form
         width: 100%
+
+
+    &::before
+      content: " "
+      width: 0
+      height: 0
+      position: relative
+      top: -22px
+      margin-bottom: -44px
+      right: -69px
+      border-left: 22px solid transparent
+      border-right: 22px solid transparent
+      border-bottom: 22px solid $White
+      //background-color: $White
+      //box-shadow: $Shadow
 
 
 #synd
@@ -351,6 +368,7 @@ nav
 
 
 .posts
+  z-index: 1
   display: flex
   flex-flow: row wrap
   margin: 0 10vw
@@ -398,3 +416,41 @@ nav
       color: green
       text-decoration: underline
       margin: .7vh 0
+
+.postinfo
+  display: flex
+  flex-flow: row nowrap
+  justify-content: space-between
+  vertical-align: middle
+  height: 50px
+  width: 100%
+  padding: auto 3px
+  color: $DarkGrey
+
+  div
+    margin: auto 5px
+    display: inline-flex
+    justify-content: space-between
+    flex-flow: row nowrap
+
+  .icon
+    background-color: $White
+    border: 0px solid $White
+    cursor: pointer
+    font-size: 30px
+
+    .upvoted
+      color: $Orange
+
+    .downvoted
+      color: $DarkBlue
+
+  .count
+    color: $LightGrey
+    margin: auto 6px
+    font-size: 15px
+    font-family: 'Calibri', 'Arial', sans-serif
+
+
+.hidemobile
+  border: 1px solid red

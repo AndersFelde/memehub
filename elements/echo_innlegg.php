@@ -131,29 +131,32 @@ function echo_innlegg( $ting ) {
 
             $bruker_id = $_SESSION[ "bruker_id" ];
 
+            $upvoted = false;
+            $downvoted = false;
+            $upcount = 1;
+            $downcount = 2;
+            $commentcount = 3;
+
             if ( isset( $bruker_vote_arr ) ) {
                 if ( in_array( $innlegg_id, $bruker_vote_arr ) ) {
                     $innlegg_vote = ( array_search( $innlegg_id, $bruker_vote_arr ) ) + 1;
 
                     $bruker_vote = $bruker_vote_arr[ "$innlegg_vote" ];
 
+
                     switch ( $bruker_vote ) {
                         case 0:
 
                             $func_type_up = "upd";
                             $func_type_down = "del";
-                            $button_text_down = "downvoted";
-                            $button_text_up = "upvote";
-
+                            $downvoted = true;
                             break;
 
                         case 1:
 
                             $func_type_up = "del";
                             $func_type_down = "upd";
-                            $button_text_down = "downvote";
-                            $button_text_up = "upvoted";
-
+                            $upvoted = true;
                             break;
                     }
 
@@ -161,20 +164,45 @@ function echo_innlegg( $ting ) {
 
                     $func_type_up = "norm";
                     $func_type_down = "norm";
-                    $button_text_down = "downvote";
-                    $button_text_up = "upvote";
 
                 }
 
             } else {
                 $func_type_up = "norm";
                 $func_type_down = "norm";
-                $button_text_down = "downvote";
-                $button_text_up = "upvote";
             }
-            echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='upVote$innlegg_id'>$button_text_up</button>";
+            echo "<div class='postinfo'>";
 
-            echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='vote' id='downVote$innlegg_id'>$button_text_down</button>";
+              echo "<div>";
+                echo "<div>";
+                  if($upvoted){
+                    echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='Material icon upvoted' id='upVote$innlegg_id'>arrow_upward</button>";
+                  } else {
+                    echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='upVote$innlegg_id'>arrow_upward</button>";
+                  }
+                  echo "<p class='count'>$upcount</p>";
+                echo "</div>";
+                echo "<div>";
+                  if($downvoted){
+                    echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='Material icon downvoted' id='downVote$innlegg_id'>arrow_downward</button>";
+                  } else {
+                    echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='downVote$innlegg_id'>arrow_downward</button>";
+                  }
+                  echo "<p class='count'>$downcount</p>";
+                echo "</div>";
+              echo "</div>";
+
+                echo "<a href='#' class='Material icon'>share</a>";
+
+                echo "<div>";
+                  echo "<p class='count'>$commentcount</p>";
+                  echo "<a href='#' class='Material icon'>short_text</a>";
+                  echo "<p class='count hidemobile'>Kommentarer</p>";
+                echo "</div>";
+
+              echo "</div>";
+
+            echo "</div>";
         }
         echo "</div>";
     }

@@ -40,6 +40,7 @@
                 echo '<div id="synd">Det var synd :(</div>';
                 echo "<div>Redirecting...</div>";
 
+
             } else {
 
                 echo "Det har skjedd en feil med spørringen<br>
@@ -68,20 +69,20 @@
         <input type="submit" value="Last opp" name="insert_inn"><br>
 
         <datalist id="kategorier">
-            <?php 
-    
+            <?php
+
     $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
-    
+
     $resultat = $kobling->query($sql);
-    
+
     while($rad = $resultat->fetch_assoc()){
-        
+
         $kategori = $rad["kategori"];
-        
+
         echo "<option value='$kategori'>";
-        
+
     }
-    
+
     ?>
         </datalist>
 

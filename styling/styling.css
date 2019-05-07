@@ -295,6 +295,7 @@ nav #Active:hover {
 }
 .ddsystem .dropdownProfile {
   z-index: 99999;
+  background-color: #FFFFFF;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   display: none;
@@ -361,6 +362,18 @@ nav #Active:hover {
 .ddsystem .dropdownProfile div form {
   width: 100%;
 }
+.ddsystem .dropdownProfile::before {
+  content: " ";
+  width: 0;
+  height: 0;
+  position: relative;
+  top: -22px;
+  margin-bottom: -44px;
+  right: -69px;
+  border-left: 22px solid transparent;
+  border-right: 22px solid transparent;
+  border-bottom: 22px solid #FFFFFF;
+}
 
 #synd {
   position: fixed;
@@ -384,6 +397,7 @@ nav #Active:hover {
 }
 
 .posts {
+  z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -457,6 +471,59 @@ nav #Active:hover {
   color: green;
   text-decoration: underline;
   margin: 0.7vh 0;
+}
+
+.postinfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  vertical-align: middle;
+  height: 50px;
+  width: 100%;
+  padding: auto 3px;
+  color: #383838;
+}
+.postinfo div {
+  margin: auto 5px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+}
+.postinfo .icon {
+  background-color: #FFFFFF;
+  border: 0px solid #FFFFFF;
+  cursor: pointer;
+  font-size: 30px;
+}
+.postinfo .icon .upvoted {
+  color: #F29117;
+}
+.postinfo .icon .downvoted {
+  color: #033F61;
+}
+.postinfo .count {
+  color: #9F9F9F;
+  margin: auto 6px;
+  font-size: 15px;
+  font-family: "Calibri", "Arial", sans-serif;
+}
+
+.hidemobile {
+  border: 1px solid red;
 }
 
 /*# sourceMappingURL=styling.css.map */
