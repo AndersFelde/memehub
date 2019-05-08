@@ -5,6 +5,21 @@
     include "elements/head.php";
     $title = "Hjem";
     ?>
+    <script>
+        function insertKat( innleggId ) {
+            var xmlhttp = new XMLHttpRequest();
+            var kategoriStr = window.sessionStorage.getItem( "kategoriStr" );
+
+            xmlhttp.onreadystatechange = function () {
+                if ( this.readyState == 4 && this.status == 200 ) {
+                    window.location.href = "bruker.php";
+                    window.sessionStorage.removeItem("kategoriStr");
+                }
+            };
+            xmlhttp.open( "GET", "elements/insert_kategori.php?i='" + innleggId + "'&k=" + kategoriStr, true );
+            xmlhttp.send();
+        };
+    </script>
 
 </head>
 
@@ -34,16 +49,18 @@
 
                 move_uploaded_file( $bilde_tmp_name, $bilde_dest );
 
-                $new_page = '"bruker"';
+                $innlegg_id = $kobling->insert_id;
                 //fordi den må ha "" rundt seg
-                echo "<body onload='redir($new_page)'>";
+                echo "<body onload='insertKat($innlegg_id)'>";
                 echo '<div id="synd">Det var synd :(</div>';
                 echo "<div>Redirecting...</div>";
 
 
             } else {
+                
+                echo "<body>";
 
-                echo "Det har skjedd en feil med spørringen<br>
+                echo "Det har skjedd en feil med innlegget<br>
                                 $kobling->error";
             }
 
@@ -56,7 +73,7 @@
     <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
         <img id="filePreview" src="">
         <div id="nyKategoriDiv">
-            <span style="display:none;" id="nyKategori1"><button type="button" id="cancelButton" onclick="delKategori(1)">cancel</button></span>
+
         </div>
         <br>
         <input id="fileUpload" onChange="preview()" required type="file" name="bilde">
@@ -90,7 +107,12 @@
 
     <script>
         var kat_nr = 1;
+        var maxKatNr = 5;
         var kategoriArr = new Array();
+        var inputK = document.getElementById( "inputKategori" );
+        var pMld = document.getElementById( "inputKategoriMld" );
+        var kategoriArrNew = new Array();
+
 
         function addKategori( event ) {
             // Number 13 is the "Enter" key on the keyboard
@@ -98,46 +120,44 @@
                 // Cancel the default action, if needed
                 event.preventDefault();
 
-                var inputK = document.getElementById( "inputKategori" );
+
                 var kategori = inputK.value;
-                var pMld = document.getElementById( "inputKategoriMld" );
+
                 if ( kategori.length > 1 ) {
-                    inputK.value = "";
+                    //<span id="nyKategori1"><button type="button" id="cancelButton" onclick="delKategori(1)">cancel</button></span>
 
-                    var span = document.getElementById( "nyKategori" + kat_nr );
-                    var button = document.getElementById( "cancelButton" );
-                    var button_cln = button.cloneNode( true );
-                    button_cln.setAttribute( "onClick", "delKategori(" + kat_nr + ")" );
-                    span.style.display = "block";
-                    kategoriArr[ kat_nr - 1 ] = kategori;
-                    console.log( kategoriArr );
+                    var span = '<span class="ny_kategori" id="nyKategori' + kat_nr + '">' + kategori + '</span>';
 
-                    kat_nr++;
+                    var button = '<button type="button" id="cancelButton" onclick="delKategori(' + kat_nr + ')">cancel</button>'
 
-                    var span_cln = span.cloneNode( true );
-                    span_cln.id = "nyKategori" + kat_nr;
-                    span_cln.style.display = "none";
-
-                    span.innerHTML = kategori;
 
                     var div = document.getElementById( "nyKategoriDiv" );
 
+                    div.insertAdjacentHTML( 'beforeEnd', span );
+                    span = document.getElementById( "nyKategori" + kat_nr );
+                    span.insertAdjacentHTML( 'beforeEnd', button );
+
+                    //button.setAttribute( "onClick", "delKategori(" + kat_nr + ")" );
+
+                    inputK.value = "";
+
+                    kategoriArr[ kat_nr - 1 ] = kategori;
+
+                    kategoriArrNewUpd();
+
+                    //console.log( kategoriArr );
+
+                    kat_nr++;
+
                     pMld.innerHTML = "";
 
-                    if ( kat_nr > 5 ) {
+                    if ( kat_nr > maxKatNr ) {
 
-                        span.appendChild( button_cln );
                         inputK.style.display = "none";
                         pMld.innerHTML = "Det holder med 5 vel?"
-
-
-
-                    } else {
-                        div.appendChild( span_cln );
-                        span.appendChild( button_cln );
                     }
-                } else {
 
+                } else {
                     pMld.innerHTML = "skriv noe du";
                 }
 
@@ -156,27 +176,34 @@
 
         function delKategori( delKatNr ) {
 
-            var span = document.getElementById( "nyKategori" + delKatNr );
-            span.parentNode.removeChild( span );
+            var spanDel = document.getElementById( "nyKategori" + delKatNr );
+            spanDel.parentNode.removeChild( spanDel );
 
             kategoriArr[ delKatNr - 1 ] = "";
 
-            console.log( kategoriArr );
+            //console.log( kategoriArr.join() );
 
-            
-            
+            maxKatNr++;
+
+            inputK.style.display = "block";
+            pMld.innerHTML = "";
+
+            kategoriArrNewUpd();
+
+
         };
 
-        //var kategoriArrNew = kategoriArr.filter( function ( item ) {
-//
-//            return item !== "";
-//
-//        } );
-//
-//        var globalVariable = {
-//
-//            kategoriArrNew: kategoriArrNew;
-//        };
+        function kategoriArrNewUpd() {
+            var kategoriArrNew = kategoriArr.filter( function ( item ) {
+
+                return item !== "";
+
+            } );
+            window.sessionStorage.setItem( "kategoriStr", kategoriArrNew.join() );
+            var item = window.sessionStorage.getItem( "kategoriStr" );
+            console.log(item);
+        };
+
     </script>
 </body>
 </html>
