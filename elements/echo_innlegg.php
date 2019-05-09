@@ -34,15 +34,6 @@ function echo_innlegg( $ting ) {
             }
         }
     }
-    if ($ting == "hot"){
-        $ting = ", count(voted)
-                from innlegg
-                join voted on voted.innlegg_id = innlegg.innlegg_id
-                join bruker ON innlegg.bruker_id=bruker.bruker_id
-                order by second ASC";
-        //join innlegg on voted.innlegg_id = innlegg.innlegg_id
-        //, IFNULL(sum(voted.innlegg_id=innlegg.innlegg_id), 0) as ant_votes
-    }
 
 
     $sql = "select
@@ -58,8 +49,6 @@ function echo_innlegg( $ting ) {
         timestampdiff(WEEK, tid, now()) as week,
         timestampdiff(YEAR, tid, now()) as year
         $ting";
-    
-    echo $sql;
 
     $resultat = $kobling->query( $sql );
 

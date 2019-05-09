@@ -16,8 +16,16 @@
     if(isset($_SESSION["bruker_id"])){
 
     include "elements/echo_innlegg.php";
+        
+    $sql_rest = ", IFNULL(sum(voted.innlegg_id=innlegg.innlegg_id), 0) as ant_votes
+                from innlegg
+                join voted on voted.innlegg_id = innlegg.innlegg_id
+                join bruker ON innlegg.bruker_id=bruker.bruker_id
+                where timestampdiff(DAY, tid, now()) = 0
+                group by innlegg_id
+                order by ant_votes desc, innlegg_id desc";
 
-    echo_innlegg( "hot" );
+    echo_innlegg( $sql_rest );
         
 
     } else {
