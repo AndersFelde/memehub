@@ -43,13 +43,12 @@ function echo_innlegg( $ting ) {
         timestampdiff(SECOND, tid, now()) as second,
         timestampdiff(MINUTE, tid, now()) as minute,
         timestampdiff(HOUR, tid, now()) as hour,
-        timestampdiff(DAY, tid, now())as day,
-        timestampdiff(MONTH, tid, now())as month,
-        timestampdiff(WEEK, tid, now())as week,
+        timestampdiff(DAY, tid, now()) as day,
+        timestampdiff(MONTH, tid, now()) as month,
+        timestampdiff(WEEK, tid, now()) as week,
         timestampdiff(YEAR, tid, now()) as year
         from innlegg
-        join bruker
-        where innlegg.bruker_id = bruker.bruker_id
+        join bruker ON innlegg.bruker_id=bruker.bruker_id
         $ting";
 
     $resultat = $kobling->query( $sql );
@@ -114,8 +113,24 @@ function echo_innlegg( $ting ) {
 
         $resultat_kat = $kobling->query( $sql_kat );
 
+        $sql_vote = "select IFNULL(sum(vote=1), 0) as up, IFNULL(sum(vote=0), 0) as down from voted where innlegg_id = $innlegg_id ";
+
+        if ( mysqli_num_rows( $resultat_vote = $kobling->query( $sql_vote ) ) > 0 ) {
+
+            $rad_vote = $resultat_vote->fetch_assoc();
+            
+            $upcount = $rad_vote[ "up" ];
+            $downcount = $rad_vote[ "down" ];
+            
+        } else {
+            
+            $upcount = 0;
+            $downcount = 0;
+        }
 
 
+        
+        $commentcount = 0;
         echo "<div class='categorier'>";
         while ( $rad_kat = $resultat_kat->fetch_assoc() ) {
             $kategori = $rad_kat[ "kategori" ];
@@ -133,16 +148,12 @@ function echo_innlegg( $ting ) {
 
             $upvoted = false;
             $downvoted = false;
-            $upcount = 1;
-            $downcount = 2;
-            $commentcount = 3;
 
             if ( isset( $bruker_vote_arr ) ) {
                 if ( in_array( $innlegg_id, $bruker_vote_arr ) ) {
                     $innlegg_vote = ( array_search( $innlegg_id, $bruker_vote_arr ) ) + 1;
 
                     $bruker_vote = $bruker_vote_arr[ "$innlegg_vote" ];
-
 
                     switch ( $bruker_vote ) {
                         case 0:
@@ -158,6 +169,7 @@ function echo_innlegg( $ting ) {
                             $func_type_down = "upd";
                             $upvoted = true;
                             break;
+
                     }
 
                 } else {
@@ -173,38 +185,38 @@ function echo_innlegg( $ting ) {
             }
             echo "<div class='postinfo'>";
 
-              echo "<div>";
-                echo "<div>";
-                  if($upvoted){
-                    echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='Material icon upvoted' id='upVote$innlegg_id'>arrow_upward</button>";
-                  } else {
-                    echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='upVote$innlegg_id'>arrow_upward</button>";
-                  }
-                  echo "<p class='count'>$upcount</p>";
-                echo "</div>";
-                echo "<div>";
-                  if($downvoted){
-                    echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='Material icon downvoted' id='downVote$innlegg_id'>arrow_downward</button>";
-                  } else {
-                    echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='downVote$innlegg_id'>arrow_downward</button>";
-                  }
-                  echo "<p class='count'>$downcount</p>";
-                echo "</div>";
-              echo "</div>";
+            echo "<div>";
+            echo "<div>";
+            if ( $upvoted == true ) {
+                echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='Material icon upvoted' id='upVote$innlegg_id'>arrow_upward</button>";
+            } else {
+                echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='upVote$innlegg_id'>arrow_upward</button>";
+            }
+            echo "<p class='count'>$upcount</p>";
+            echo "</div>";
+            echo "<div>";
+            if ( $downvoted == true ) {
+                echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='Material icon downvoted' id='downVote$innlegg_id'>arrow_downward</button>";
+            } else {
+                echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='downVote$innlegg_id'>arrow_downward</button>";
+            }
+            echo "<p class='count'>$downcount</p>";
+            echo "</div>";
+            echo "</div>";
 
-              echo "<div>";
-                echo "<a href='#' class='Material icon'>share</a>";
-              echo "</div>";
+            echo "<div>";
+            echo "<a href='#' class='Material icon'>share</a>";
+            echo "</div>";
 
-              echo "<div>";
-                echo "<p class='count'>$commentcount</p>";
-                echo "<a href='#' class='Material icon'>short_text</a>";
-                echo "<p class='count hidemobile'>Kommentarer</p>";
-              echo "</div>";
+            echo "<div>";
+            echo "<p class='count'>$commentcount</p>";
+            echo "<a href='#' class='Material icon'>short_text</a>";
+            echo "<p class='count hidemobile'>Kommentarer</p>";
+            echo "</div>";
 
             echo "</div>";
 
-          echo "</div>";
+            echo "</div>";
         }
     }
     echo "</div>";

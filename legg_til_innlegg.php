@@ -7,17 +7,22 @@
     ?>
     <script>
         function insertKat( innleggId ) {
-            var xmlhttp = new XMLHttpRequest();
-            var kategoriStr = window.sessionStorage.getItem( "kategoriStr" );
 
-            xmlhttp.onreadystatechange = function () {
-                if ( this.readyState == 4 && this.status == 200 ) {
-                    window.location.href = "bruker.php";
-                    window.sessionStorage.removeItem("kategoriStr");
-                }
-            };
-            xmlhttp.open( "GET", "elements/insert_kategori.php?i='" + innleggId + "'&k=" + kategoriStr, true );
-            xmlhttp.send();
+
+            var kategoriStr = window.sessionStorage.getItem( "kategoriStr" );
+            if ( !(kategoriStr == ("" || null))) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if ( this.readyState == 4 && this.status == 200 ) {
+                        window.location.href = "bruker.php";
+                        window.sessionStorage.removeItem( "kategoriStr" );
+                    }
+                };
+                xmlhttp.open( "GET", "elements/insert_kategori.php?i='" + innleggId + "'&k=" + kategoriStr, true );
+                xmlhttp.send();
+            } else {
+                window.location.href = "bruker.php";
+            }
         };
     </script>
 
@@ -57,7 +62,7 @@
 
 
             } else {
-                
+
                 echo "<body>";
 
                 echo "Det har skjedd en feil med innlegget<br>
@@ -121,44 +126,49 @@
                 event.preventDefault();
 
 
-                var kategori = inputK.value;
+                var kategori = inputK.value.toLowerCase();
+                console.log( kategori.length );
 
                 if ( kategori.length > 1 ) {
-                    //<span id="nyKategori1"><button type="button" id="cancelButton" onclick="delKategori(1)">cancel</button></span>
+                    if ( !kategoriArr.includes( kategori ) ) {
+                        //<span id="nyKategori1"><button type="button" id="cancelButton" onclick="delKategori(1)">cancel</button></span>
 
-                    var span = '<span class="ny_kategori" id="nyKategori' + kat_nr + '">' + kategori + '</span>';
+                        var span = '<span class="ny_kategori" id="nyKategori' + kat_nr + '">' + kategori + '</span>';
 
-                    var button = '<button type="button" id="cancelButton" onclick="delKategori(' + kat_nr + ')">cancel</button>'
+                        var button = '<button type="button" id="cancelButton" onclick="delKategori(' + kat_nr + ')">cancel</button>'
 
 
-                    var div = document.getElementById( "nyKategoriDiv" );
+                        var div = document.getElementById( "nyKategoriDiv" );
 
-                    div.insertAdjacentHTML( 'beforeEnd', span );
-                    span = document.getElementById( "nyKategori" + kat_nr );
-                    span.insertAdjacentHTML( 'beforeEnd', button );
+                        div.insertAdjacentHTML( 'beforeEnd', span );
+                        span = document.getElementById( "nyKategori" + kat_nr );
+                        span.insertAdjacentHTML( 'beforeEnd', button );
 
-                    //button.setAttribute( "onClick", "delKategori(" + kat_nr + ")" );
+                        //button.setAttribute( "onClick", "delKategori(" + kat_nr + ")" );
 
-                    inputK.value = "";
+                        inputK.value = "";
 
-                    kategoriArr[ kat_nr - 1 ] = kategori;
+                        kategoriArr[ kat_nr - 1 ] = kategori;
 
-                    kategoriArrNewUpd();
+                        kategoriArrNewUpd();
 
-                    //console.log( kategoriArr );
+                        //console.log( kategoriArr );
 
-                    kat_nr++;
+                        kat_nr++;
 
-                    pMld.innerHTML = "";
+                        pMld.innerHTML = "";
 
-                    if ( kat_nr > maxKatNr ) {
+                        if ( kat_nr > maxKatNr ) {
 
-                        inputK.style.display = "none";
-                        pMld.innerHTML = "Det holder med 5 vel?"
+                            inputK.style.display = "none";
+                            pMld.innerHTML = "Det holder med 5 vel?"
+                        }
+                    } else {
+                        pMld.innerHTML = "Den finnes fra før";
                     }
 
                 } else {
-                    pMld.innerHTML = "skriv noe du";
+                    pMld.innerHTML = "Skriv noe du";
                 }
 
             }
@@ -201,9 +211,8 @@
             } );
             window.sessionStorage.setItem( "kategoriStr", kategoriArrNew.join() );
             var item = window.sessionStorage.getItem( "kategoriStr" );
-            console.log(item);
+            console.log( item );
         };
-
     </script>
 </body>
 </html>
