@@ -17,12 +17,8 @@
 
     include "elements/echo_innlegg.php";
 
-    $sql_rest = "where timestampdiff(DAY, tid, now()) = 0
-                    order by innlegg_id desc";
-
-    echo_innlegg( $sql_rest );
+    echo_innlegg( "hot" );
         
-        echo $sql;
     } else {
         
         echo "<p><a href='logg_inn.php'>Logg inn</a> først du</p>";

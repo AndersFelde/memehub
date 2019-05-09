@@ -34,11 +34,21 @@ function echo_innlegg( $ting ) {
             }
         }
     }
+    if ($ting == "hot"){
+        $ting = ", count(voted)
+                from innlegg
+                join voted on voted.innlegg_id = innlegg.innlegg_id
+                join bruker ON innlegg.bruker_id=bruker.bruker_id
+                order by second ASC";
+        //join innlegg on voted.innlegg_id = innlegg.innlegg_id
+        //, IFNULL(sum(voted.innlegg_id=innlegg.innlegg_id), 0) as ant_votes
+    }
 
 
     $sql = "select
-        innlegg_id,
+        innlegg.innlegg_id,
         brukernavn,
+        IFNULL(tekst, '') as tekst,
         innlegg.bilde,
         timestampdiff(SECOND, tid, now()) as second,
         timestampdiff(MINUTE, tid, now()) as minute,
@@ -47,9 +57,9 @@ function echo_innlegg( $ting ) {
         timestampdiff(MONTH, tid, now()) as month,
         timestampdiff(WEEK, tid, now()) as week,
         timestampdiff(YEAR, tid, now()) as year
-        from innlegg
-        join bruker ON innlegg.bruker_id=bruker.bruker_id
         $ting";
+    
+    echo $sql;
 
     $resultat = $kobling->query( $sql );
 
@@ -61,6 +71,7 @@ function echo_innlegg( $ting ) {
 
         $bilde = $rad[ "bilde" ];
         $innlegg_id = $rad[ "innlegg_id" ];
+        $tekst = $rad["tekst"];
         $second = $rad[ "second" ];
         $minute = $rad[ "minute" ];
         $hour = $rad[ "hour" ];
@@ -113,24 +124,26 @@ function echo_innlegg( $ting ) {
 
         $resultat_kat = $kobling->query( $sql_kat );
 
-        $sql_vote = "select IFNULL(sum(vote=1), 0) as up, IFNULL(sum(vote=0), 0) as down from voted where innlegg_id = $innlegg_id ";
+        $sql_vote = "select 
+                    IFNULL(sum(vote=1), 0) as up, 
+                    IFNULL(sum(vote=0), 0) as down 
+                    from voted 
+                    where innlegg_id = $innlegg_id ";
+        
+        $sql_kom = "select 
+                    count(*) as komCon
+                    from kommentar
+                    where innlegg_id = $innlegg_id ";
 
-        if ( mysqli_num_rows( $resultat_vote = $kobling->query( $sql_vote ) ) > 0 ) {
 
-            $rad_vote = $resultat_vote->fetch_assoc();
+            $rad_vote = ($kobling->query($sql_vote))->fetch_assoc();
+            $rad_kom = ($kobling->query($sql_kom))->fetch_assoc();
 
             $upcount = $rad_vote[ "up" ];
             $downcount = $rad_vote[ "down" ];
+            $commentcount = $rad_kom["komCon"];
+            
 
-        } else {
-
-            $upcount = 0;
-            $downcount = 0;
-        }
-
-
-
-        $commentcount = 0;
         echo "<div class='categorier'>";
         while ( $rad_kat = $resultat_kat->fetch_assoc() ) {
             $kategori = $rad_kat[ "kategori" ];
@@ -141,6 +154,7 @@ function echo_innlegg( $ting ) {
         echo "</div>";
 
         echo "<img src='images/innlegg_images/$bilde'><br>";
+        echo "<p class='tekst'>$tekst</p>";
 
         if ( isset( $_SESSION[ "bruker_id" ] ) ) {
 

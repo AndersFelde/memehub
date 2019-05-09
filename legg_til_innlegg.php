@@ -41,12 +41,14 @@
             if ( isset( $_POST[ "tekst" ] ) ) {
                 $tekst_sql = ", tekst";
 
-                $tekst = $_POST[ "tekst" ];
+                $tekst_ = $_POST[ "tekst" ];
+                $tekst = ", '$tekst_'";
             } else {
                 $tekst_sql = "";
+                $tekst = "";
             }
 
-            $sql = "insert into innlegg (bruker_id, bilde, tid" . $tekst_sql . ") VALUES('$bruker_id', '$bilde_name_new', NOW())";
+            $sql = "insert into innlegg (bruker_id, bilde, tid" . $tekst_sql . ") VALUES('$bruker_id', '$bilde_name_new', NOW()$tekst)";
 
             if ( $kobling->query( $sql ) ) {
 
@@ -87,7 +89,7 @@
 
         <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
         <br>
-
+        <textarea name="tekst" maxlength="50" cols="30" rows="10"></textarea>
         <input type="submit" value="Last opp" name="insert_inn"><br>
 
         <datalist id="kategorier">
