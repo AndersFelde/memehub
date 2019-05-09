@@ -118,18 +118,18 @@ function echo_innlegg( $ting ) {
         if ( mysqli_num_rows( $resultat_vote = $kobling->query( $sql_vote ) ) > 0 ) {
 
             $rad_vote = $resultat_vote->fetch_assoc();
-            
+
             $upcount = $rad_vote[ "up" ];
             $downcount = $rad_vote[ "down" ];
-            
+
         } else {
-            
+
             $upcount = 0;
             $downcount = 0;
         }
 
 
-        
+
         $commentcount = 0;
         echo "<div class='categorier'>";
         while ( $rad_kat = $resultat_kat->fetch_assoc() ) {
@@ -203,21 +203,36 @@ function echo_innlegg( $ting ) {
             echo "<p id='dcount$innlegg_id' class='count'>$downcount</p>";
             echo "</div>";
             echo "</div>";
-
+        } else {
+            
+            echo "<div class='postinfo'>";
             echo "<div>";
-            echo "<a href='#' class='Material icon'>share</a>";
-            echo "</div>";
-
             echo "<div>";
-            echo "<p class='count'>$commentcount</p>";
-            echo "<a href='#' class='Material icon'>short_text</a>";
-            echo "<p class='count hidemobile'>Kommentarer</p>";
+            $new_page = '"logg_inn"';
+            echo "<button onclick='redir($new_page)' class='Material icon'>arrow_upward</button>";
+            echo "<p id='ucount$innlegg_id' class='count'>$upcount</p>";
             echo "</div>";
+            echo "<div>";
+            echo "<button onclick='redir($new_page)' class='Material icon'>arrow_downward</button>";
+             echo "<p id='dcount$innlegg_id' class='count'>$downcount</p>";
+            echo "</div>";
+            echo "</div>";
+            
 
-            echo "</div>";
-
-            echo "</div>";
         }
+        echo "<div>";
+        echo "<a href='#' class='Material icon'>share</a>";
+        echo "</div>";
+
+        echo "<div>";
+        echo "<p class='count'>$commentcount</p>";
+        echo "<a href='#' class='Material icon'>short_text</a>";
+        echo "<p class='count hidemobile'>Kommentarer</p>";
+        echo "</div>";
+
+        echo "</div>";
+
+        echo "</div>";
     }
     echo "</div>";
 }
