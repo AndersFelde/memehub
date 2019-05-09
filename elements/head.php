@@ -62,9 +62,12 @@ global $root;
             if ( this.readyState == 4 && this.status == 200 ) {
                 var sql = this.responseText;
                 if ( sql == "true" ) {
-                    console.log( type );
+                    var ucount = document.getElementById( "ucount" + inn );
+                    var dcount = document.getElementById( "dcount" + inn );
                     switch ( vote ) {
                         case 1:
+
+
 
                             switch ( type ) {
                                 case "norm":
@@ -73,6 +76,7 @@ global $root;
                                     var buttonOtherId = "downVote";
                                     var buttonValueSame = "del";
                                     var buttonValueOther = "upd";
+                                    ucount.innerHTML = parseInt( ucount.innerHTML ) + 1;
                                     break;
                                 case "upd":
                                     var buttonId = "upVote";
@@ -82,6 +86,9 @@ global $root;
                                     var buttonOtherId = "downVote";
                                     var buttonStyleOther = "#9F9F9F";
                                     var buttonValueOther = "upd";
+                                    ucount.innerHTML = parseInt( ucount.innerHTML ) + 1;
+                                    dcount.innerHTML = parseInt( dcount.innerHTML ) - 1;
+
 
                                     document.getElementById( buttonOtherId + inn ).style.color = buttonStyleOther;
                                     break;
@@ -91,12 +98,16 @@ global $root;
                                     var buttonOtherId = "downVote";
                                     var buttonValueSame = "norm";
                                     var buttonValueOther = "norm"
+                                    ucount.innerHTML = parseInt( ucount.innerHTML ) - 1;
                             }
 
                             break;
 
 
                         case 0:
+
+
+
 
                             switch ( type ) {
                                 case "norm":
@@ -105,6 +116,7 @@ global $root;
                                     var buttonOtherId = "upVote";
                                     var buttonValueSame = "del";
                                     var buttonValueOther = "upd"
+                                    dcount.innerHTML = parseInt( dcount.innerHTML ) + 1;
                                     break;
                                 case "upd":
                                     var buttonId = "downVote";
@@ -117,6 +129,8 @@ global $root;
 
                                     document.getElementById( buttonOtherId + inn ).style.color = buttonStyleOther;
 
+                                    dcount.innerHTML = parseInt( dcount.innerHTML ) + 1;
+                                    ucount.innerHTML = parseInt( ucount.innerHTML ) - 1;
                                     break;
                                 case "del":
                                     var buttonId = "downVote";
@@ -124,6 +138,7 @@ global $root;
                                     var buttonOtherId = "upVote";
                                     var buttonValueOther = "norm";
                                     var buttonValueSame = "norm"
+                                    dcount.innerHTML = parseInt( dcount.innerHTML ) - 1;
                             }
 
                             break;

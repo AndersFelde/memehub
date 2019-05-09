@@ -192,7 +192,7 @@ function echo_innlegg( $ting ) {
             } else {
                 echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='upVote$innlegg_id'>arrow_upward</button>";
             }
-            echo "<p class='count'>$upcount</p>";
+            echo "<p id='ucount$innlegg_id' class='count'>$upcount</p>";
             echo "</div>";
             echo "<div>";
             if ( $downvoted == true ) {
@@ -200,7 +200,7 @@ function echo_innlegg( $ting ) {
             } else {
                 echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='downVote$innlegg_id'>arrow_downward</button>";
             }
-            echo "<p class='count'>$downcount</p>";
+            echo "<p id='dcount$innlegg_id' class='count'>$downcount</p>";
             echo "</div>";
             echo "</div>";
 
