@@ -5,6 +5,26 @@
     include "elements/head.php";
     $title = "Hjem";
     ?>
+    <script>
+        function insertKat( innleggId ) {
+
+
+            var kategoriStr = window.sessionStorage.getItem( "kategoriStr" );
+            if ( !(kategoriStr == ("" || null))) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if ( this.readyState == 4 && this.status == 200 ) {
+                        window.location.href = "bruker.php";
+                        window.sessionStorage.removeItem( "kategoriStr" );
+                    }
+                };
+                xmlhttp.open( "GET", "elements/insert_kategori.php?i='" + innleggId + "'&k=" + kategoriStr, true );
+                xmlhttp.send();
+            } else {
+                window.location.href = "bruker.php";
+            }
+        };
+    </script>
 
 </head>
 
@@ -33,17 +53,19 @@
                 $bilde_dest = 'images/innlegg_images/' . $bilde_name_new;
 
                 move_uploaded_file( $bilde_tmp_name, $bilde_dest );
-                
-                $new_page = '"bruker"';
+
+                $innlegg_id = $kobling->insert_id;
                 //fordi den må ha "" rundt seg
-                echo "<body onload='redir($new_page)'>";
+                echo "<body onload='insertKat($innlegg_id)'>";
                 echo '<div id="synd">Det var synd :(</div>';
                 echo "<div>Redirecting...</div>";
 
 
             } else {
 
-                echo "Det har skjedd en feil med spørringen<br>
+                echo "<body>";
+
+                echo "Det har skjedd en feil med innlegget<br>
                                 $kobling->error";
             }
 
@@ -56,7 +78,7 @@
     <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
         <img id="filePreview" src="">
         <div id="nyKategoriDiv">
-            <span style="display:none;" id="nyKategori1"><button id="cancelButton" onclick="delKategori(1)">cancel</button></span>
+
         </div>
         <br>
         <input id="fileUpload" onChange="preview()" required type="file" name="bilde">
@@ -71,70 +93,82 @@
         <datalist id="kategorier">
             <?php
 
-    $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
+            $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
 
-    $resultat = $kobling->query($sql);
+            $resultat = $kobling->query( $sql );
 
-    while($rad = $resultat->fetch_assoc()){
+            while ( $rad = $resultat->fetch_assoc() ) {
 
-        $kategori = $rad["kategori"];
+                $kategori = $rad[ "kategori" ];
 
-        echo "<option value='$kategori'>";
+                echo "<option value='$kategori'>";
 
-    }
+            }
 
-    ?>
+            ?>
         </datalist>
 
     </form>
 
     <script>
         var kat_nr = 1;
-        
+        var maxKatNr = 5;
+        var kategoriArr = new Array();
+        var inputK = document.getElementById( "inputKategori" );
+        var pMld = document.getElementById( "inputKategoriMld" );
+        var kategoriArrNew = new Array();
+
+
         function addKategori( event ) {
             // Number 13 is the "Enter" key on the keyboard
             if ( event.keyCode === 13 ) {
                 // Cancel the default action, if needed
                 event.preventDefault();
 
-                var inputK = document.getElementById( "inputKategori" );
-                var kategori = inputK.value;
-                var pMld = document.getElementById( "inputKategoriMld" );
+
+                var kategori = inputK.value.toLowerCase();
+                console.log( kategori.length );
+
                 if ( kategori.length > 1 ) {
-                    inputK.value = "";
+                    if ( !kategoriArr.includes( kategori ) ) {
+                        //<span id="nyKategori1"><button type="button" id="cancelButton" onclick="delKategori(1)">cancel</button></span>
 
-                    var span = document.getElementById( "nyKategori" + kat_nr );
-                    var button = document.getElementById("cancelButton");
-                    span.style.display = "block";
-                    
-                    kat_nr++;
+                        var span = '<span class="ny_kategori" id="nyKategori' + kat_nr + '">' + kategori + '</span>';
 
-                    var span_cln = span.cloneNode( true );
-                    span_cln.id = "nyKategori" + kat_nr;
-                    span.style.display = "none";
-                    
-
-                    span.innerHTML = kategori+button;
-
-                    var div = document.getElementById( "nyKategoriDiv" );
-
-                    div.appendChild( span_cln );
+                        var button = '<button type="button" id="cancelButton" onclick="delKategori(' + kat_nr + ')">cancel</button>'
 
 
+                        var div = document.getElementById( "nyKategoriDiv" );
 
-                    pMld.innerHTML = "";
+                        div.insertAdjacentHTML( 'beforeEnd', span );
+                        span = document.getElementById( "nyKategori" + kat_nr );
+                        span.insertAdjacentHTML( 'beforeEnd', button );
 
-                    if ( kat_nr > 5 ) {
+                        //button.setAttribute( "onClick", "delKategori(" + kat_nr + ")" );
 
-                        inputK.style.display = "none";
-                        pMld.innerHTML = "Det holder med 5 vel?"
+                        inputK.value = "";
 
+                        kategoriArr[ kat_nr - 1 ] = kategori;
 
+                        kategoriArrNewUpd();
 
+                        //console.log( kategoriArr );
+
+                        kat_nr++;
+
+                        pMld.innerHTML = "";
+
+                        if ( kat_nr > maxKatNr ) {
+
+                            inputK.style.display = "none";
+                            pMld.innerHTML = "Det holder med 5 vel?"
+                        }
+                    } else {
+                        pMld.innerHTML = "Den finnes fra før";
                     }
-                } else {
 
-                    pMld.innerHTML = "skriv noe du";
+                } else {
+                    pMld.innerHTML = "Skriv noe du";
                 }
 
             }
@@ -148,7 +182,37 @@
             }
             var upload = document.getElementById( "fileUpload" );
             reader.readAsDataURL( upload.files[ 0 ] );
-        }
+        };
+
+        function delKategori( delKatNr ) {
+
+            var spanDel = document.getElementById( "nyKategori" + delKatNr );
+            spanDel.parentNode.removeChild( spanDel );
+
+            kategoriArr[ delKatNr - 1 ] = "";
+
+            //console.log( kategoriArr.join() );
+
+            maxKatNr++;
+
+            inputK.style.display = "block";
+            pMld.innerHTML = "";
+
+            kategoriArrNewUpd();
+
+
+        };
+
+        function kategoriArrNewUpd() {
+            var kategoriArrNew = kategoriArr.filter( function ( item ) {
+
+                return item !== "";
+
+            } );
+            window.sessionStorage.setItem( "kategoriStr", kategoriArrNew.join() );
+            var item = window.sessionStorage.getItem( "kategoriStr" );
+            console.log( item );
+        };
     </script>
 </body>
 </html>
