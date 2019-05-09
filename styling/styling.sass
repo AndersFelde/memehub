@@ -14,8 +14,6 @@ $Orange: #F29117
 $DarkBlue: #033F61
 
 
-$PostSize: 20vw
-
 // <h#> tags
 $Headline: 59px
 $Subline: 36px
@@ -376,7 +374,9 @@ nav
 
 .post
   background-color: $White
-  width: $PostSize
+  min-width: 300px
+  max-width: 100%
+  width: 20vw
   display: inline-flex
   flex-flow: column nowrap
   margin: 4vh 2vw
@@ -393,8 +393,11 @@ nav
       display: inline-block
 
   img
-    width: $PostSize
-    height: $PostSize
+    box-shadow: $Shadow
+    min-height: 300px
+    max-height: 100vw
+    height: 20vw
+    width: 100%
     object-fit: cover
 
 

@@ -2,8 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
     <?php
+    $Title = "Hjem";
     include "elements/head.php";
-    $title = "Hjem";
     ?>
 </head>
 

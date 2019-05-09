@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <?php
-    $Title = "Logg inn | MemeHub - Nye dank memes hver uke";
+    $Title = "Logg inn";
     include "elements/head.php";
     ?>
 </head>
@@ -39,6 +39,9 @@ if ( isset( $_POST[ "logg_inn" ] ) ) {
         echo "<div>Redirecting...</div>";
     }
 
+} else {
+    echo "<body>";
+    echo '<div id="synd">Det var synd :(</div>';
 }
 ?>
 <a href="index.php" class="Material exit">clear</a>

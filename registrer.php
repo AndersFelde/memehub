@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <?php
-    $Title = "Registrer | MemeHub - Nye dank memes hver uke";
+    $Title = "Registrer";
     include "elements/head.php";
     ?>
 </head>

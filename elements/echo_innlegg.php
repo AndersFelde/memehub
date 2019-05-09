@@ -125,7 +125,7 @@ function echo_innlegg( $ting ) {
         }
         echo "</div>";
 
-        echo "<img src='images/innlegg_images/$bilde'><br>";
+        echo "<img src='images/innlegg_images/$bilde'>";
 
         if ( isset( $_SESSION[ "bruker_id" ] ) ) {
 
@@ -209,6 +209,7 @@ function echo_innlegg( $ting ) {
     }
     echo "</div>";
 }
+echo "</div>";
 
 
 

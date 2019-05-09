@@ -1,25 +1,26 @@
-<?php session_start();?>   
-<base href="<?php $root = "/memehub/"; global $root; ?>" target="_self">
+    <?php session_start();?>
+    <base href="<?php $root = "/memehub/"; global $root; ?>" target="_self">
 
 
     <!-- Putt dette inni "href" over? Broken nå da
 
-<php $root = "/204/elev20408/eget_arbeid/memehub/"; global $root; ?>
+    <php $root = "/204/elev20408/eget_arbeid/memehub/"; global $root; ?>
 
-<php
-$d = str_replace("\\", "/", __DIR__);
-$root = str_replace($_SERVER['DOCUMENT_ROOT'], "", $d);
-$root = str_replace("elements", "", $root);
-echo $root;
-global $root;
-?>
--->
+    <php
+    $d = str_replace("\\", "/", __DIR__);
+    $root = str_replace($_SERVER['DOCUMENT_ROOT'], "", $d);
+    $root = str_replace("elements", "", $root);
+    echo $root;
+    global $root;
+    ?>
+    -->
 
+    <title><?php global $Title; echo $Title . " | MemeHub - Nye dank memes hver uke"; ?></title>
 
     <link rel="stylesheet" href="styling/styling.css">
     <link rel="shortcut icon" href="images/favicon.png">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
     <meta name="author" content="Sander Godard, Anders Kvamme Felde">
     <meta name="keywords" content="MemeHub, memehub, Memehub, dank memes, post memes, share memes">
 
@@ -31,22 +32,22 @@ global $root;
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#6C1919">
 
-<!-- Disse 3 meta taggene trenger du ikke røre -->
-<!-- Chrome, Firefox OS and Opera -->
-<meta name="theme-color" content="#F29117">
-<!-- Windows Phone -->
-<meta name="msapplication-navbutton-color" content="#F29117">
-<!-- iOS Safari -->
-<meta name="apple-mobile-web-app-status-bar-style" content="#F29117">
+    <!-- Disse 3 meta taggene trenger du ikke røre -->
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#F29117">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#F29117">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#F29117">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-<script defer type="text/javascript" src="scripts/activeNav.js"></script>
-<script defer type="text/javascript" src="scripts/profileDropDown.js"></script>
-<script defer type="text/javascript" src="scripts/errorMsgCheck.js"></script>
-<script defer type="text/javascript" src="scripts/tooBad.js"></script>
-<script type="text/javascript" src="scripts/redirect.js"></script>
+    <script defer type="text/javascript" src="scripts/activeNav.js"></script>
+    <script defer type="text/javascript" src="scripts/profileDropDown.js"></script>
+    <script defer type="text/javascript" src="scripts/errorMsgCheck.js"></script>
+    <script defer type="text/javascript" src="scripts/tooBad.js"></script>
+    <script type="text/javascript" src="scripts/redirect.js"></script>
 
 
     <script>
@@ -143,7 +144,7 @@ global $root;
             xmlhttp.send();
         }
     </script>
-<?php 
-include "elements/kobling.php";
+    <?php
+    include "elements/kobling.php";
 
-?>
+    ?>

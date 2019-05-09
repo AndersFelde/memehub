@@ -413,6 +413,8 @@ nav #Active:hover {
 
 .post {
   background-color: #FFFFFF;
+  min-width: 300px;
+  max-width: 100%;
   width: 20vw;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -442,8 +444,12 @@ nav #Active:hover {
   display: inline-block;
 }
 .post img {
-  width: 20vw;
+  -webkit-box-shadow: 0px 5px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 5px 16px 0px rgba(0, 0, 0, 0.2);
+  min-height: 300px;
+  max-height: 100vw;
   height: 20vw;
+  width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
