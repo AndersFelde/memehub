@@ -49,6 +49,8 @@ function echo_innlegg( $ting ) {
         timestampdiff(WEEK, tid, now()) as week,
         timestampdiff(YEAR, tid, now()) as year
         $ting";
+    
+    echo "$sql";
 
     $resultat = $kobling->query( $sql );
 
