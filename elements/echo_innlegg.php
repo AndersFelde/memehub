@@ -37,8 +37,9 @@ function echo_innlegg( $ting ) {
 
 
     $sql = "select
-        innlegg_id,
+        innlegg.innlegg_id,
         brukernavn,
+        IFNULL(tekst, '') as tekst,
         innlegg.bilde,
         timestampdiff(SECOND, tid, now()) as second,
         timestampdiff(MINUTE, tid, now()) as minute,
@@ -47,8 +48,6 @@ function echo_innlegg( $ting ) {
         timestampdiff(MONTH, tid, now()) as month,
         timestampdiff(WEEK, tid, now()) as week,
         timestampdiff(YEAR, tid, now()) as year
-        from innlegg
-        join bruker ON innlegg.bruker_id=bruker.bruker_id
         $ting";
 
     $resultat = $kobling->query( $sql );
@@ -61,6 +60,7 @@ function echo_innlegg( $ting ) {
 
         $bilde = $rad[ "bilde" ];
         $innlegg_id = $rad[ "innlegg_id" ];
+        $tekst = $rad["tekst"];
         $second = $rad[ "second" ];
         $minute = $rad[ "minute" ];
         $hour = $rad[ "hour" ];
@@ -113,24 +113,26 @@ function echo_innlegg( $ting ) {
 
         $resultat_kat = $kobling->query( $sql_kat );
 
-        $sql_vote = "select IFNULL(sum(vote=1), 0) as up, IFNULL(sum(vote=0), 0) as down from voted where innlegg_id = $innlegg_id ";
+        $sql_vote = "select 
+                    IFNULL(sum(vote=1), 0) as up, 
+                    IFNULL(sum(vote=0), 0) as down 
+                    from voted 
+                    where innlegg_id = $innlegg_id ";
+        
+        $sql_kom = "select 
+                    count(*) as komCon
+                    from kommentar
+                    where innlegg_id = $innlegg_id ";
 
-        if ( mysqli_num_rows( $resultat_vote = $kobling->query( $sql_vote ) ) > 0 ) {
 
-            $rad_vote = $resultat_vote->fetch_assoc();
-            
+            $rad_vote = ($kobling->query($sql_vote))->fetch_assoc();
+            $rad_kom = ($kobling->query($sql_kom))->fetch_assoc();
+
             $upcount = $rad_vote[ "up" ];
             $downcount = $rad_vote[ "down" ];
+            $commentcount = $rad_kom["komCon"];
             
-        } else {
-            
-            $upcount = 0;
-            $downcount = 0;
-        }
 
-
-        
-        $commentcount = 0;
         echo "<div class='categorier'>";
         while ( $rad_kat = $resultat_kat->fetch_assoc() ) {
             $kategori = $rad_kat[ "kategori" ];
@@ -140,7 +142,10 @@ function echo_innlegg( $ting ) {
         }
         echo "</div>";
 
-        echo "<img src='images/innlegg_images/$bilde'>";
+
+        echo "<img src='images/innlegg_images/$bilde'><br>";
+        echo "<p class='tekst'>$tekst</p>";
+
 
         if ( isset( $_SESSION[ "bruker_id" ] ) ) {
 
@@ -192,7 +197,7 @@ function echo_innlegg( $ting ) {
             } else {
                 echo "<button value='$func_type_up' onclick=" . '"' . "vote(1,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='upVote$innlegg_id'>arrow_upward</button>";
             }
-            echo "<p class='count'>$upcount</p>";
+            echo "<p id='ucount$innlegg_id' class='count'>$upcount</p>";
             echo "</div>";
             echo "<div>";
             if ( $downvoted == true ) {
@@ -200,24 +205,39 @@ function echo_innlegg( $ting ) {
             } else {
                 echo "<button value='$func_type_down' onclick=" . '"' . "vote(0,$bruker_id,$innlegg_id)" . '"' . " class='Material icon' id='downVote$innlegg_id'>arrow_downward</button>";
             }
-            echo "<p class='count'>$downcount</p>";
+            echo "<p id='dcount$innlegg_id' class='count'>$downcount</p>";
             echo "</div>";
             echo "</div>";
-
+        } else {
+            
+            echo "<div class='postinfo'>";
             echo "<div>";
-            echo "<a href='#' class='Material icon'>share</a>";
-            echo "</div>";
-
             echo "<div>";
-            echo "<p class='count'>$commentcount</p>";
-            echo "<a href='#' class='Material icon'>short_text</a>";
-            echo "<p class='count hidemobile'>Kommentarer</p>";
+            $new_page = '"logg_inn"';
+            echo "<button onclick='redir($new_page)' class='Material icon'>arrow_upward</button>";
+            echo "<p id='ucount$innlegg_id' class='count'>$upcount</p>";
             echo "</div>";
+            echo "<div>";
+            echo "<button onclick='redir($new_page)' class='Material icon'>arrow_downward</button>";
+             echo "<p id='dcount$innlegg_id' class='count'>$downcount</p>";
+            echo "</div>";
+            echo "</div>";
+            
 
-            echo "</div>";
-
-            echo "</div>";
         }
+        echo "<div>";
+        echo "<a href='#' class='Material icon'>share</a>";
+        echo "</div>";
+
+        echo "<div>";
+        echo "<p class='count'>$commentcount</p>";
+        echo "<a href='#' class='Material icon'>short_text</a>";
+        echo "<p class='count hidemobile'>Kommentarer</p>";
+        echo "</div>";
+
+        echo "</div>";
+
+        echo "</div>";
     }
     echo "</div>";
 }

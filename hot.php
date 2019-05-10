@@ -16,13 +16,18 @@
     if(isset($_SESSION["bruker_id"])){
 
     include "elements/echo_innlegg.php";
-
-    $sql_rest = "where timestampdiff(DAY, tid, now()) = 0
-                    order by innlegg_id desc";
+        
+    $sql_rest = ", IFNULL(sum(voted.innlegg_id=innlegg.innlegg_id), 0) as ant_votes
+                from innlegg
+                join voted on voted.innlegg_id = innlegg.innlegg_id
+                join bruker ON innlegg.bruker_id=bruker.bruker_id
+                where timestampdiff(DAY, tid, now()) = 0
+                group by innlegg_id
+                order by ant_votes desc, innlegg_id desc";
 
     echo_innlegg( $sql_rest );
+        
 
-        echo $sql;
     } else {
 
         echo "<p><a href='logg_inn.php'>Logg inn</a> først du</p>";

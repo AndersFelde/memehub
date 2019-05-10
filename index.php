@@ -15,7 +15,9 @@
 
     include "elements/echo_innlegg.php";
 
-    $sql_rest = "order by innlegg_id desc";
+    $sql_rest = "from innlegg
+                join bruker ON innlegg.bruker_id=bruker.bruker_id
+                order by second";
 
     echo_innlegg( $sql_rest );
 

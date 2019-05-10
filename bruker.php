@@ -24,8 +24,10 @@ $title = "Hjem";
     <?php
     include "elements/echo_innlegg.php";
 
-    $sql_rest = "and innlegg.bruker_id = $bruker_id
-                order by innlegg_id desc";
+    $sql_rest = "from innlegg
+                join bruker ON innlegg.bruker_id=bruker.bruker_id
+                and innlegg.bruker_id = $bruker_id
+                order by second";
     
 
     echo_innlegg( $sql_rest );
