@@ -137,7 +137,7 @@
 
                         var span = '<span class="ny_kategori" id="nyKategori' + kat_nr + '">' + kategori + '</span>';
 
-                        var button = '<button type="button" id="cancelButton" onclick="delKategori(' + kat_nr + ')">cancel</button>'
+                        var button = '<button type="button" id="cancelButton" onclick="delKategori(' + kat_nr + ')">x</button>'
 
 
                         var div = document.getElementById( "nyKategoriDiv" );
