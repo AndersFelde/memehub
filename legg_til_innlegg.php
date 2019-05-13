@@ -10,7 +10,7 @@
 
 
             var kategoriStr = window.sessionStorage.getItem( "kategoriStr" );
-            if ( !(kategoriStr == ("" || null))) {
+            if ( !( kategoriStr == ( "" || null ) ) ) {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function () {
                     if ( this.readyState == 4 && this.status == 200 ) {
@@ -79,56 +79,56 @@
     }
 
     ?>
-      <form id="form" class="newPost" action="legg_til_innlegg.php" method="post" enctype="multipart/form-data">
+    <form id="form" class="newPost" action="legg_til_innlegg.php" method="post" enctype="multipart/form-data">
 
         <div>
-          <label>Bilde</label>
-          <img id="filePreview" src="">
-          <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="bilde">
+            <label>Bilde</label>
+            <img id="filePreview">
+            <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="bilde">
         </div>
 
 
         <div>
-          <div>
-            <label>Kategorier</label>
-            <div id="nyKategoriDiv">
-            </div>
-            <p id="inputKategoriMld"></p>
-            <input maxlength="24" onkeypress="addKategori(event)" id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
-            <a href="ansvar.php" class="smallink">Regler for memes og innlegg?</a>
-          </div>
-
-          <div>
-            <label>Første kommentar</label>
-            <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
-            <textarea name="tekst" maxlength="50" cols="30" rows="10" placeholder="Her kan du skrive inn tittelen på memen"></textarea>
-
-            <div class="buttonSplitAgain">
-              <button type="submit" name="insert_inn">Tilbake</button>
-              <button type="submit" name="insert_inn" class="orange">Legg ut</button>
+            <div>
+                <label>Kategorier</label>
+                <div id="nyKategoriDiv">
+                </div>
+                <p id="inputKategoriMld"></p>
+                <input maxlength="24" onkeypress="addKategori(event)" id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
+                <a href="ansvar.php" class="smallink">Regler for memes og innlegg?</a>
             </div>
 
-            <datalist id="kategorier">
-              <?php
+            <div>
+                <label>Første kommentar</label>
+                <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
+                <textarea name="tekst" maxlength="50" cols="30" rows="10" placeholder="Her kan du skrive inn tittelen på memen"></textarea>
 
-              $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
+                <div class="buttonSplitAgain">
+                    <button type="submit" name="insert_inn">Tilbake</button>
+                    <button type="submit" name="insert_inn" class="orange">Legg ut</button>
+                </div>
 
-              $resultat = $kobling->query( $sql );
+                <datalist id="kategorier">
+                    <?php
 
-              while ( $rad = $resultat->fetch_assoc() ) {
+                    $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
 
-                  $kategori = $rad[ "kategori" ];
+                    $resultat = $kobling->query( $sql );
 
-                  echo "<option value='$kategori'>";
+                    while ( $rad = $resultat->fetch_assoc() ) {
 
-              }
+                        $kategori = $rad[ "kategori" ];
 
-              ?>
-            </datalist>
-          </div>
+                        echo "<option value='$kategori'>";
+
+                    }
+
+                    ?>
+                </datalist>
+            </div>
         </div>
 
-      </form>
+    </form>
 
 
     <script>
@@ -138,6 +138,7 @@
         var inputK = document.getElementById( "inputKategori" );
         var pMld = document.getElementById( "inputKategoriMld" );
         var kategoriArrNew = new Array();
+        var antKat = 0;
 
 
         function addKategori( event ) {
@@ -161,6 +162,7 @@
 
                         var div = document.getElementById( "nyKategoriDiv" );
 
+                        div.style.display = "flex";
                         div.insertAdjacentHTML( 'beforeEnd', span );
                         span = document.getElementById( "nyKategori" + kat_nr );
                         span.insertAdjacentHTML( 'beforeEnd', button );
@@ -176,6 +178,10 @@
                         //console.log( kategoriArr );
 
                         kat_nr++;
+
+                        antKat++;
+
+
 
                         pMld.innerHTML = "";
 
@@ -220,6 +226,12 @@
             pMld.innerHTML = "";
 
             kategoriArrNewUpd();
+
+            antKat--;
+
+            if ( antKat == 0 ) {
+                document.getElementById( "nyKategoriDiv" ).style.display = "none";
+            }
 
 
         };
