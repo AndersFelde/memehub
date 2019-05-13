@@ -205,7 +205,8 @@ nav #Active:hover {
   font-size: 26px;
   margin: 0 0 3px;
 }
-.loginWidth .loginBox input {
+
+input, textarea, select {
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
   color: #383838;
@@ -217,10 +218,11 @@ nav #Active:hover {
   border: 1px solid #707070;
   height: 70px;
 }
-.loginWidth .loginBox input:focus {
+input:focus, textarea:focus, select:focus {
   border-radius: 8px;
 }
-.loginWidth .loginBox .buttonSplit {
+
+.buttonSplit {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -232,10 +234,11 @@ nav #Active:hover {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
-.loginWidth .loginBox .buttonSplit button {
+.buttonSplit button {
   width: calc(50% - 5px);
 }
-.loginWidth .loginBox button {
+
+button {
   cursor: pointer;
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
@@ -259,17 +262,18 @@ nav #Active:hover {
       align-content: center;
   color: #000000;
 }
-.loginWidth .loginBox button:hover {
+button:hover {
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
   background-color: whitesmoke;
 }
-.loginWidth .loginBox .orange {
+
+.orange {
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
   background-color: #F29117;
 }
-.loginWidth .loginBox .orange:hover {
+.orange:hover {
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
   background-color: #e8870d;
@@ -532,7 +536,7 @@ nav #Active:hover {
 .postinfo .downvoted {
   color: #033F61;
 }
-.postinfo .count {
+.postinfo .count9 {
   color: #9F9F9F;
   margin: auto 6px;
   font-size: 15px;
@@ -555,7 +559,7 @@ nav #Active:hover {
       align-content: center;
   text-align: center;
   text-transform: uppercase;
-  font-family: "Calibri", "Arial", sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 100px;
   width: 90px;
   height: 90px;
@@ -567,61 +571,152 @@ nav #Active:hover {
   bottom: 2vw;
   right: 2vw;
 }
-/*---------------------search css-----------------------------------*/
-.autocomplete {
-    /*the container must be positioned relative:*/
-    position: relative;
-    display: inline-block;
-}
-.search_form input {
-    border: 1px solid transparent;
-    background-color: #f1f1f1;
-    padding: 10px;
-    font-size: 16px;
-}
-.search_form input[type=text] {
-    background-color: #f1f1f1;
-    width: 100%;
-}
-.search_form input[type=submit] {
-    background-color: DodgerBlue;
-    color: #fff;
-    cursor: pointer;
-}
-.autocomplete-items {
-    position: absolute;
-    border: 1px solid #d4d4d4;
-    border-bottom: none;
-    border-top: none;
-    z-index: 99;
-    /*position the autocomplete items to be the same width as the container:*/
-    top: 100%;
-    left: 0;
-    right: 0;
-}
-.autocomplete-wrap {
-    display: flex;
-    flex-direction: row;
 
-    cursor: pointer;
-    background-color: #fff;
-    border-bottom: 1px solid #d4d4d4;
+.postBody h1 {
+  display: block;
+  text-align: center;
+  width: 600px;
+  margin: auto;
+  font-size: 54px;
 }
-.autocomplete-wrap:hover {
-    /*when hovering an item:*/
-    background-color: #e9e9e9;
+
+.newPost {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+  max-width: 900px;
+  margin: 10vh auto 3vh;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
-.autocomplete-active {
-    /*when navigating through the items using the arrow keys:*/
-    background-color: DodgerBlue !important;
-    color: #ffffff;
+.newPost div {
+  margin: 6px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
-.search-text {
-    padding: 15px;
-    width: 50%;
-    margin: 0px;
+.newPost div img {
+  width: calc((900px + 12px) /2);
+  height: calc((900px + 12px) /2);
+  margin: 6px 0 18px;
+  border: 0px solid white;
 }
-.search-img {
-    background-size: cover;
-    width: 20%;
+.newPost div label {
+  font-size: 26px;
+  color: #383838;
+  text-align: left;
+  margin-bottom: 4px;
 }
+.newPost div textarea {
+  min-height: 70px;
+  height: 200px;
+  resize: vertical;
+  max-height: 200px;
+}
+.newPost div .smallink {
+  color: #F29117;
+  font-size: 11px;
+  text-decoration: underline;
+}
+
+.buttonSplitAgain {
+  margin: 6px 0 !important;
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-flow: row nowrap !important;
+          flex-flow: row nowrap !important;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-pack: justify !important;
+      -ms-flex-pack: justify !important;
+          justify-content: space-between !important;
+}
+.buttonSplitAgain button {
+  width: calc(50% - 6px);
+}
+
+#nyKategoriDiv {
+  overflow-x: scroll;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  margin: 0 0 6px;
+}
+#nyKategoriDiv .ny_kategori {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  min-width: 65px;
+  max-width: 400px;
+  overflow-x: auto;
+  height: 22px;
+  width: auto;
+  padding: 4px 6px;
+  border-radius: 11px;
+  font-size: 12px;
+  color: #FFFFFF;
+  background-color: #F29117;
+  margin-right: 10px;
+}
+#nyKategoriDiv .ny_kategori #cancelButton {
+  padding: 0;
+  border: 0px solid white;
+  font-size: 12px;
+  color: #FFFFFF;
+  margin-left: 8px;
+}
+
+.Mid {
+  display: inline-block;
+  position: fixed;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+}
+.Mid h1 {
+  font-size: 52px;
+}
+.Mid a {
+  display: inline-block;
+  font-size: 52px;
+  margin-top: 10vh;
+  background-color: #FFFFFF;
+  color: #F29117;
+}
+.Mid a:hover {
+  background-color: #FFFFFF;
+}
+
+/*# sourceMappingURL=styling.css.map */

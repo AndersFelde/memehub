@@ -219,55 +219,55 @@ nav
       font-size: 26px
       margin: 0 0 3px
 
-    input
-      transition: $Fast
-      color: $DarkGrey
-      font-weight: 500
-      width: 100%
-      font-size: 28px
-      margin: 0 0 10px
-      padding: 20px
-      border: 1px solid $Grey
-      height: 70px
+input, textarea, select
+  transition: $Fast
+  color: $DarkGrey
+  font-weight: 500
+  width: 100%
+  font-size: 28px
+  margin: 0 0 10px
+  padding: 20px
+  border: 1px solid $Grey
+  height: 70px
 
-      &:focus
-        border-radius: 8px
+  &:focus
+    border-radius: 8px
 
-    .buttonSplit
-      display: flex
-      flex-flow: row nowrap
-      justify-content: space-between
+.buttonSplit
+  display: flex
+  flex-flow: row nowrap
+  justify-content: space-between
 
-      button
-        width: calc(50% - 5px)
+  button
+    width: calc(50% - 5px)
 
-    button
-      cursor: pointer
-      transition: $Fast
-      border: 1px solid $Grey
-      background-color: white
-      padding: 16px
-      text-align: center
-      font-size: 35px
-      font-weight: bold
-      height: 70px
-      display: flex
-      align-items: center
-      justify-content: center
-      align-content: center
-      color: $Black
+button
+  cursor: pointer
+  transition: $Fast
+  border: 1px solid $Grey
+  background-color: white
+  padding: 16px
+  text-align: center
+  font-size: 35px
+  font-weight: bold
+  height: 70px
+  display: flex
+  align-items: center
+  justify-content: center
+  align-content: center
+  color: $Black
 
-      &:hover
-        transition: $Fast
-        background-color: darken($White, $amount)
+  &:hover
+    transition: $Fast
+    background-color: darken($White, $amount)
 
-    .orange
-      transition: $Fast
-      background-color: $Orange
+.orange
+  transition: $Fast
+  background-color: $Orange
 
-      &:hover
-        transition: $Fast
-        background-color: darken($Orange, $amount)
+  &:hover
+    transition: $Fast
+    background-color: darken($Orange, $amount)
 
 .Material
   font-family: 'Material Icons',sans-serif
@@ -461,7 +461,7 @@ nav
   .downvoted
     color: $DarkBlue
 
-  .count
+  .count9
     color: $LightGrey
     margin: auto 6px
     font-size: 15px
@@ -480,7 +480,7 @@ nav
   align-content: center
   text-align: center
   text-transform: uppercase
-  font-family: 'Calibri', 'Arial', sans-serif
+  font-family: 'Arial', sans-serif
   font-size: 100px
   width: 90px
   height: 90px
@@ -490,3 +490,121 @@ nav
   box-shadow: $Shadow
   bottom: 2vw
   right: 2vw
+
+
+.postBody
+  h1
+    display: block
+    text-align: center
+    width: 600px
+    margin: auto
+    font-size: 54px
+
+
+.newPost
+  display: flex
+  margin: auto
+  //text-align: center
+  max-width: 900px
+  margin: 10vh auto 3vh
+  flex-flow: row nowrap
+  justify-content: space-between
+
+  div
+    margin: 6px
+    display: inline-flex
+    flex-flow: column nowrap
+    justify-content: space-between
+
+    //input, textarea, button, img, select, #nyKategoriDiv
+      margin: 6px
+
+    img
+      width: calc((900px + 12px) /2)
+      height: calc((900px + 12px) /2)
+      margin: 6px 0 18px
+      border: 0px solid white
+      //box-shadow: $Shadow
+
+    label
+      font-size: 26px
+      color: $DarkGrey
+      text-align: left
+      margin-bottom: 4px
+
+    textarea
+      min-height: 70px
+      height: 200px
+      resize: vertical
+      max-height: 200px
+
+    .smallink
+      color: $Orange
+      font-size: 11px
+      text-decoration: underline
+
+.buttonSplitAgain
+  margin: 6px 0 !important
+  flex-flow: row nowrap !important
+  display: flex !important
+  justify-content: space-between !important
+
+  button
+    width: calc(50% - 6px)
+
+#nyKategoriDiv
+  overflow-x: scroll
+  //height: 25px
+  display: flex
+  flex-flow: row wrap
+  justify-content: flex-start
+  align-items: flex-start
+  align-content: flex-start
+  margin: 0 0 6px
+  //display: none
+
+  .ny_kategori
+    display: inline-flex
+    justify-content: space-between
+    min-width: 65px
+    max-width: 400px
+    overflow-x: auto
+    height: 22px
+    width: auto
+    padding: 4px 6px
+    border-radius: 11px
+    font-size: 12px
+    color: $White
+    background-color: $Orange
+    margin-right: 10px
+
+    #cancelButton
+      padding: 0
+      border: 0px solid white
+      font-size: 12px
+      color: $White
+      margin-left: 8px
+
+
+
+.Mid
+  display: inline-block
+  position: fixed
+  width: 70%
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  text-align: center
+
+  h1
+    font-size: 52px
+
+  a
+    display: inline-block
+    font-size: 52px
+    margin-top: 10vh
+    background-color: $White
+    color: $Orange
+
+    &:hover
+      background-color: $White
