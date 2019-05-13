@@ -38,6 +38,7 @@
                         }
                         /*create a DIV element for each matching element:*/
                         b = document.createElement( "DIV" );
+                        b.setAttribute("class", "autocomplete-wrap");
                         b.addEventListener( "click", function ( e ) {
                             /*insert the value for the autocomplete text field:*/
                             inp.value = this.getElementsByTagName( "input" )[ 0 ].value;
