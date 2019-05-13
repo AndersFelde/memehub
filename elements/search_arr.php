@@ -5,13 +5,25 @@
 
         $resultat = $kobling->query( $sql );
 
+        $k = 0;
+
         while ( $rad = $resultat->fetch_assoc() ) {
 
             $kategori = $rad[ "kategori" ];
             $count = $rad[ "count" ];
 
-
-            echo "$kategori~$count,";
+            if($k == (mysqli_num_rows($resultat) - 1)){
+               echo "$kategori,$count^";
+            } else {
+                echo "$kategori,$count,";
+                $k++;
+            }
+            
+            
+            
+            
+            
+            
 
         }
         $sql = "SELECT brukernavn, bilde FROM bruker order by brukernavn;";
@@ -23,7 +35,7 @@
             $brukernavn = $rad[ "brukernavn" ];
             $bilde = $rad[ "bilde" ];
 
-            echo "$brukernavn*images/user_images/$bilde,";
+            echo "$brukernavn,images/user_images/$bilde,";
 
         }
 ?>
