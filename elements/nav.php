@@ -82,4 +82,6 @@ include "active.php";
 
     ?>
   </div>
+
 </nav>
+<a class="plussInnlegg" href="legg_til_innlegg.php">+</a>

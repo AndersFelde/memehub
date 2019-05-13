@@ -381,12 +381,19 @@ nav
   flex-flow: column nowrap
   margin: 4vh 2vw
 
+
   .title
     display: flex
     flex-flow: row nowrap
     justify-content: space-between
 
     h2
+      max-width: 100%
+      height: 23px
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+      display: inline-block
       color: $DarkGrey
       font-size: 20px
       font-weight: normal
@@ -420,6 +427,11 @@ nav
       text-decoration: underline
       margin: .7vh 0
 
+  .posttittel
+    margin: 5px 0 0
+    font-weight: 500
+
+
 .postinfo
   display: flex
   flex-flow: row nowrap
@@ -431,7 +443,7 @@ nav
   color: $LightGrey
 
   div
-    margin: auto 5px
+    margin: auto 0px
     display: inline-flex
     justify-content: space-between
     flex-flow: row nowrap
@@ -441,12 +453,13 @@ nav
     border: 0px solid $White
     cursor: pointer
     font-size: 30px
+    color: $Grey
 
-    .upvoted
-      color: $Orange
+  .upvoted
+    color: $Orange
 
-    .downvoted
-      color: $DarkBlue
+  .downvoted
+    color: $DarkBlue
 
   .count
     color: $LightGrey
@@ -454,6 +467,26 @@ nav
     font-size: 15px
     font-family: 'Calibri', 'Arial', sans-serif
 
-
 .hidemobile
   //border: 1px solid red
+
+
+.plussInnlegg
+  position: fixed
+  display: inline-flex
+  vertical-align: middle
+  align-items: center
+  justify-content: center
+  align-content: center
+  text-align: center
+  text-transform: uppercase
+  font-family: 'Calibri', 'Arial', sans-serif
+  font-size: 100px
+  width: 90px
+  height: 90px
+  border-radius: 45px
+  color: $White
+  background-color: $Orange
+  box-shadow: $Shadow
+  bottom: 2vw
+  right: 2vw

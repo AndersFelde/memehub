@@ -113,13 +113,13 @@ function echo_innlegg( $ting ) {
 
         $resultat_kat = $kobling->query( $sql_kat );
 
-        $sql_vote = "select 
-                    IFNULL(sum(vote=1), 0) as up, 
-                    IFNULL(sum(vote=0), 0) as down 
-                    from voted 
+        $sql_vote = "select
+                    IFNULL(sum(vote=1), 0) as up,
+                    IFNULL(sum(vote=0), 0) as down
+                    from voted
                     where innlegg_id = $innlegg_id ";
-        
-        $sql_kom = "select 
+
+        $sql_kom = "select
                     count(*) as komCon
                     from kommentar
                     where innlegg_id = $innlegg_id ";
@@ -131,7 +131,7 @@ function echo_innlegg( $ting ) {
             $upcount = $rad_vote[ "up" ];
             $downcount = $rad_vote[ "down" ];
             $commentcount = $rad_kom["komCon"];
-            
+
 
         echo "<div class='categorier'>";
         while ( $rad_kat = $resultat_kat->fetch_assoc() ) {
@@ -143,8 +143,8 @@ function echo_innlegg( $ting ) {
         echo "</div>";
 
 
-        echo "<img src='images/innlegg_images/$bilde'><br>";
-        echo "<p class='tekst'>$tekst</p>";
+        echo "<img src='images/innlegg_images/$bilde'>";
+        echo "<p class='posttittel'>$tekst</p>";
 
 
         if ( isset( $_SESSION[ "bruker_id" ] ) ) {
@@ -209,7 +209,7 @@ function echo_innlegg( $ting ) {
             echo "</div>";
             echo "</div>";
         } else {
-            
+
             echo "<div class='postinfo'>";
             echo "<div>";
             echo "<div>";
@@ -222,11 +222,11 @@ function echo_innlegg( $ting ) {
              echo "<p id='dcount$innlegg_id' class='count'>$downcount</p>";
             echo "</div>";
             echo "</div>";
-            
+
 
         }
         echo "<div>";
-        echo "<a href='#' class='Material icon'>share</a>";
+        echo "<a href='javascript:void(0)' onclick='share($innlegg_id)' class='Material icon'>share</a>";
         echo "</div>";
 
         echo "<div>";
