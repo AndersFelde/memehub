@@ -6,18 +6,85 @@
     include "elements/head.php";
     ?>
     <script>
-        function autocomplete( inp, arr ) {
+        function searchOpt() {
+
+            var searchOtherDiv = document.createElement( "DIV" );
+            if ( type == "bruker" ) {
+                var arr = brukerArr;
+                var value = brukerArr[ i ];
+                var img = brukerArr[ i + 1 ];
+                searchOtherDiv.id = "divImg" + i;
+                searchOtherDiv.className = "search-img";
+                searchOtherDiv.style.backgroundImage = "url('" + img + "')";
+            } else {
+                var arr = kategoriArr;
+                var value = kategoriArr[ i ];
+                var count = kategoriArr[ i + 1 ];
+                searchOtherDiv.id = "divCount" + i;
+                searchOtherDiv.className = "search-count";
+                searchOtherDiv.innerHTML = count;
+            }
+
+
+            var start = value.toLowerCase().indexOf( val.toLowerCase() );
+            var end = (start + val.length) - 1;
+            
+            console.log(start, end);
+
+            var searchTextDiv = document.createElement( "DIV" );
+            searchTextDiv.className = "search-text";
+
+            if ( start == 0 ) {
+                searchTextDiv.innerHTML = "<strong>" + value.substr( 0, end ) +
+                    "</strong>";
+                searchTextDiv.innerHTML += value.substr( end );
+            } else {
+                searchTextDiv.innerHTML = value.substr( 0, start );
+                searchTextDiv.innerHTML += "<strong>" + value.substr( start, end ) + "</strong>";
+                searchTextDiv.innerHTML += value.substr( end + 1 );
+
+
+            }
+
+
+            /*create a DIV element for each matching element:*/
+            b = document.createElement( "DIV" );
+            b.setAttribute( "class", "autocomplete-wrap" );
+            b.addEventListener( "click", function ( e ) {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName( "input" )[ 0 ].value;
+                /*close the list of autocompleted values,
+                (or any other open lists of autocompleted values:*/
+                closeAllLists();
+            } );
+            a.appendChild( b );
+
+            /*make the matching letters bold:*/
+
+            /*insert a input field that will hold the current array item's value:*/
+
+            searchTextDiv.innerHTML += "<input type='hidden' value='" + value + "'>";
+            b.appendChild( searchTextDiv )
+
+            b.appendChild( searchOtherDiv )
+                /*execute a function when someone clicks on the item value (DIV element):*/
+
+
+        };
+
+        function autocomplete( inp, kategoriArr, brukerArr ) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*/
             var currentFocus;
             /*execute a function when someone writes in the text field:*/
             inp.addEventListener( "input", function ( e ) {
-                var a, b, i, val = this.value;
+                val = this.value;
                 /*close any already open lists of autocompleted values*/
                 closeAllLists();
                 if ( !val ) {
                     return false;
                 }
+                console.log( val );
                 currentFocus = -1;
                 /*create a DIV element that will contain the items (values):*/
                 a = document.createElement( "DIV" );
@@ -26,47 +93,26 @@
                 /*append the DIV element as a child of the autocomplete container:*/
                 this.parentNode.appendChild( a );
                 /*for each item in the array...*/
-                for ( i = 0; i < arr.length; i++ ) {
+
+                for ( i = 0; i < kategoriArr.length - 1; i += 2 ) {
                     /*check if the item starts with the same letters as the text field value:*/
-                    if ( arr[ i ].substr( 0, val.length ).toUpperCase() == val.toUpperCase() ) {
-                        var searchOtherDiv = document.createElement( "DIV" );
-                        if ( arr[ i ].includes( "*" ) ) {
-                            var value = arr[ i ].split( "*" )[ 0 ];
-                            var img = arr[ i ].split( "*" )[ 1 ];
-                            searchOtherDiv.id = "divImg" + i;
-                            searchOtherDiv.className = "search-img";
-                            searchOtherDiv.style.backgroundImage = "url('" + img + "')";
-                        } else {
-                            var value = arr[ i ].split("~")[0];
-                            var count = arr[ i ].split("~")[1];
-                            searchOtherDiv.id = "divCount" + i;
-                            searchOtherDiv.className = "search-count";
-                            searchOtherDiv.innerHTML = count;
-                        }
-                        /*create a DIV element for each matching element:*/
-                        b = document.createElement( "DIV" );
-                        b.setAttribute( "class", "autocomplete-wrap" );
-                        b.addEventListener( "click", function ( e ) {
-                            /*insert the value for the autocomplete text field:*/
-                            inp.value = this.getElementsByTagName( "input" )[ 0 ].value;
-                            /*close the list of autocompleted values,
-                            (or any other open lists of autocompleted values:*/
-                            closeAllLists();
-                        } );
-                        a.appendChild( b );
-                        var searchTextDiv = document.createElement( "DIV" );
-                        /*make the matching letters bold:*/
-                        searchTextDiv.className = "search-text";
-                        searchTextDiv.innerHTML += "<strong>" + arr[ i ].substr( 0, val.length ) + "</strong>";
-                        searchTextDiv.innerHTML += value.substr( val.length );
-                        /*insert a input field that will hold the current array item's value:*/
+                    if ( kategoriArr[ i ].toUpperCase().includes( val.toUpperCase() ) ) {
+                        type = "kat";
+                        searchOpt();
 
-                        searchTextDiv.innerHTML += "<input type='hidden' value='" + value + "'>";
-                        b.appendChild( searchTextDiv )
-
-                        b.appendChild( searchOtherDiv )
-                            /*execute a function when someone clicks on the item value (DIV element):*/
                     }
+
+
+                }
+                for ( i = 0; i < brukerArr.length - 1; i += 2 ) {
+                    /*check if the item starts with the same letters as the text field value:*/
+                    if ( brukerArr[ i ].toUpperCase().includes( val.toUpperCase() ) ) {
+                        type = "bruker"
+                        searchOpt();
+
+                    }
+
+
                 }
             } );
             /*execute a function presses a key on the keyboard:*/
@@ -126,18 +172,20 @@
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if ( this.readyState == 4 && this.status == 200 ) {
-                    var searchArr = this.responseText.split( "," );
+                    var searchArr = this.responseText.split( "^" );
                     console.log( searchArr );
-                    var input = document.getElementById( "myInput" )
-
-                    autocomplete( document.getElementById( "myInput" ), searchArr );
+                    kategoriArr = searchArr[ "0" ].split( "," );
+                    brukerArr = searchArr[ "1" ].split( "," );
+                    console.log( kategoriArr );
+                    console.log( brukerArr );
+                    autocomplete( document.getElementById( "myInput" ), kategoriArr, brukerArr );
 
                 }
 
             }
             xmlhttp.open( "GET", "elements/search_arr.php", true );
             xmlhttp.send();
-        };
+        }
     </script>
 </head>
 
