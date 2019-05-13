@@ -11,7 +11,7 @@
             $count = $rad[ "count" ];
 
 
-            echo "$kategori($count),";
+            echo "$kategori~$count,";
 
         }
         $sql = "SELECT brukernavn, bilde FROM bruker order by brukernavn;";

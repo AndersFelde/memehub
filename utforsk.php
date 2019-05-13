@@ -29,16 +29,23 @@
                 for ( i = 0; i < arr.length; i++ ) {
                     /*check if the item starts with the same letters as the text field value:*/
                     if ( arr[ i ].substr( 0, val.length ).toUpperCase() == val.toUpperCase() ) {
+                        var searchOtherDiv = document.createElement( "DIV" );
                         if ( arr[ i ].includes( "*" ) ) {
                             var value = arr[ i ].split( "*" )[ 0 ];
                             var img = arr[ i ].split( "*" )[ 1 ];
+                            searchOtherDiv.id = "divImg" + i;
+                            searchOtherDiv.className = "search-img";
+                            searchOtherDiv.style.backgroundImage = "url('" + img + "')";
                         } else {
-                            var value = arr[ i ];
-                            var img = "";
+                            var value = arr[ i ].split("~")[0];
+                            var count = arr[ i ].split("~")[1];
+                            searchOtherDiv.id = "divCount" + i;
+                            searchOtherDiv.className = "search-count";
+                            searchOtherDiv.innerHTML = count;
                         }
                         /*create a DIV element for each matching element:*/
                         b = document.createElement( "DIV" );
-                        b.setAttribute("class", "autocomplete-wrap");
+                        b.setAttribute( "class", "autocomplete-wrap" );
                         b.addEventListener( "click", function ( e ) {
                             /*insert the value for the autocomplete text field:*/
                             inp.value = this.getElementsByTagName( "input" )[ 0 ].value;
@@ -57,19 +64,15 @@
                         searchTextDiv.innerHTML += "<input type='hidden' value='" + value + "'>";
                         b.appendChild( searchTextDiv )
 
-                        var searchImgDiv = document.createElement( "DIV" );
-                        searchImgDiv.id = "divImg" + i;
-                        searchImgDiv.className = "search-img";
-                        searchImgDiv.style.backgroundImage = "url('" + img + "')";
-                        b.appendChild( searchImgDiv )
-                        /*execute a function when someone clicks on the item value (DIV element):*/
+                        b.appendChild( searchOtherDiv )
+                            /*execute a function when someone clicks on the item value (DIV element):*/
                     }
                 }
             } );
             /*execute a function presses a key on the keyboard:*/
             inp.addEventListener( "keydown", function ( e ) {
                 var x = document.getElementById( this.id + "autocomplete-list" );
-                if ( x ) x = x.getElementsByTagName( "div" );
+                if ( x ) x = x.getElementsByClassName( "autocomplete-wrap" );
                 if ( e.keyCode == 40 ) {
                     /*If the arrow DOWN key is pressed,
                     increase the currentFocus variable:*/
@@ -82,13 +85,6 @@
                     currentFocus--;
                     /*and and make the current item more visible:*/
                     addActive( x );
-                } else if ( e.keyCode == 13 ) {
-                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
-                    e.preventDefault();
-                    if ( currentFocus > -1 ) {
-                        /*and simulate a click on the "active" item:*/
-                        if ( x ) x[ currentFocus ].click();
-                    }
                 }
             } );
 

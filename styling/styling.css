@@ -405,6 +405,7 @@ nav #Active:hover {
 .search_form input[type=submit] {
     background-color: DodgerBlue;
     color: #fff;
+    cursor: pointer;
 }
 .autocomplete-items {
     position: absolute;

@@ -2,5 +2,5 @@
   <div class="autocomplete" style="width:300px;">
     <input id="myInput" type="text" name="myCountry" placeholder="Søk...">
   </div>
-  <input style="" type="submit">
+  <input value="Søk" type="submit">
 </form>
