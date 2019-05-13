@@ -31,7 +31,6 @@
 <body>
 
     <?php
-    include "elements/nav.php";
 
     if ( isset( $_POST[ "insert_inn" ] ) ) {
 
@@ -59,6 +58,7 @@
                 $innlegg_id = $kobling->insert_id;
                 //fordi den må ha "" rundt seg
                 echo "<body onload='insertKat($innlegg_id)'>";
+                include "elements/nav.php";
                 echo '<div id="synd">Det var synd :(</div>';
                 echo "<div>Redirecting...</div>";
 
@@ -66,51 +66,70 @@
             } else {
 
                 echo "<body>";
-
+                include "elements/nav.php";
                 echo "Det har skjedd en feil med innlegget<br>
                                 $kobling->error";
             }
 
         }
     } else {
-        echo "<body>";
+        echo "<body class='postBody'>";
+        include "elements/nav.php";
+        echo "<h1>Legg ut en meme</h1><br>";
     }
 
     ?>
-    <form id="form" action="legg_til_innlegg.php" class="" method="post" enctype="multipart/form-data">
-        <img id="filePreview" src="">
-        <div id="nyKategoriDiv">
+      <form id="form" class="newPost" action="legg_til_innlegg.php" method="post" enctype="multipart/form-data">
 
+        <div>
+          <label>Bilde</label>
+          <img id="filePreview" src="">
+          <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="bilde">
         </div>
-        <br>
-        <input id="fileUpload" onChange="preview()" required type="file" name="bilde">
-        <p id="inputKategoriMld"></p>
-        <input onkeypress="addKategori(event)" id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
 
-        <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
-        <br>
-        <textarea name="tekst" maxlength="50" cols="30" rows="10"></textarea>
-        <input type="submit" value="Last opp" name="insert_inn"><br>
 
-        <datalist id="kategorier">
-            <?php
+        <div>
+          <div>
+            <label>Kategorier</label>
+            <div id="nyKategoriDiv">
+            </div>
+            <p id="inputKategoriMld"></p>
+            <input maxlength="24" onkeypress="addKategori(event)" id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
+            <a href="ansvar.php" class="smallink">Regler for memes og innlegg?</a>
+          </div>
 
-            $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
+          <div>
+            <label>Første kommentar</label>
+            <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
+            <textarea name="tekst" maxlength="50" cols="30" rows="10" placeholder="Her kan du skrive inn tittelen på memen"></textarea>
 
-            $resultat = $kobling->query( $sql );
+            <div class="buttonSplitAgain">
+              <button type="submit" name="insert_inn">Tilbake</button>
+              <button type="submit" name="insert_inn" class="orange">Legg ut</button>
+            </div>
 
-            while ( $rad = $resultat->fetch_assoc() ) {
+            <datalist id="kategorier">
+              <?php
 
-                $kategori = $rad[ "kategori" ];
+              $sql = "SELECT kategori, COUNT(kategori) as count FROM kategori group by kategori order by count desc;";
 
-                echo "<option value='$kategori'>";
+              $resultat = $kobling->query( $sql );
 
-            }
+              while ( $rad = $resultat->fetch_assoc() ) {
 
-            ?>
-        </datalist>
+                  $kategori = $rad[ "kategori" ];
 
-    </form>
+                  echo "<option value='$kategori'>";
+
+              }
+
+              ?>
+            </datalist>
+          </div>
+        </div>
+
+      </form>
+
 
     <script>
         var kat_nr = 1;

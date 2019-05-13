@@ -5,12 +5,14 @@ $dbserver = "mysql.klasserom.net";
 $dbuser = "knet-elev20408";
 $dbpsw = "ign07";
 $dbname = "knet-elev20408";
+
+Bare bytt mellom disse Anders
 */
 
-$dbserver = "mysql.klasserom.net";
-$dbuser = "knet-elev20408";
-$dbpsw = "ign07";
-$dbname = "knet-elev20408";
+$dbserver = "localhost";
+$dbuser = "root";
+$dbpsw = "";
+$dbname = "MemeHub";
 
 $kobling = new mysqli($dbserver, $dbuser, $dbpsw, $dbname);
 global $kobling;
