@@ -146,8 +146,8 @@ function echo_innlegg( $ting ) {
             echo "</div>";
 
 
-        echo "<img src='images/innlegg_images/$bilde'>";
-        echo "<p class='posttittel'>$tekst</p>";
+            echo "<img src='images/innlegg_images/$bilde'>";
+            echo "<p class='posttittel'>$tekst</p>";
 
 
             if ( isset( $_SESSION[ "bruker_id" ] ) ) {
@@ -211,8 +211,8 @@ function echo_innlegg( $ting ) {
                 echo "<p id='dcount$innlegg_id' class='count'>$downcount</p>";
                 echo "</div>";
                 echo "</div>";
-            } else {
 
+              } else {
                 echo "<div class='postinfo'>";
                 echo "<div>";
                 echo "<div>";
@@ -228,28 +228,10 @@ function echo_innlegg( $ting ) {
 
 
             }
-            echo "<p id='dcount$innlegg_id' class='count'>$downcount</p>";
-            echo "</div>";
-            echo "</div>";
-        } else {
+            //echo "<p id='dcount$innlegg_id' class='count'>$downcount</p>";
+            //echo "</div>";
+            //echo "</div>";
 
-            echo "<div class='postinfo'>";
-            echo "<div>";
-            echo "<div>";
-            echo "<a href='#' class='Material icon'>share</a>";
-            echo "</div>";
-
-            echo "<div>";
-            echo "<p class='count'>$commentcount</p>";
-            echo "<a href='#' class='Material icon'>short_text</a>";
-            echo "<p class='count hidemobile'>Kommentarer</p>";
-            echo "</div>";
-
-            echo "</div>";
-
-
-            echo "</div>";
-        }
         echo "<div>";
         echo "<a href='javascript:void(0)' onclick='share($innlegg_id)' class='Material icon'>share</a>";
         echo "</div>";
@@ -263,6 +245,7 @@ function echo_innlegg( $ting ) {
         echo "</div>";
 
         echo "</div>";
+      }
     } else {
         echo "Det er desverre ingen innlegg";
     }
