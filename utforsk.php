@@ -121,6 +121,7 @@
                     var searchTextDiv = document.createElement( "DIV" );
                     searchTextDiv.className = "search-text";
                     searchTextDiv.innerHTML = "<strong>Ingen funn for søket</strong>";
+                    searchTextDiv.innerHTML += "<input type='hidden' value='" + val + "'>";
                     b.appendChild( searchTextDiv )
                 }
             } );
@@ -172,13 +173,24 @@
             }
             /*execute a function when someone clicks in the document:*/
             document.addEventListener( "click", function ( e ) {
-
+                console.log(document.getElementById("searchError"));
+                console.log(e.target.isEqualNode(inp));
+                if (document.contains(document.getElementById( "myInputautocomplete-list" ))){
                 if ( document.getElementById( "myInputautocomplete-list" ).contains( e.target ) ) {
                     inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value;
-                } else if ( e.target == inp ) {
+                } else if ( e.target.isEqualNode(inp)) {
+                    console.log("input");
                     inp.focus();
+                    if(document.contains(document.getElementById("searchError"))){
+                        document.getElementById("searchError").innerHTML = "";                    }
                 } else {
                     closeAllLists()
+                }
+                } else if ( e.target.isEqualNode(inp)) {
+                    console.log("input");
+                    inp.focus();
+                    if(document.contains(document.getElementById("searchError"))){
+                        document.getElementById("searchError").innerHTML = "";                    }
                 }
 
 
@@ -247,7 +259,7 @@
             echo "bruker";
 
         } else {
-            echo "ingen søk matchet med det du skrev";
+            echo "<span id='searchError'>ingen søk matchet med det du skrev</span>";
         }
     }
     unset( $_POST );
