@@ -224,6 +224,7 @@
             maxKatNr++;
 
             inputK.style.display = "block";
+            inputK.focus();
             pMld.innerHTML = "";
 
             kategoriArrNewUpd();

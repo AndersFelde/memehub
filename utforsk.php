@@ -56,7 +56,7 @@
                 /*insert the value for the autocomplete text field:*/
                 var inp = document.getElementById( "myInput" );
                 inp.value = this.getElementsByTagName( "input" )[ 0 ].value;
-                
+                inp.focus();
                 /*close the list of autocompleted values,
                 (or any other open lists of autocompleted values:*/
             } );
