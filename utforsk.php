@@ -27,9 +27,9 @@
 
 
             var start = value.toLowerCase().indexOf( val.toLowerCase() );
-            var end = (start + val.length) - 1;
-            
-            console.log(start, end);
+            var end = val.length;
+
+            console.log( start, end );
 
             var searchTextDiv = document.createElement( "DIV" );
             searchTextDiv.className = "search-text";
@@ -39,9 +39,13 @@
                     "</strong>";
                 searchTextDiv.innerHTML += value.substr( end );
             } else {
+                console.log( value.substr( 0, start ) );
+                console.log( value.substr( start, end ) );
+                console.log( value.substr( end ) );
                 searchTextDiv.innerHTML = value.substr( 0, start );
                 searchTextDiv.innerHTML += "<strong>" + value.substr( start, end ) + "</strong>";
-                searchTextDiv.innerHTML += value.substr( end + 1 );
+                searchTextDiv.innerHTML += value.substr( ( start + end ) );
+                console.log( start, end )
 
 
             }

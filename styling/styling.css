@@ -653,7 +653,6 @@ button:hover {
   overflow-x: scroll;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
@@ -667,6 +666,7 @@ button:hover {
   -ms-flex-line-pack: start;
       align-content: flex-start;
   margin: 0 0 6px;
+    display: none;
 }
 #nyKategoriDiv .ny_kategori {
   display: -webkit-inline-box;
