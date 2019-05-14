@@ -156,9 +156,9 @@
                     if ( !kategoriArr.includes( kategori ) ) {
                         //<span id="nyKategori1"><button type="button" id="cancelButton" onclick="delKategori(1)">cancel</button></span>
 
-                        var span = '<span class="ny_kategori" id="nyKategori' + kat_nr + '">' + kategori + '</span>';
+                        var span = '<span onclick="delKategori(' + kat_nr + ')" class="ny_kategori" id="nyKategori' + kat_nr + '">' + kategori + '</span>';
 
-                        var button = '<button type="button" id="cancelButton" onclick="delKategori(' + kat_nr + ')">x</button>'
+                        var button = '<a id="cancelButton" href="javascript:void(0)">x</a>'
 
 
                         var div = document.getElementById( "nyKategoriDiv" );
