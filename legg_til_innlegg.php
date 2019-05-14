@@ -90,7 +90,7 @@
 
 
         <div>
-            <div>
+            <div class="noMargin">
                 <label>Kategorier</label>
                 <div id="nyKategoriDiv">
                 </div>
@@ -99,7 +99,7 @@
                 <a href="ansvar.php" class="smallink">Regler for memes og innlegg?</a>
             </div>
 
-            <div>
+            <div class="noMargin">
                 <label>Første kommentar</label>
                 <!--<button id="addKategori" type="button" onclick="nyKategori()">Legg til kategori</button>-->
                 <textarea name="tekst" maxlength="50" cols="30" rows="10" placeholder="Her kan du skrive inn tittelen på memen"></textarea>
