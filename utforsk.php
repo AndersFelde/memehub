@@ -52,14 +52,7 @@
             /*create a DIV element for each matching element:*/
             b = document.createElement( "DIV" );
             b.setAttribute( "class", "autocomplete-wrap" );
-            b.addEventListener( "click", function ( e ) {
-                /*insert the value for the autocomplete text field:*/
-                var inp = document.getElementById( "myInput" );
-                inp.value = this.getElementsByTagName( "input" )[ 0 ].value;
-                inp.focus();
-                /*close the list of autocompleted values,
-                (or any other open lists of autocompleted values:*/
-            } );
+            b.setAttribute( "id", i );
             a.appendChild( b );
 
             /*make the matching letters bold:*/
@@ -97,12 +90,14 @@
                 this.parentNode.appendChild( a );
                 /*for each item in the array...*/
 
+                var find = 0;
+
                 for ( i = 0; i < kategoriArr.length - 1; i += 2 ) {
                     /*check if the item starts with the same letters as the text field value:*/
                     if ( kategoriArr[ i ].toUpperCase().includes( val.toUpperCase() ) ) {
                         type = "kat";
                         searchOpt();
-
+                        find++;
                     }
 
 
@@ -112,10 +107,21 @@
                     if ( brukerArr[ i ].toUpperCase().includes( val.toUpperCase() ) ) {
                         type = "bruker"
                         searchOpt();
-
+                        find++;
                     }
 
 
+                }
+
+                if ( find == 0 ) {
+                    b = document.createElement( "DIV" );
+                    b.setAttribute( "class", "autocomplete-wrap" );
+                    a.appendChild( b );
+
+                    var searchTextDiv = document.createElement( "DIV" );
+                    searchTextDiv.className = "search-text";
+                    searchTextDiv.innerHTML = "<strong>Ingen funn for søket</strong>";
+                    b.appendChild( searchTextDiv )
                 }
             } );
             /*execute a function presses a key on the keyboard:*/
@@ -124,7 +130,6 @@
                 var x = document.getElementById( this.id + "autocomplete-list" );
                 if ( x ) x = x.getElementsByClassName( "autocomplete-wrap" );
                 if ( e.keyCode == 40 ) {
-
                     /*If the arrow DOWN key is pressed,
                     increase the currentFocus variable:*/
                     currentFocus++;
@@ -157,23 +162,26 @@
                 }
             }
 
-            function closeAllLists( elmnt ) {
+            function closeAllLists() {
                 /*close all autocomplete lists in the document,
                 except the one passed as an argument:*/
                 var x = document.getElementsByClassName( "autocomplete-items" );
                 for ( var i = 0; i < x.length; i++ ) {
-                    if ( elmnt != x[ i ] && elmnt != inp ) {
-                        x[ i ].parentNode.removeChild( x[ i ] );
-                    }
+                    x[ i ].parentNode.removeChild( x[ i ] );
                 }
             }
             /*execute a function when someone clicks in the document:*/
             document.addEventListener( "click", function ( e ) {
-                if ( !e.path[ 1 ] == "div.autocomplete-wrap" ) {
-                    closeAllLists( e.target );
+
+                if ( document.getElementById( "myInputautocomplete-list" ).contains( e.target ) ) {
+                    inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value;
+                } else if ( e.target == inp ) {
+                    inp.focus();
                 } else {
-                    
+                    closeAllLists()
                 }
+
+
             } );
         };
 
@@ -196,9 +204,10 @@
     </script>
 </head>
 
-<body>
+<body onload="searchArr()">
     <?php
     include "elements/nav.php";
+    include "elements/utforsk_search.php";
     if ( isset( $_POST[ "search" ] ) ) {
         echo "<body>";
         $search_arr = explode( "(", $_POST[ "search" ] );
@@ -240,29 +249,9 @@
         } else {
             echo "ingen søk matchet med det du skrev";
         }
-    } elseif ( isset( $_POST[ "bruker" ] ) ) {
-        echo "<body>";
-
-        echo "bruker" . $_POST[ "bruker" ];
-
-
-    } elseif ( isset( $_POST[ "kategori" ] ) ) {
-        echo "<body>";
-        $search = $_POST[ "kategori" ];
-
-        include "elements/echo_innlegg.php";
-
-        $sql_rest = "from innlegg 
-                    join bruker on innlegg.bruker_id = bruker.bruker_id
-                    join kategori on innlegg.innlegg_id = kategori.innlegg_id
-                    where kategori = '$search'";
-
-        echo_innlegg( $sql_rest );
-
-    } else {
-        echo "<body onload='searchArr()'>";
-        include "elements/utforsk_search.php";
     }
+    unset( $_POST );
+
 
 
     ?>
