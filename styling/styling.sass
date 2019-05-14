@@ -219,7 +219,7 @@ nav
       font-size: 26px
       margin: 0 0 3px
 
-input, textarea, select
+input, textarea, select, .BildeInput
   transition: $Fast
   color: $DarkGrey
   font-weight: 500
@@ -586,7 +586,21 @@ button
       color: $White
       margin-left: 8px
 
+#fileUpload
+  width: 0.1px
+  height: 0.1px
+  opacity: 0
+  overflow: hidden
+  position: absolute
+  z-index: -1
+  pointer-events: none
 
+.BildeInput
+  cursor: pointer
+
+  &:focus
+    outline: 1px dotted #000
+    outline: -webkit-focus-ring-color auto 5px
 
 .Mid
   display: inline-block
