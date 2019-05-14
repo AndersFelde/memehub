@@ -29,7 +29,7 @@
             var start = value.toLowerCase().indexOf( val.toLowerCase() );
             var end = val.length;
 
-            console.log( start, end );
+
 
             var searchTextDiv = document.createElement( "DIV" );
             searchTextDiv.className = "search-text";
@@ -39,13 +39,11 @@
                     "</strong>";
                 searchTextDiv.innerHTML += value.substr( end );
             } else {
-                console.log( value.substr( 0, start ) );
-                console.log( value.substr( start, end ) );
-                console.log( value.substr( end ) );
+
                 searchTextDiv.innerHTML = value.substr( 0, start );
                 searchTextDiv.innerHTML += "<strong>" + value.substr( start, end ) + "</strong>";
                 searchTextDiv.innerHTML += value.substr( ( start + end ) );
-                console.log( start, end )
+
 
 
             }
@@ -56,10 +54,11 @@
             b.setAttribute( "class", "autocomplete-wrap" );
             b.addEventListener( "click", function ( e ) {
                 /*insert the value for the autocomplete text field:*/
+                var inp = document.getElementById( "myInput" );
                 inp.value = this.getElementsByTagName( "input" )[ 0 ].value;
+                
                 /*close the list of autocompleted values,
                 (or any other open lists of autocompleted values:*/
-                closeAllLists();
             } );
             a.appendChild( b );
 
@@ -78,7 +77,7 @@
 
         function autocomplete( inp, kategoriArr, brukerArr ) {
             /*the autocomplete function takes two arguments,
-            the text field element and an array of possible autocompleted values:*/
+            the text field element and an array of possible autocompleted values:*
             var currentFocus;
             /*execute a function when someone writes in the text field:*/
             inp.addEventListener( "input", function ( e ) {
@@ -88,7 +87,7 @@
                 if ( !val ) {
                     return false;
                 }
-                console.log( val );
+
                 currentFocus = -1;
                 /*create a DIV element that will contain the items (values):*/
                 a = document.createElement( "DIV" );
@@ -121,9 +120,11 @@
             } );
             /*execute a function presses a key on the keyboard:*/
             inp.addEventListener( "keydown", function ( e ) {
+
                 var x = document.getElementById( this.id + "autocomplete-list" );
                 if ( x ) x = x.getElementsByClassName( "autocomplete-wrap" );
                 if ( e.keyCode == 40 ) {
+
                     /*If the arrow DOWN key is pressed,
                     increase the currentFocus variable:*/
                     currentFocus++;
@@ -168,7 +169,11 @@
             }
             /*execute a function when someone clicks in the document:*/
             document.addEventListener( "click", function ( e ) {
-                closeAllLists( e.target );
+                if ( !e.path[ 1 ] == "div.autocomplete-wrap" ) {
+                    closeAllLists( e.target );
+                } else {
+                    
+                }
             } );
         };
 
@@ -177,11 +182,9 @@
             xmlhttp.onreadystatechange = function () {
                 if ( this.readyState == 4 && this.status == 200 ) {
                     var searchArr = this.responseText.split( "^" );
-                    console.log( searchArr );
+
                     kategoriArr = searchArr[ "0" ].split( "," );
                     brukerArr = searchArr[ "1" ].split( "," );
-                    console.log( kategoriArr );
-                    console.log( brukerArr );
                     autocomplete( document.getElementById( "myInput" ), kategoriArr, brukerArr );
 
                 }
