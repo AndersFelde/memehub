@@ -47,6 +47,7 @@
     <script defer type="text/javascript" src="scripts/profileDropDown.js"></script>
     <script defer type="text/javascript" src="scripts/errorMsgCheck.js"></script>
     <script defer type="text/javascript" src="scripts/tooBad.js"></script>
+    <script defer type="text/javascript" src="scripts/bildeInput.js"></script>
     <script type="text/javascript" src="scripts/redirect.js"></script>
 
 

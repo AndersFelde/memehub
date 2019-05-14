@@ -206,7 +206,7 @@ nav #Active:hover {
   margin: 0 0 3px;
 }
 
-input, textarea, select {
+input, textarea, select, .BildeInput {
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
   color: #383838;
@@ -218,7 +218,7 @@ input, textarea, select {
   border: 1px solid #707070;
   height: 70px;
 }
-input:focus, textarea:focus, select:focus {
+input:focus, textarea:focus, select:focus, .BildeInput:focus {
   border-radius: 8px;
 }
 
@@ -693,6 +693,24 @@ button:hover {
   font-size: 12px;
   color: #FFFFFF;
   margin-left: 8px;
+}
+
+#fileUpload {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.BildeInput {
+  cursor: pointer;
+}
+.BildeInput:focus {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
 }
 
 .Mid {

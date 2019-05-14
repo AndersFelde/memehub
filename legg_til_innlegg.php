@@ -84,7 +84,8 @@
         <div>
           <label>Bilde</label>
           <img id="filePreview" src="">
-          <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="bilde">
+          <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="Bilde">
+          <label class="BildeInput" for="Bilde">Velg en fil</label>
         </div>
 
 
