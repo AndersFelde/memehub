@@ -492,3 +492,15 @@ button {
 .autocomplete-active {
     background-color: orange;
 }
+
+.autocomplete-wrap:hover{
+    cursor: pointer;
+    border-bottom: 1px solid black;
+    margin-bottom: 1vh;
+}
+.autocomplete-wrap{
+    display: flex;
+    align-content: space-between;
+    border-bottom: 1px solid black;
+    margin-bottom: 1vh;
+}
