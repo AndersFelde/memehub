@@ -1,17 +1,12 @@
-var inputs = document.querySelectorAll( '.HideInput' );
-Array.prototype.forEach.call( inputs, function( input )
-{
-  var label	 = input.nextElementSibling,
-  labelVal = label.innerHTML;
 
-	input.addEventListener( 'change', function( e )
-	{
-		var fileName = '';
+input = document.getElementById("fileUpload");
+label	= document.getElementsByClassName("BildeInput")[0];
+filename = input.value;
 
-		if( fileName ) {
-			label.querySelector( 'span' ).innerHTML = fileName;
-    } else {
-			label.innerHTML = labelVal;
-    }
-	});
+
+input.addEventListener( 'change', function() {
+  console.log(filename);
+  if(fileName) {
+  	label.innerHTML = fileName;
+  }
 });
