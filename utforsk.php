@@ -67,12 +67,19 @@
 
 
         };
+        function currentFocusRemove() {
+                if (currentFocus > -1){
+                x[ currentFocus ].classList.remove( "autocomplete-active" );
+                currentFocus = -1;}
+            }
 
         function autocomplete( inp, kategoriArr, brukerArr ) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*
             var currentFocus;
             /*execute a function when someone writes in the text field:*/
+            
+            
             inp.addEventListener( "input", function ( e ) {
                 val = this.value;
                 /*close any already open lists of autocompleted values*/
@@ -86,7 +93,8 @@
                 a = document.createElement( "DIV" );
                 a.setAttribute( "id", this.id + "autocomplete-list" );
                 a.setAttribute( "class", "autocomplete-items" );
-                /*append the DIV element as a child of the autocomplete container:*/
+                a.setAttribute( "onmouseover", "currentFocusRemove()" )
+                    /*append the DIV element as a child of the autocomplete container:*/
                 this.parentNode.appendChild( a );
                 /*for each item in the array...*/
 
@@ -125,25 +133,53 @@
                     b.appendChild( searchTextDiv )
                 }
             } );
+
+            
+
             /*execute a function presses a key on the keyboard:*/
             inp.addEventListener( "keydown", function ( e ) {
 
-                var x = document.getElementById( this.id + "autocomplete-list" );
+                x = document.getElementById( this.id + "autocomplete-list" );
+             
                 if ( x ) x = x.getElementsByClassName( "autocomplete-wrap" );
+                
                 if ( e.keyCode == 40 ) {
+                    e.preventDefault();
                     /*If the arrow DOWN key is pressed,
                     increase the currentFocus variable:*/
                     currentFocus++;
                     /*and and make the current item more visible:*/
                     addActive( x );
                 } else if ( e.keyCode == 38 ) { //up
+                    e.preventDefault();
                     /*If the arrow UP key is pressed,
                     decrease the currentFocus variable:*/
                     currentFocus--;
                     /*and and make the current item more visible:*/
                     addActive( x );
+                } else if ( e.keyCode == 13 ) {
+
                 }
+
+
             } );
+
+            document.getElementById( "searchForm" ).addEventListener( "submit", function ( event ) {
+                if ( currentFocus > -1 ) {
+                    event.preventDefault();
+                    inp.value = x[ currentFocus ].getElementsByTagName( "input" )[ 0 ].value;
+                    inp.focus();
+                    currentFocusRemove();
+                } else {
+                    sessionStorage.setItem("inputValue", inp.value);
+        
+                }
+
+            } );
+
+
+
+
 
             function addActive( x ) {
                 /*a function to classify an item as "active":*/
@@ -169,35 +205,35 @@
                 var x = document.getElementsByClassName( "autocomplete-items" );
                 for ( var i = 0; i < x.length; i++ ) {
                     x[ i ].parentNode.removeChild( x[ i ] );
+                    x = "";
+
                 }
             }
             /*execute a function when someone clicks in the document:*/
             document.addEventListener( "click", function ( e ) {
-                console.log(document.getElementById("searchError"));
-                console.log(e.target.isEqualNode(inp));
-                if (document.contains(document.getElementById( "myInputautocomplete-list" ))){
-                if ( document.getElementById( "myInputautocomplete-list" ).contains( e.target ) ) {
-                    inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value;
-                } else if ( e.target.isEqualNode(inp)) {
-                    console.log("input");
-                    inp.focus();
-                    if(document.contains(document.getElementById("searchError"))){
-                        document.getElementById("searchError").innerHTML = "";                    }
-                } else {
-                    closeAllLists()
-                }
-                } else if ( e.target.isEqualNode(inp)) {
-                    console.log("input");
-                    inp.focus();
-                    if(document.contains(document.getElementById("searchError"))){
-                        document.getElementById("searchError").innerHTML = "";                    }
-                }
+                if ( document.contains( document.getElementById( "myInputautocomplete-list" ) ) ) {
+                    if ( document.getElementById( "myInputautocomplete-list" ).contains( e.target ) ) {
+                        inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value;
+                        inp.focus();
+                    } else if ( e.target.isEqualNode( inp ) ) {
+                        inp.focus();
+                        if ( document.contains( document.getElementById( "searchError" ) ) ) {
+                            document.getElementById( "searchError" ).innerHTML = "";
+                        }
+                    } else {
+                        closeAllLists()
+                    }
 
 
+                }
             } );
         };
 
         function searchArr() {
+            if (sessionStorage.inputValue){
+                document.getElementById("myInput").value = sessionStorage.inputValue;
+                sessionStorage.removeItem("inputValue");
+            }
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if ( this.readyState == 4 && this.status == 200 ) {
@@ -218,14 +254,13 @@
 
 <body onload="searchArr()">
     <?php
+    
     include "elements/nav.php";
     include "elements/utforsk_search.php";
     if ( isset( $_POST[ "search" ] ) ) {
-        echo "<body>";
-        $search_arr = explode( "(", $_POST[ "search" ] );
-        $search = $search_arr[ "0" ];
+        $search = $_POST["search"];
 
-
+        
 
         $sql_kategori = "select kategori from kategori where kategori = '$search'";
         $sql_bruker = "select brukernavn from bruker where brukernavn = '$search'";
@@ -262,7 +297,6 @@
             echo "<span id='searchError'>ingen søk matchet med det du skrev</span>";
         }
     }
-    unset( $_POST );
 
 
 
