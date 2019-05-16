@@ -157,12 +157,21 @@
                     currentFocus--;
                     /*and and make the current item more visible:*/
                     addActive( x );
-                } else if ( e.keyCode == 13 ) {
-
-                }
+                } 
 
 
             } );
+            
+            function closeAllLists() {
+                /*close all autocomplete lists in the document,
+                except the one passed as an argument:*/
+                var x = document.getElementsByClassName( "autocomplete-items" );
+                for ( var i = 0; i < x.length; i++ ) {
+                    x[ i ].parentNode.removeChild( x[ i ] );
+                    x = "";
+
+                }
+            }
 
             document.getElementById( "searchForm" ).addEventListener( "submit", function ( event ) {
                 if ( currentFocus > -1 ) {
@@ -170,6 +179,7 @@
                     inp.value = x[ currentFocus ].getElementsByTagName( "input" )[ 0 ].value;
                     inp.focus();
                     currentFocusRemove();
+                    closeAllLists();
                 } else {
                     sessionStorage.setItem("inputValue", inp.value);
         
@@ -199,22 +209,13 @@
                 }
             }
 
-            function closeAllLists() {
-                /*close all autocomplete lists in the document,
-                except the one passed as an argument:*/
-                var x = document.getElementsByClassName( "autocomplete-items" );
-                for ( var i = 0; i < x.length; i++ ) {
-                    x[ i ].parentNode.removeChild( x[ i ] );
-                    x = "";
-
-                }
-            }
+            
             /*execute a function when someone clicks in the document:*/
             document.addEventListener( "click", function ( e ) {
                 if ( document.contains( document.getElementById( "myInputautocomplete-list" ) ) ) {
                     if ( document.getElementById( "myInputautocomplete-list" ).contains( e.target ) ) {
                         inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value;
-                        inp.focus();
+                        document.getElementById("searchForm").submit();
                     } else if ( e.target.isEqualNode( inp ) ) {
                         inp.focus();
                         if ( document.contains( document.getElementById( "searchError" ) ) ) {
