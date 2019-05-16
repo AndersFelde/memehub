@@ -25,7 +25,6 @@
                 searchOtherDiv.innerHTML = count;
             }
 
-
             var start = value.toLowerCase().indexOf( val.toLowerCase() );
             var end = val.length;
 
@@ -174,15 +173,20 @@
             }
 
             document.getElementById( "searchForm" ).addEventListener( "submit", function ( event ) {
+                event.preventDefault();
+                if (!currentFocus === "undefined"){
                 if ( currentFocus > -1 ) {
-                    event.preventDefault();
                     inp.value = x[ currentFocus ].getElementsByTagName( "input" )[ 0 ].value;
                     inp.focus();
                     currentFocusRemove();
-                    closeAllLists();
+                    
                 } else {
-                    sessionStorage.setItem("inputValue", inp.value);
-        
+                    closeAllLists();
+                    searchResult(inp.value)
+                    
+                }} else {
+                    closeAllLists();
+                    searchResult(inp.value)
                 }
 
             } );
@@ -214,13 +218,12 @@
             document.addEventListener( "click", function ( e ) {
                 if ( document.contains( document.getElementById( "myInputautocomplete-list" ) ) ) {
                     if ( document.getElementById( "myInputautocomplete-list" ).contains( e.target ) ) {
-                        inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value;
-                        document.getElementById("searchForm").submit();
+                        inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value
+                        closeAllLists()
+                        searchResult(inp.value)
+                        
                     } else if ( e.target.isEqualNode( inp ) ) {
                         inp.focus();
-                        if ( document.contains( document.getElementById( "searchError" ) ) ) {
-                            document.getElementById( "searchError" ).innerHTML = "";
-                        }
                     } else {
                         closeAllLists()
                     }
@@ -231,10 +234,6 @@
         };
 
         function searchArr() {
-            if (sessionStorage.inputValue){
-                document.getElementById("myInput").value = sessionStorage.inputValue;
-                sessionStorage.removeItem("inputValue");
-            }
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if ( this.readyState == 4 && this.status == 200 ) {
@@ -250,6 +249,22 @@
             xmlhttp.open( "GET", "elements/search_arr.php", true );
             xmlhttp.send();
         }
+        
+        function searchResult(search) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if ( this.readyState == 4 && this.status == 200 ) {
+                    var resultDiv = document.createElement("div");
+                    resultDiv.setAttribute("class", "results");
+                    resultDiv.innerHTML = this.responseText;
+                    document.body.insertBefore(resultDiv, document.getElementById("searchForm").nextSibling);
+
+                }
+
+            }
+            xmlhttp.open( "GET", "elements/search_result.php?search=" + search, true );
+            xmlhttp.send();
+        }
     </script>
 </head>
 
@@ -258,51 +273,11 @@
     
     include "elements/nav.php";
     include "elements/utforsk_search.php";
-    if ( isset( $_POST[ "search" ] ) ) {
-        $search = $_POST["search"];
-
-        
-
-        $sql_kategori = "select kategori from kategori where kategori = '$search'";
-        $sql_bruker = "select brukernavn from bruker where brukernavn = '$search'";
-
-        $resultat_kategori = $kobling->query( $sql_kategori );
-        $resultat_bruker = $kobling->query( $sql_bruker );
-
-        if ( ( ( mysqli_num_rows( $resultat_kategori ) ) && ( mysqli_num_rows( $resultat_kategori ) ) ) > 0 ) {
-
-
-            echo "Det finnes både en bruker og en kategori ved navn $search";
-            echo "<form method='POST'>";
-            echo "<button type='submit' value='$search' name='bruker'>Bruker: $search</button>";
-            echo "<button type='submit' value='$search' name='kategori'>Kategori: $search</button>";
-            echo "</form>";
-
-        } elseif ( mysqli_num_rows( $resultat_kategori ) > 0 ) {
-
-
-            include "elements/echo_innlegg.php";
-
-            $sql_rest = "from innlegg 
-                        join bruker on innlegg.bruker_id = bruker.bruker_id
-                        join kategori on innlegg.innlegg_id = kategori.innlegg_id
-                        where kategori = $search";
-
-            echo_innlegg( $sql_rest );
-
-        } elseif ( mysqli_num_rows( $resultat_bruker ) > 0 ) {
-
-            echo "bruker";
-
-        } else {
-            echo "<span id='searchError'>ingen søk matchet med det du skrev</span>";
-        }
-    }
-
+    
 
 
     ?>
 
-
+<div class="footer"></div>
 </body>
 </html>

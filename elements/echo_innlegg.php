@@ -49,7 +49,7 @@ function echo_innlegg( $ting ) {
         timestampdiff(WEEK, tid, now()) as week,
         timestampdiff(YEAR, tid, now()) as year
         $ting";
-
+    
 
     $resultat = $kobling->query( $sql );
 

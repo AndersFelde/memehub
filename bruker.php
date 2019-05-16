@@ -26,7 +26,7 @@ $title = "Hjem";
 
     $sql_rest = "from innlegg
                 join bruker ON innlegg.bruker_id=bruker.bruker_id
-                and innlegg.bruker_id = $bruker_id
+                where innlegg.bruker_id = $bruker_id
                 order by second";
     
 
