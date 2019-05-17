@@ -86,7 +86,7 @@ function echo_innlegg( $ting ) {
                         if ( $day > 6 ) {
                             if ( $month == 0 ) {
 
-                                echo "$week";
+                                echo "$week uke siden";
 
                             } elseif ( $month > 11 ) {
 
