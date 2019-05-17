@@ -18,7 +18,7 @@ include "echo_innlegg.php";
 
 if(mysqli_num_rows($resultat_bruker) > 0){
     if(mysqli_num_rows($resultat_kategori)){
-        echo "<button onclick='resultKategori'>Kategori</button>";
+        echo "<button id='resultKategori' onclick='resultKategori(" . '"' . "$search" . '"' . ")'>Vis Kategori</button>";
     }
     $sql_votes = "select count(voted.voted_id) as votes from bruker 
                     join innlegg on bruker.bruker_id = innlegg.bruker_id 
@@ -38,10 +38,10 @@ if(mysqli_num_rows($resultat_bruker) > 0){
         $votes = $rad_votes["votes"];
     }
     
-    
+    echo "<div>";
     echo $search . "<br>";
     echo $votes . "<br>";
-    echo "<img src'images/user_images/" . $rad_bruker["bilde"] . "'> <br>";
+    echo "<img width='200px' height='200px' src='images/user_images/" . $rad_bruker["bilde"] . "'> <br>";
     
     $sql_rest = "from innlegg
                 join bruker ON innlegg.bruker_id=bruker.bruker_id
@@ -50,6 +50,7 @@ if(mysqli_num_rows($resultat_bruker) > 0){
     
 
     echo_innlegg( $sql_rest );
+    echo "</div>";
 } elseif(mysqli_num_rows($resultat_kategori)){
     echo "kategori";
     

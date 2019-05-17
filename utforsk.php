@@ -66,19 +66,21 @@
 
 
         };
+
         function currentFocusRemove() {
-                if (currentFocus > -1){
+            if ( currentFocus > -1 ) {
                 x[ currentFocus ].classList.remove( "autocomplete-active" );
-                currentFocus = -1;}
+                currentFocus = -1;
             }
+        }
 
         function autocomplete( inp, kategoriArr, brukerArr ) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*
             var currentFocus;
             /*execute a function when someone writes in the text field:*/
-            
-            
+
+
             inp.addEventListener( "input", function ( e ) {
                 val = this.value;
                 /*close any already open lists of autocompleted values*/
@@ -133,15 +135,15 @@
                 }
             } );
 
-            
+
 
             /*execute a function presses a key on the keyboard:*/
             inp.addEventListener( "keydown", function ( e ) {
 
                 x = document.getElementById( this.id + "autocomplete-list" );
-             
+
                 if ( x ) x = x.getElementsByClassName( "autocomplete-wrap" );
-                
+
                 if ( e.keyCode == 40 ) {
                     e.preventDefault();
                     /*If the arrow DOWN key is pressed,
@@ -156,11 +158,11 @@
                     currentFocus--;
                     /*and and make the current item more visible:*/
                     addActive( x );
-                } 
+                }
 
 
             } );
-            
+
             function closeAllLists() {
                 /*close all autocomplete lists in the document,
                 except the one passed as an argument:*/
@@ -174,21 +176,21 @@
 
             document.getElementById( "searchForm" ).addEventListener( "submit", function ( event ) {
                 event.preventDefault();
-                if (!currentFocus === "undefined"){
-                if ( currentFocus > -1 ) {
-                    inp.value = x[ currentFocus ].getElementsByTagName( "input" )[ 0 ].value;
-                    inp.focus();
-                    currentFocusRemove();
-                    
+                if ( currentFocus === "undefined" ) {
+                    closeAllLists();
+                    searchResult( inp.value )
                 } else {
-                    closeAllLists();
-                    searchResult(inp.value)
-                    
-                }} else {
-                    closeAllLists();
-                    searchResult(inp.value)
-                }
+                    if ( currentFocus > -1 ) {
+                        inp.value = x[ currentFocus ].getElementsByTagName( "input" )[ 0 ].value;
+                        inp.focus();
+                        currentFocusRemove();
 
+                    } else {
+                        closeAllLists();
+                        searchResult( inp.value )
+                    }
+
+                }
             } );
 
 
@@ -213,15 +215,15 @@
                 }
             }
 
-            
+
             /*execute a function when someone clicks in the document:*/
             document.addEventListener( "click", function ( e ) {
                 if ( document.contains( document.getElementById( "myInputautocomplete-list" ) ) ) {
                     if ( document.getElementById( "myInputautocomplete-list" ).contains( e.target ) ) {
                         inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value
                         closeAllLists()
-                        searchResult(inp.value)
-                        
+                        searchResult( inp.value )
+
                     } else if ( e.target.isEqualNode( inp ) ) {
                         inp.focus();
                     } else {
@@ -249,15 +251,26 @@
             xmlhttp.open( "GET", "elements/search_arr.php", true );
             xmlhttp.send();
         }
-        
-        function searchResult(search) {
+
+        function searchResult( search ) {
+            
+            var  searchingDiv= document.createElement( "div" );
+            searchingDiv.innerHTML = "<strong>searching</strong>";
+            document.body.insertBefore( searchingDiv, document.getElementById( "searchForm" ).nextSibling );
+            
+            if(document.body.contains(document.getElementById("results"))){
+                document.body.removeChild( document.getElementById("results") );
+            }
+            
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if ( this.readyState == 4 && this.status == 200 ) {
-                    var resultDiv = document.createElement("div");
-                    resultDiv.setAttribute("class", "results");
+                    searchingDiv.parentNode.removeChild( searchingDiv );
+                    var resultDiv = document.createElement( "div" );
+                    resultDiv.setAttribute( "class", "results" );
+                    resultDiv.setAttribute( "id", "results" );
                     resultDiv.innerHTML = this.responseText;
-                    document.body.insertBefore(resultDiv, document.getElementById("searchForm").nextSibling);
+                    document.body.insertBefore( resultDiv, document.getElementById( "searchForm" ).nextSibling );
 
                 }
 
@@ -265,19 +278,46 @@
             xmlhttp.open( "GET", "elements/search_result.php?search=" + search, true );
             xmlhttp.send();
         }
+        
+        function resultKategori(search){
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if ( this.readyState == 4 && this.status == 200 ) {
+                    var resultKategoriDiv = document.createElement( "div" );
+                    var button = document.getElementById("resultKategori");
+                    resultKategoriDiv.setAttribute( "id", "resultsKategori" );
+                    resultKategoriDiv.innerHTML = this.responseText;
+                    document.getElementById("results").insertBefore( resultKategoriDiv, button.nextSibling);
+                    button.innerHTML = "Hide Kategori";
+                    button.setAttribute("onclick", "delResultKategori('" + search + "')");
+                    
+
+                }
+
+            }
+            xmlhttp.open( "GET", "elements/search_kategori.php?search=" + search, true );
+            xmlhttp.send();
+        }
+        
+        function delResultKategori(search){
+            document.getElementById("results").removeChild( document.getElementById("resultsKategori") );
+            var button = document.getElementById("resultKategori");
+            button.innerHTML = "Show Kategori";
+            button.setAttribute("onclick", "resultKategori('" + search + "')");
+        }
     </script>
 </head>
 
 <body onload="searchArr()">
     <?php
-    
+
     include "elements/nav.php";
     include "elements/utforsk_search.php";
-    
+
 
 
     ?>
 
-<div class="footer"></div>
+    <div class="footer"></div>
 </body>
 </html>
