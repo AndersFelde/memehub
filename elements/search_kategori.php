@@ -1,4 +1,5 @@
 <?php
+$bruker_id = $_REQUEST["brukerId"];
 include "echo_innlegg.php";
 include "kobling.php";
 $search = $_REQUEST[ "search" ];

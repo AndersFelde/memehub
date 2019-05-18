@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <body>
+<head>
+    <script>
+        function unsetBrukerId(){
+        sessionStorage.removeItem( "brukerId" );
+            window.location.href = "index.php";
+        }
+    </script>
+</head>
 
-      <?php
-      session_start();
+<body onLoad='unsetBrukerId()'>
 
-      unset($_SESSION["bruker_id"]);
-      
-      header("Location: ../memehub/");
-      
-      ?>
+    <?php
+    session_start();
 
-  </body>
+    unset( $_SESSION[ "bruker_id" ] );
+
+    ?>
+
+</body>
 </html>

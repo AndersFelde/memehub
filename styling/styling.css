@@ -501,7 +501,13 @@ button {
 }
 .autocomplete-wrap{
     display: flex;
-    align-content: space-between;
     border-bottom: 1px solid black;
     margin-bottom: 1vh;
+    height: 50px;
+}
+
+.search-img {
+    width: 40px;
+    height: 40px;
+    background-size: contain;
 }

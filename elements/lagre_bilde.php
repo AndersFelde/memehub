@@ -16,7 +16,7 @@ if($bilde_error === 0) {
     
     if(in_array($bilde_type, $allowed)) {
     
-        if ($bilde_size < 200000000) {
+        if ($bilde_size < 2000000) {
             
             $bilde_name_new = uniqid('', true).".".$bilde_type;
             

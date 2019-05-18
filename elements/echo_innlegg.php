@@ -8,6 +8,13 @@ function echo_innlegg( $ting ) {
 
         $bruker_id = $_SESSION[ "bruker_id" ];
 
+    } elseif (isset($GLOBALS["bruker_id"])){
+      $bruker_id = $GLOBALS["bruker_id"];
+    }
+    
+    
+
+    if ( isset( $bruker_id ) ) {
         $sql = "select vote, innlegg_id from voted
                     where bruker_id = $bruker_id";
 
@@ -36,6 +43,7 @@ function echo_innlegg( $ting ) {
     }
 
 
+
     $sql = "select
         innlegg.innlegg_id,
         brukernavn,
@@ -49,7 +57,7 @@ function echo_innlegg( $ting ) {
         timestampdiff(WEEK, tid, now()) as week,
         timestampdiff(YEAR, tid, now()) as year
         $ting";
-    
+
 
     $resultat = $kobling->query( $sql );
 
@@ -148,11 +156,11 @@ function echo_innlegg( $ting ) {
 
             echo "<img src='images/innlegg_images/$bilde'>";
             echo "<p class='posttittel'>$tekst</p>";
+            
 
+            if ( isset( $bruker_id ) ) {
 
-            if ( isset( $_SESSION[ "bruker_id" ] ) ) {
-
-                $bruker_id = $_SESSION[ "bruker_id" ];
+                echo "mordi";
 
                 $upvoted = false;
                 $downvoted = false;
@@ -212,7 +220,8 @@ function echo_innlegg( $ting ) {
                 echo "</div>";
                 echo "</div>";
 
-              } else {
+            } else {
+                echo "ikke mordi";
                 echo "<div class='postinfo'>";
                 echo "<div>";
                 echo "<div>";
@@ -232,20 +241,20 @@ function echo_innlegg( $ting ) {
             //echo "</div>";
             //echo "</div>";
 
-        echo "<div>";
-        echo "<a href='javascript:void(0)' onclick='share($innlegg_id)' class='Material icon'>share</a>";
-        echo "</div>";
+            echo "<div>";
+            echo "<a href='javascript:void(0)' onclick='share($innlegg_id)' class='Material icon'>share</a>";
+            echo "</div>";
 
-        echo "<div>";
-        echo "<p class='count'>$commentcount</p>";
-        echo "<a href='#' class='Material icon'>short_text</a>";
-        echo "<p class='count hidemobile'>Kommentarer</p>";
-        echo "</div>";
+            echo "<div>";
+            echo "<p class='count'>$commentcount</p>";
+            echo "<a href='#' class='Material icon'>short_text</a>";
+            echo "<p class='count hidemobile'>Kommentarer</p>";
+            echo "</div>";
 
-        echo "</div>";
+            echo "</div>";
 
-        echo "</div>";
-      }
+            echo "</div>";
+        }
     } else {
         echo "Det er desverre ingen innlegg";
     }

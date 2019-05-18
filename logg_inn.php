@@ -5,6 +5,15 @@
     $Title = "Logg inn";
     include "elements/head.php";
     ?>
+    
+<script>
+function loggInnConfirmed(brukerId){
+    sessionStorage.setItem("brukerId", brukerId);
+    
+    window.location.href = "index.php";
+    
+}    
+</script>
 </head>
 
 <?php
@@ -29,10 +38,8 @@ if ( isset( $_POST[ "logg_inn" ] ) ) {
         echo "<div style='display: none;' id='error'>loginError</div>";
         unset( $loginFail );
     } else {
-        $new_page = '"index"';
-        //fordi den må ha "" rundt seg
 
-        echo "<body onload='redir($new_page)'>";
+        echo "<body onload='loggInnConfirmed(" . $_SESSION["bruker_id"] . ")'>";
 
         echo '<div id="synd">Det var synd :(</div>';
 

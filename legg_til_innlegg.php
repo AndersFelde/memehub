@@ -82,10 +82,10 @@
     <form id="form" class="newPost" action="legg_til_innlegg.php" method="post" enctype="multipart/form-data">
 
         <div>
-          <label>Bilde</label>
-          <img id="filePreview">
-          <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="Bilde">
-          <label class="BildeInput" for="Bilde">Velg en fil</label>
+            <label>Bilde</label>
+            <img id="filePreview">
+            <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="Bilde">
+            <label class="BildeInput" for="Bilde">Velg en fil</label>
         </div>
 
 
@@ -94,7 +94,6 @@
                 <label>Kategorier</label>
                 <div id="nyKategoriDiv">
                 </div>
-                <p id="inputKategoriMld"></p>
                 <input maxlength="24" onkeypress="addKategori(event)" id="inputKategori" list="kategorier" autocomplete="off" type="text" name="kategori">
                 <a href="ansvar.php" class="smallink">Regler for memes og innlegg?</a>
             </div>
@@ -137,7 +136,6 @@
         var maxKatNr = 5;
         var kategoriArr = new Array();
         var inputK = document.getElementById( "inputKategori" );
-        var pMld = document.getElementById( "inputKategoriMld" );
         var kategoriArrNew = new Array();
         var antKat = 0;
 
@@ -172,6 +170,10 @@
 
                         inputK.value = "";
 
+                        inputK.blur();
+                        inputK.focus();
+
+
                         kategoriArr[ kat_nr - 1 ] = kategori;
 
                         kategoriArrNewUpd();
@@ -183,20 +185,17 @@
                         antKat++;
 
 
-
-                        pMld.innerHTML = "";
-
                         if ( kat_nr > maxKatNr ) {
 
                             inputK.style.display = "none";
-                            pMld.innerHTML = "Det holder med 5 vel?"
+                            window.alert( "Det holder med 5 vel?" );
                         }
                     } else {
-                        pMld.innerHTML = "Den finnes fra før";
+                        window.alert( "Den finnes fra før" );
                     }
 
                 } else {
-                    pMld.innerHTML = "Skriv noe du";
+                    window.alert( "Skriv noe du" );
                 }
 
             }
@@ -225,7 +224,6 @@
 
             inputK.style.display = "block";
             inputK.focus();
-            pMld.innerHTML = "";
 
             kategoriArrNewUpd();
 

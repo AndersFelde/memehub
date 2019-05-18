@@ -3,6 +3,8 @@ include "kobling.php";
 
 $search = $_REQUEST[ "search" ];
 
+$bruker_id = $_REQUEST["brukerId"];
+
 $sql_bruker = "select bruker_id, bilde from bruker where brukernavn = '$search'";
 
 

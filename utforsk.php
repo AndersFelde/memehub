@@ -275,7 +275,7 @@
                 }
 
             }
-            xmlhttp.open( "GET", "elements/search_result.php?search=" + search, true );
+            xmlhttp.open( "GET", "elements/search_result.php?search=" + search + "&brukerId=" + sessionStorage.getItem("brukerId"), true );
             xmlhttp.send();
         }
         
@@ -295,7 +295,7 @@
                 }
 
             }
-            xmlhttp.open( "GET", "elements/search_kategori.php?search=" + search, true );
+            xmlhttp.open( "GET", "elements/search_kategori.php?search=" + search + "&brukerId=" + sessionStorage.getItem("brukerId"), true );
             xmlhttp.send();
         }
         
@@ -310,10 +310,13 @@
 
 <body onload="searchArr()">
     <?php
-
     include "elements/nav.php";
+if(isset($_SESSION["bruker_id"])){
+    
     include "elements/utforsk_search.php";
-
+} else {
+    echo "<p><a href='logg_inn.php'>Logg inn</a> først du</p>";
+}
 
 
     ?>
