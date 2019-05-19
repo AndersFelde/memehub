@@ -25,7 +25,6 @@
                 searchOtherDiv.innerHTML = count;
             }
 
-
             var start = value.toLowerCase().indexOf( val.toLowerCase() );
             var end = val.length;
 
@@ -68,11 +67,20 @@
 
         };
 
+        function currentFocusRemove() {
+            if ( currentFocus > -1 ) {
+                x[ currentFocus ].classList.remove( "autocomplete-active" );
+                currentFocus = -1;
+            }
+        }
+
         function autocomplete( inp, kategoriArr, brukerArr ) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*
             var currentFocus;
             /*execute a function when someone writes in the text field:*/
+
+
             inp.addEventListener( "input", function ( e ) {
                 val = this.value;
                 /*close any already open lists of autocompleted values*/
@@ -86,7 +94,8 @@
                 a = document.createElement( "DIV" );
                 a.setAttribute( "id", this.id + "autocomplete-list" );
                 a.setAttribute( "class", "autocomplete-items" );
-                /*append the DIV element as a child of the autocomplete container:*/
+                a.setAttribute( "onmouseover", "currentFocusRemove()" )
+                    /*append the DIV element as a child of the autocomplete container:*/
                 this.parentNode.appendChild( a );
                 /*for each item in the array...*/
 
@@ -125,25 +134,68 @@
                     b.appendChild( searchTextDiv )
                 }
             } );
+
+
+
             /*execute a function presses a key on the keyboard:*/
             inp.addEventListener( "keydown", function ( e ) {
 
-                var x = document.getElementById( this.id + "autocomplete-list" );
+                x = document.getElementById( this.id + "autocomplete-list" );
+
                 if ( x ) x = x.getElementsByClassName( "autocomplete-wrap" );
+
                 if ( e.keyCode == 40 ) {
+                    e.preventDefault();
                     /*If the arrow DOWN key is pressed,
                     increase the currentFocus variable:*/
                     currentFocus++;
                     /*and and make the current item more visible:*/
                     addActive( x );
                 } else if ( e.keyCode == 38 ) { //up
+                    e.preventDefault();
                     /*If the arrow UP key is pressed,
                     decrease the currentFocus variable:*/
                     currentFocus--;
                     /*and and make the current item more visible:*/
                     addActive( x );
                 }
+
+
             } );
+
+            function closeAllLists() {
+                /*close all autocomplete lists in the document,
+                except the one passed as an argument:*/
+                var x = document.getElementsByClassName( "autocomplete-items" );
+                for ( var i = 0; i < x.length; i++ ) {
+                    x[ i ].parentNode.removeChild( x[ i ] );
+                    x = "";
+
+                }
+            }
+
+            document.getElementById( "searchForm" ).addEventListener( "submit", function ( event ) {
+                event.preventDefault();
+                if ( currentFocus === "undefined" ) {
+                    closeAllLists();
+                    searchResult( inp.value )
+                } else {
+                    if ( currentFocus > -1 ) {
+                        inp.value = x[ currentFocus ].getElementsByTagName( "input" )[ 0 ].value;
+                        inp.focus();
+                        currentFocusRemove();
+
+                    } else {
+                        closeAllLists();
+                        searchResult( inp.value )
+                    }
+
+                }
+            } );
+
+
+
+
 
             function addActive( x ) {
                 /*a function to classify an item as "active":*/
@@ -163,37 +215,23 @@
                 }
             }
 
-            function closeAllLists() {
-                /*close all autocomplete lists in the document,
-                except the one passed as an argument:*/
-                var x = document.getElementsByClassName( "autocomplete-items" );
-                for ( var i = 0; i < x.length; i++ ) {
-                    x[ i ].parentNode.removeChild( x[ i ] );
-                }
-            }
+
             /*execute a function when someone clicks in the document:*/
             document.addEventListener( "click", function ( e ) {
-                console.log(document.getElementById("searchError"));
-                console.log(e.target.isEqualNode(inp));
-                if (document.contains(document.getElementById( "myInputautocomplete-list" ))){
-                if ( document.getElementById( "myInputautocomplete-list" ).contains( e.target ) ) {
-                    inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value;
-                } else if ( e.target.isEqualNode(inp)) {
-                    console.log("input");
-                    inp.focus();
-                    if(document.contains(document.getElementById("searchError"))){
-                        document.getElementById("searchError").innerHTML = "";                    }
-                } else {
-                    closeAllLists()
-                }
-                } else if ( e.target.isEqualNode(inp)) {
-                    console.log("input");
-                    inp.focus();
-                    if(document.contains(document.getElementById("searchError"))){
-                        document.getElementById("searchError").innerHTML = "";                    }
-                }
+                if ( document.contains( document.getElementById( "myInputautocomplete-list" ) ) ) {
+                    if ( document.getElementById( "myInputautocomplete-list" ).contains( e.target ) ) {
+                        inp.value = e.target.getElementsByTagName( "input" )[ 0 ].value
+                        closeAllLists()
+                        searchResult( inp.value )
+
+                    } else if ( e.target.isEqualNode( inp ) ) {
+                        inp.focus();
+                    } else {
+                        closeAllLists()
+                    }
 
 
+                }
             } );
         };
 
@@ -213,61 +251,73 @@
             xmlhttp.open( "GET", "elements/search_arr.php", true );
             xmlhttp.send();
         }
+
+        function searchResult( search ) {
+            
+            var  searchingDiv= document.createElement( "div" );
+            searchingDiv.innerHTML = "<strong>searching</strong>";
+            document.body.insertBefore( searchingDiv, document.getElementById( "searchForm" ).nextSibling );
+            
+            if(document.body.contains(document.getElementById("results"))){
+                document.body.removeChild( document.getElementById("results") );
+            }
+            
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if ( this.readyState == 4 && this.status == 200 ) {
+                    searchingDiv.parentNode.removeChild( searchingDiv );
+                    var resultDiv = document.createElement( "div" );
+                    resultDiv.setAttribute( "class", "results" );
+                    resultDiv.setAttribute( "id", "results" );
+                    resultDiv.innerHTML = this.responseText;
+                    document.body.insertBefore( resultDiv, document.getElementById( "searchForm" ).nextSibling );
+
+                }
+
+            }
+            xmlhttp.open( "GET", "elements/search_result.php?search=" + search, true );
+            xmlhttp.send();
+        }
+        
+        function resultKategori(search){
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if ( this.readyState == 4 && this.status == 200 ) {
+                    var resultKategoriDiv = document.createElement( "div" );
+                    var button = document.getElementById("resultKategori");
+                    resultKategoriDiv.setAttribute( "id", "resultsKategori" );
+                    resultKategoriDiv.innerHTML = this.responseText;
+                    document.getElementById("results").insertBefore( resultKategoriDiv, button.nextSibling);
+                    button.innerHTML = "Hide Kategori";
+                    button.setAttribute("onclick", "delResultKategori('" + search + "')");
+                    
+
+                }
+
+            }
+            xmlhttp.open( "GET", "elements/search_kategori.php?search=" + search, true );
+            xmlhttp.send();
+        }
+        
+        function delResultKategori(search){
+            document.getElementById("results").removeChild( document.getElementById("resultsKategori") );
+            var button = document.getElementById("resultKategori");
+            button.innerHTML = "Show Kategori";
+            button.setAttribute("onclick", "resultKategori('" + search + "')");
+        }
     </script>
 </head>
 
 <body onload="searchArr()">
     <?php
+
     include "elements/nav.php";
     include "elements/utforsk_search.php";
-    if ( isset( $_POST[ "search" ] ) ) {
-        echo "<body>";
-        $search_arr = explode( "(", $_POST[ "search" ] );
-        $search = $search_arr[ "0" ];
-
-
-
-        $sql_kategori = "select kategori from kategori where kategori = '$search'";
-        $sql_bruker = "select brukernavn from bruker where brukernavn = '$search'";
-
-        $resultat_kategori = $kobling->query( $sql_kategori );
-        $resultat_bruker = $kobling->query( $sql_bruker );
-
-        if ( ( ( mysqli_num_rows( $resultat_kategori ) ) && ( mysqli_num_rows( $resultat_kategori ) ) ) > 0 ) {
-
-
-            echo "Det finnes både en bruker og en kategori ved navn $search";
-            echo "<form method='POST'>";
-            echo "<button type='submit' value='$search' name='bruker'>Bruker: $search</button>";
-            echo "<button type='submit' value='$search' name='kategori'>Kategori: $search</button>";
-            echo "</form>";
-
-        } elseif ( mysqli_num_rows( $resultat_kategori ) > 0 ) {
-
-
-            include "elements/echo_innlegg.php";
-
-            $sql_rest = "from innlegg 
-                        join bruker on innlegg.bruker_id = bruker.bruker_id
-                        join kategori on innlegg.innlegg_id = kategori.innlegg_id
-                        where kategori = $search";
-
-            echo_innlegg( $sql_rest );
-
-        } elseif ( mysqli_num_rows( $resultat_bruker ) > 0 ) {
-
-            echo "bruker";
-
-        } else {
-            echo "<span id='searchError'>ingen søk matchet med det du skrev</span>";
-        }
-    }
-    unset( $_POST );
 
 
 
     ?>
 
-
+    <div class="footer"></div>
 </body>
 </html>
