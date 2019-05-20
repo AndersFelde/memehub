@@ -24,12 +24,6 @@
                 window.location.href = "bruker.php";
             }
         };
-
-        function nyttBilde(){
-        document.getElementById( "nyttBilde" ).addEventListener( "click", (e) => {
-            document.getElementById("fileUpload").click();
-
-        } );}
     </script>
 
 </head>
@@ -88,10 +82,10 @@
     <form id="form" class="newPost" action="legg_til_innlegg.php" method="post" enctype="multipart/form-data">
 
         <div>
-            <label>Bilde</label>
-            <img id="filePreview">
-            <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="Bilde">
-            <label id='nyttBilde' class="BildeInput" for="Bilde">Velg en fil</label>
+          <label>Bilde</label>
+          <img id="filePreview">
+          <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="Bilde">
+          <label class="BildeInput" for="fileUpload">Velg en fil</label>
         </div>
 
 
