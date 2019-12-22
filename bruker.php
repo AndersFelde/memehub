@@ -9,19 +9,10 @@ $title = "Hjem";
     <?php    
     
     
-      include "elements/nav.php";
+    include "elements/nav.php";
 
-      $bruker_id = $_SESSION["bruker_id"];
-      
-          
-          echo "<form method='post' action='legg_til_innlegg.php'>
-        <button type='submit' name='ny_inn'>Nytt innlegg</button>
-    </form>";
-      
+    $bruker_id = $_SESSION["bruker_id"];
     
-    ?>
-
-    <?php
     include "elements/echo_innlegg.php";
 
     $sql_rest = "from innlegg

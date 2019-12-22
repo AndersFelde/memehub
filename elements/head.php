@@ -152,14 +152,16 @@
                     var button = document.getElementById( buttonOtherId + inn );
                     button.value = buttonValueOther;
                 } else {
-                    console.log( sql );
+                    console.log( "feil: " + sql );
                 }
             }
         };
         xmlhttp.open( "GET", "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'&type='" + type + "'", true );
         xmlhttp.send();
     }
+
 </script>
+
 <?php
 include "elements/kobling.php";
 

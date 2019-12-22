@@ -16,6 +16,9 @@
                     if ( this.readyState == 4 && this.status == 200 ) {
                         window.location.href = "bruker.php";
                         window.sessionStorage.removeItem( "kategoriStr" );
+                        window.location.href = "bruker.php";
+                    } else {
+                        
                     }
                 };
                 xmlhttp.open( "GET", "elements/insert_kategori.php?i='" + innleggId + "'&k=" + kategoriStr, true );
@@ -27,8 +30,6 @@
     </script>
 
 </head>
-
-<body onload='nyttBilde()'>
 
     <?php
 
@@ -46,6 +47,8 @@
                 $tekst_sql = "";
                 $tekst = "";
             }
+            
+            $bruker_id = $_SESSION["bruker_id"];
 
             $sql = "insert into innlegg (bruker_id, bilde, tid" . $tekst_sql . ") VALUES('$bruker_id', '$bilde_name_new', NOW()$tekst)";
 
@@ -84,7 +87,7 @@
         <div>
           <label>Bilde</label>
           <img id="filePreview">
-          <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="Bilde">
+          <input id="fileUpload" onChange="preview()" accept=".jpg, .jpeg, .png, .gif" required type="file" name="bilde">
           <label class="BildeInput" for="fileUpload">Velg en fil</label>
         </div>
 

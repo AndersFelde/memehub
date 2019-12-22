@@ -8,10 +8,9 @@ function echo_innlegg( $ting ) {
 
         $bruker_id = $_SESSION[ "bruker_id" ];
 
-    } elseif (isset($GLOBALS["bruker_id"])){
-      $bruker_id = $GLOBALS["bruker_id"];
+    } else {
+        global $bruker_id;
     }
-    
     
 
     if ( isset( $bruker_id ) ) {
@@ -154,13 +153,12 @@ function echo_innlegg( $ting ) {
             echo "</div>";
 
 
-            echo "<img src='images/innlegg_images/$bilde'>";
+            echo "<img id='innleggImg$innlegg_id' src='images/innlegg_images/$bilde'>";
             echo "<p class='posttittel'>$tekst</p>";
             
 
             if ( isset( $bruker_id ) ) {
 
-                echo "mordi";
 
                 $upvoted = false;
                 $downvoted = false;
@@ -221,7 +219,6 @@ function echo_innlegg( $ting ) {
                 echo "</div>";
 
             } else {
-                echo "ikke mordi";
                 echo "<div class='postinfo'>";
                 echo "<div>";
                 echo "<div>";

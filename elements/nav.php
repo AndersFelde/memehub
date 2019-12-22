@@ -84,4 +84,8 @@ include "active.php";
   </div>
 
 </nav>
-<a class="plussInnlegg" href="legg_til_innlegg.php">+</a>
+<?php if(isset($_SESSION["bruker_id"])){
+    echo "<a class='plussInnlegg' href='legg_til_innlegg.php'>+</a>";
+}
+?>
+

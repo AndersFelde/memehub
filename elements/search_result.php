@@ -18,6 +18,7 @@ $resultat_bruker = $kobling->query( $sql_bruker );
 include "echo_innlegg.php";
 
 
+
 if(mysqli_num_rows($resultat_bruker) > 0){
     if(mysqli_num_rows($resultat_kategori)){
         echo "<button id='resultKategori' onclick='resultKategori(" . '"' . "$search" . '"' . ")'>Vis Kategori</button>";
