@@ -1,5 +1,13 @@
 <?php session_start();?>
-<base href="<?php $root = "/memehub/"; global $root; ?>" target="_self">
+<base href="
+    <?php
+    $d = str_replace("\\", "/", __DIR__);
+    $root = str_replace($_SERVER['DOCUMENT_ROOT'], "", $d);
+    $root = str_replace("elements", "", $root);
+    echo $root;
+    global $root;
+    ?>
+    " target="_self">
 
 
 <!-- Putt dette inni "href" over? Broken nå da
