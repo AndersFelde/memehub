@@ -1,10 +1,14 @@
 <?php
 //                               admin@localhost:3308
+$dbserver = "127.0.0.1:3308";
+$dbuser = "root";
+$dbpsw = "Mysql123";
+$dbname = "memehub";
+/*
 $dbserver = "mysql.klasserom.net";
 $dbuser = "knet-elev20408";
 $dbpsw = "ign07";
 $dbname = "knet-elev20408";
-/*
 
 
  - Bare bytt mellom disse Anders
