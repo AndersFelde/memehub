@@ -1,8 +1,8 @@
 <?php
 //                               admin@localhost:3308
-$dbserver = "127.0.0.1:3308";
+$dbserver = "127.0.0.1:3306";
 $dbuser = "root";
-$dbpsw = "Mysql123";
+$dbpsw = "";
 $dbname = "memehub";
 /*
 $dbserver = "mysql.klasserom.net";
