@@ -153,7 +153,7 @@ function echo_innlegg( $ting ) {
             echo "</div>";
 
 
-            echo "<img id='innleggImg$innlegg_id' src='images/innlegg_images/$bilde'>";
+            echo "<img id='innleggImg$innlegg_id' onerror='imgError(this);' src='images/innlegg_images/$bilde'>";
             echo "<p class='posttittel'>$tekst</p>";
             
 

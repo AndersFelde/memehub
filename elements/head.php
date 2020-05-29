@@ -167,6 +167,11 @@
         xmlhttp.open( "GET", "elements/insert_vote.php?v='" + vote + "'&b='" + b + "'&inn='" + inn + "'&type='" + type + "'", true );
         xmlhttp.send();
     }
+    function imgError(image) {
+	        image.onerror = "";
+		    image.src = "images/logo.png";
+		    return true;
+    }
 
 </script>
 

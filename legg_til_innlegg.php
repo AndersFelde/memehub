@@ -14,9 +14,8 @@
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function () {
                     if ( this.readyState == 4 && this.status == 200 ) {
-                        window.location.href = "bruker.php";
                         window.sessionStorage.removeItem( "kategoriStr" );
-                        window.location.href = "bruker.php";
+                        //window.location.href = "bruker.php";
                     } else {
                         
                     }
@@ -24,7 +23,7 @@
                 xmlhttp.open( "GET", "elements/insert_kategori.php?i='" + innleggId + "'&k=" + kategoriStr, true );
                 xmlhttp.send();
             } else {
-                window.location.href = "bruker.php";
+                //window.location.href = "bruker.php";
             }
         };
     </script>
